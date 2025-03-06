@@ -1,0 +1,98 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnvn51jo7wfof"]
+
+[ext_resource type="Script" uid="uid://bq17c8ugrwj7b" path="res://Aset/Demo/demo_battle.gd" id="1_imgyo"]
+[ext_resource type="Script" uid="uid://bd363gh1yjeq3" path="res://Script/turn_manager.gd" id="2_pjjjq"]
+[ext_resource type="Script" uid="uid://dnwwlsjbshdhx" path="res://Script/Resource/Enemy_Component.gd" id="3_pjjjq"]
+[ext_resource type="PackedScene" uid="uid://c3a7awere5nne" path="res://Aset/Monster/monster_controller.tscn" id="3_qa1iq"]
+
+[node name="Demo_Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_imgyo")
+
+[node name="Turn_Manager" type="Control" parent="." node_paths=PackedStringArray("monster_1", "monster_2")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_pjjjq")
+monster_1 = NodePath("Agumon")
+monster_2 = NodePath("Pekamon")
+
+[node name="Agumon" parent="Turn_Manager" instance=ExtResource("3_qa1iq")]
+health = 100
+attack_power = 10
+defense = 5
+
+[node name="Pekamon" parent="Turn_Manager" instance=ExtResource("3_qa1iq")]
+health = 30
+attack_power = 12
+defense = 8
+
+[node name="hp_1" type="ProgressBar" parent="Turn_Manager"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 1
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 480.0
+offset_bottom = 57.0
+
+[node name="hp_2" type="ProgressBar" parent="Turn_Manager"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -480.0
+offset_top = 30.0
+offset_right = -30.0
+offset_bottom = 57.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="Turn_Manager"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 22.0
+offset_right = 20.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "1"
+horizontal_alignment = 1
+
+[node name="Btn_Attack" type="Button" parent="Turn_Manager"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 75.0
+offset_top = -248.0
+offset_right = 150.0
+offset_bottom = -208.0
+grow_vertical = 0
+text = "Attack"
+
+[node name="Btn_Defense" type="Button" parent="Turn_Manager"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 75.0
+offset_top = -198.0
+offset_right = 150.0
+offset_bottom = -158.0
+grow_vertical = 0
+text = "Defense"
+
+[node name="Enemy_Component" type="Node2D" parent="."]
+script = ExtResource("3_pjjjq")
