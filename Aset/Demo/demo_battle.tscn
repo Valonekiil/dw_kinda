@@ -34,6 +34,7 @@ defense = 5
 health = 30
 attack_power = 12
 defense = 8
+AI = true
 
 [node name="hp_1" type="ProgressBar" parent="Turn_Manager"]
 custom_minimum_size = Vector2(450, 0)
@@ -96,3 +97,6 @@ text = "Defense"
 
 [node name="Enemy_Component" type="Node2D" parent="."]
 script = ExtResource("3_pjjjq")
+
+[connection signal="pressed" from="Turn_Manager/Btn_Attack" to="Turn_Manager" method="_on_btn_attack_pressed"]
+[connection signal="pressed" from="Turn_Manager/Btn_Defense" to="Turn_Manager" method="_on_btn_defense_pressed"]

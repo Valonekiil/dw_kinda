@@ -7,13 +7,18 @@ var cur_health:int
 @export var attack_power: int
 @export var defense: int
 @export var AI_Advanced:Enemy_Comp
-var AI:bool
+@export var hp_bar:ProgressBar
+@export var AI:bool
 var action_point:int 
 var is_defense:bool
 # Signal untuk mengirim damage dan mengakhiri giliran
 signal attack_completed(damage: int)
 signal defense_completed(defense:int)
 signal turn_ended()
+
+func _ready() -> void:
+	cur_health = health
+
 
 # Fungsi yang dipanggil ketika giliran monster dimulai
 func start_action():
@@ -35,14 +40,20 @@ func perform_action():
 
 # Fungsi untuk melakukan serangan
 func perform_attack():
-	print(name + " menyerang dengan kekuatan " + str(attack_power) + "!")
-	# Kirim signal attack_completed dengan damage yang diberikan
-	emit_signal("attack_completed", attack_power)
+	if action_point > 0:
+		print(name + " menyerang dengan kekuatan " + str(attack_power) + "!")
+		# Kirim signal attack_completed dengan damage yang diberikan
+		emit_signal("attack_completed", attack_power)
+	else :
+		print("Aksi gagal karena action point kurang")
 
 func perform_defense():
-	print(name +" bertahan dengan kekuatan " + str(defense) +"!")
-	is_defense = true
-	emit_signal("defense_completed",defense)
+	if action_point > 0:
+		print(name +" bertahan dengan kekuatan " + str(defense) +"!")
+		is_defense = true
+		emit_signal("defense_completed",defense)
+	else :
+		print("Aksi gagal karena action point kurang")
 
 # Fungsi untuk menerima damage
 func take_damage(damage: int):
@@ -62,6 +73,7 @@ func take_damage(damage: int):
 
 func update_hp(bar:ProgressBar):
 	bar.value = cur_health
+	bar.max_value = health
 
 # Fungsi untuk menangani kematian monster
 func die():

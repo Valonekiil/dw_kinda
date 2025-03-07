@@ -11,7 +11,7 @@ class_name Turn_Manager
 # Variabel untuk melacak giliran saat ini
 var Turn: int = 0
 var current_turn: Monster_Controller
-var current_act: int
+var current_act: int = 1
 
 # Fungsi yang dipanggil ketika node siap
 func _ready():
@@ -19,17 +19,17 @@ func _ready():
 	# Hubungkan signal dari setiap monster
 	monster_1.attack_completed.connect(_on_attack_completed.bind(monster_2))
 	monster_1.defense_completed.connect(_on_defense_completed)
-	monster_1.update_hp.bind(hp_bar_1)
+	monster_1.hp_bar = hp_bar_1
 	monster_1.turn_ended.connect(_on_turn_ended)
-	atk_btn.pressed.connect(monster_1.perform_attack())
-	def_btn.pressed.connect(monster_1.perform_defense())
-	
+	#atk_btn.pressed.connect(monster_1.perform_attack())
+	#def_btn.pressed.connect(monster_1.perform_defense())
 	monster_2.attack_completed.connect(_on_attack_completed.bind(monster_1))
 	monster_2.defense_completed.connect(_on_defense_completed)
-	monster_2.update_hp.bind(hp_bar_2)
+	monster_2.hp_bar = hp_bar_2
 	monster_2.turn_ended.connect(_on_turn_ended)
-	
 	# Memulai giliran pertama
+	monster_1.update_hp(hp_bar_1)
+	monster_2.update_hp(hp_bar_2)
 	start_turn()
 
 # Fungsi untuk memulai giliran
@@ -43,22 +43,29 @@ func start_turn():
 		current_turn = monster_2
 		print("turn monster 2")
 	# Mulai aksi monster
-	current_turn.start_action()
 	Turn += 1
+	print("Turn ke " + str(Turn))
+	current_turn.start_action()
+	
 
 # Fungsi untuk menangani signal attack_completed
 func _on_attack_completed(damage: int, target: Monster_Controller):
 	print("dalam aksi ke " + str(current_act) + " " + current_turn.name + " melakukan serangan")
 	print(current_turn.name + "berhasil melakukan serangan ke " + target.name)
 	target.take_damage(damage)
+	target.update_hp(target.hp_bar)
+	current_turn.action_point -= 1
 	if current_turn.action_point == 0:
 		current_turn.end_turn()
+	elif (current_turn == monster_1):
+		pass
 	else:
 		current_turn.perform_action()
 
 func _on_defense_completed(defense:int):
 	print("dalam aksi ke " + str(current_act) + " " + current_turn.name + " melakukan pertahanan")
 	print(current_turn.name + "berhasil melakukan defense sebesar " + str(defense))
+	current_turn.action_point -= 1
 	if current_turn.action_point == 0:
 		current_turn.end_turn()
 	else:
@@ -66,8 +73,18 @@ func _on_defense_completed(defense:int):
 
 # Fungsi untuk menangani signal turn_ended
 func _on_turn_ended():
-	# Mulai giliran berikutnya
+	current_act = 1
 	start_turn()
 
-# memodif gameloop agar 60 fps
-#
+func _on_btn_attack_pressed() -> void:
+	if current_turn == monster_1:
+		monster_1.perform_attack()
+	else:
+		print("ini bukan giliranmu")
+
+
+func _on_btn_defense_pressed() -> void:
+	if current_turn == monster_1:
+		monster_1.perform_defense()
+	else :
+		print("ini bukan giliranmu")
