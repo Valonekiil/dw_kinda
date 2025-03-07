@@ -7,7 +7,8 @@ var cur_health:int
 @export var attack_power: int
 @export var defense: int
 @export var AI_Advanced:Enemy_Comp
-@export var hp_bar:ProgressBar
+var hp_bar:ProgressBar
+var hp_txt:Label
 @export var AI:bool
 var action_point:int 
 var is_defense:bool
@@ -71,9 +72,10 @@ func take_damage(damage: int):
 	if cur_health <= 0:
 		die()
 
-func update_hp(bar:ProgressBar):
-	bar.value = cur_health
+func update_hp(bar:ProgressBar, txt:Label):
 	bar.max_value = health
+	bar.value = cur_health
+	txt.text = str(cur_health)
 
 # Fungsi untuk menangani kematian monster
 func die():

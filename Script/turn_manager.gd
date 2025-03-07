@@ -5,7 +5,9 @@ class_name Turn_Manager
 @export var monster_1: Monster_Controller
 @export var monster_2: Monster_Controller
 @onready var hp_bar_1 = $hp_1
+@onready var hp1 = $hp_1/c/txt
 @onready var hp_bar_2 = $hp_2
+@onready var hp2 = $hp_2/c/txt
 @onready var atk_btn = $Btn_Attack
 @onready var def_btn = $Btn_Defense
 # Variabel untuk melacak giliran saat ini
@@ -20,16 +22,18 @@ func _ready():
 	monster_1.attack_completed.connect(_on_attack_completed.bind(monster_2))
 	monster_1.defense_completed.connect(_on_defense_completed)
 	monster_1.hp_bar = hp_bar_1
+	monster_1.hp_txt = hp1
 	monster_1.turn_ended.connect(_on_turn_ended)
 	#atk_btn.pressed.connect(monster_1.perform_attack())
 	#def_btn.pressed.connect(monster_1.perform_defense())
 	monster_2.attack_completed.connect(_on_attack_completed.bind(monster_1))
 	monster_2.defense_completed.connect(_on_defense_completed)
 	monster_2.hp_bar = hp_bar_2
+	monster_2.hp_txt = hp2
 	monster_2.turn_ended.connect(_on_turn_ended)
 	# Memulai giliran pertama
-	monster_1.update_hp(hp_bar_1)
-	monster_2.update_hp(hp_bar_2)
+	monster_1.update_hp(hp_bar_1,hp1)
+	monster_2.update_hp(hp_bar_2,hp2)
 	start_turn()
 
 # Fungsi untuk memulai giliran
@@ -53,7 +57,7 @@ func _on_attack_completed(damage: int, target: Monster_Controller):
 	print("dalam aksi ke " + str(current_act) + " " + current_turn.name + " melakukan serangan")
 	print(current_turn.name + "berhasil melakukan serangan ke " + target.name)
 	target.take_damage(damage)
-	target.update_hp(target.hp_bar)
+	target.update_hp(target.hp_bar,target.hp_txt)
 	current_turn.action_point -= 1
 	if current_turn.action_point == 0:
 		current_turn.end_turn()
