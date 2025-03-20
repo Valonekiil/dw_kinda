@@ -4,20 +4,24 @@ class_name Turn_Manager
 # Ekspor variabel untuk menyimpan referensi ke monster-monster
 @export var monster_1: Monster_Controller
 @export var monster_2: Monster_Controller
-@onready var hp_bar_1 = $hp_1
-@onready var hp1 = $hp_1/c/txt
-@onready var hp_bar_2 = $hp_2
-@onready var hp2 = $hp_2/c/txt
+@onready var name_1 =$P1_Con/Name
+@onready var hp_bar_1 = $P1_Con/hp
+@onready var hp1 = $P1_Con/hp/c/txt
+@onready var name_2 = $P2_Con/Name
+@onready var hp_bar_2 = $P2_Con/hp
+@onready var hp2 = $P2_Con/hp/c/txt
 @onready var atk_btn = $Btn_Attack
 @onready var def_btn = $Btn_Defense
+@export var conf:Conf_Manager 
 # Variabel untuk melacak giliran saat ini
 var Turn: int = 0
 var current_turn: Monster_Controller
 var current_act: int = 1
-
+var temp_def:bool
 # Fungsi yang dipanggil ketika node siap
 func _ready():
-	
+	var v = get_parent()
+	print(v)
 	# Hubungkan signal dari setiap monster
 	monster_1.attack_completed.connect(_on_attack_completed.bind(monster_2))
 	monster_1.defense_completed.connect(_on_defense_completed)
@@ -35,9 +39,12 @@ func _ready():
 	monster_1.update_hp(hp_bar_1,hp1)
 	monster_2.update_hp(hp_bar_2,hp2)
 	start_turn()
+	name_1.text = monster_1.name
+	name_2.text = monster_2.name
 
 # Fungsi untuk memulai giliran
 func start_turn():
+	await get_tree().process_frame
 	# Tentukan siapa yang mendapat giliran berdasarkan nilai Turn
 	print("turn start")
 	if Turn % 2 == 0:
@@ -48,15 +55,28 @@ func start_turn():
 		print("turn monster 2")
 	# Mulai aksi monster
 	Turn += 1
-	print("Turn ke " + str(Turn))
+	$Cur_Turn.text = str(Turn)
+	conf.Monster_Turn(current_turn)
+	print("start")
+	await conf.btn.pressed
+	print("done")
 	current_turn.start_action()
-	
+
 
 # Fungsi untuk menangani signal attack_completed
 func _on_attack_completed(damage: int, target: Monster_Controller):
-	print("dalam aksi ke " + str(current_act) + " " + current_turn.name + " melakukan serangan")
-	print(current_turn.name + "berhasil melakukan serangan ke " + target.name)
+	#print("dalam aksi ke " + str(current_act) + " " + current_turn.name + " melakukan serangan")
+	#print(current_turn.name + "berhasil melakukan serangan ke " + target.name)
+	conf.Monster_Attack(current_turn)
+	await conf.btn.pressed
+	if target.is_defense:
+		temp_def = true
 	target.take_damage(damage)
+	if temp_def:
+		conf.Monster_Defensed_Damage(target,damage-target.defense)
+	else:
+		conf.Monster_Take_Damage(target,damage)
+	await conf.btn.pressed
 	target.update_hp(target.hp_bar,target.hp_txt)
 	current_turn.action_point -= 1
 	if current_turn.action_point == 0:
@@ -67,8 +87,11 @@ func _on_attack_completed(damage: int, target: Monster_Controller):
 		current_turn.perform_action()
 
 func _on_defense_completed(defense:int):
-	print("dalam aksi ke " + str(current_act) + " " + current_turn.name + " melakukan pertahanan")
-	print(current_turn.name + "berhasil melakukan defense sebesar " + str(defense))
+	#print("dalam aksi ke " + str(current_act) + " " + current_turn.name + " melakukan pertahanan")
+	#print(current_turn.name + "berhasil melakukan defense sebesar " + str(defense))
+	print("defense")
+	conf.Monster_Defense(current_turn)
+	await conf.btn.pressed
 	current_turn.action_point -= 1
 	if current_turn.action_point == 0:
 		current_turn.end_turn()
@@ -85,7 +108,6 @@ func _on_btn_attack_pressed() -> void:
 		monster_1.perform_attack()
 	else:
 		print("ini bukan giliranmu")
-
 
 func _on_btn_defense_pressed() -> void:
 	if current_turn == monster_1:

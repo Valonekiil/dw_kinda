@@ -7,6 +7,8 @@ var cur_health:int
 @export var attack_power: int
 @export var defense: int
 @export var AI_Advanced:Enemy_Comp
+@export var texture:Sprite2D
+@export var Anim:AnimationPlayer
 var hp_bar:ProgressBar
 var hp_txt:Label
 @export var AI:bool

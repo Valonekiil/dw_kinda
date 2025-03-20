@@ -45,7 +45,7 @@ script = ExtResource("3_pjjjq")
 
 [node name="ui" type="CanvasLayer" parent="."]
 
-[node name="Turn_Manager" type="Control" parent="ui" node_paths=PackedStringArray("monster_1", "monster_2", "conf")]
+[node name="Turn_Manager" type="Control" parent="ui" node_paths=PackedStringArray("monster_1", "monster_2")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,7 +55,6 @@ grow_vertical = 2
 script = ExtResource("2_pjjjq")
 monster_1 = NodePath("Agumon")
 monster_2 = NodePath("Pekamon")
-conf = NodePath("../Conf_Manager")
 
 [node name="Agumon" parent="ui/Turn_Manager" instance=ExtResource("3_qa1iq")]
 health = 100
@@ -198,16 +197,14 @@ offset_bottom = 81.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ui/Conf_Manager"]
+[node name="conf" type="RichTextLabel" parent="ui/Conf_Manager"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-bbcode_enabled = true
-text = "[b]Lorem ipsum dolor sit amet[/b] wkaodoakdaojdwoiajwdmaskdakwjdoajksdjajdkajksdjoaakwod
-akwdoadoakwodaosdokawodkaksdoawkdoaowdaokwkdoadokawdkoakdokawdokaowdkodw awkdokaodkaodwodkadawkawokdoakdokawkdaokdoawkdaowkdkoaowkdko"
+mouse_filter = 1
 
 [node name="Close_Btn" type="Button" parent="ui/Conf_Manager"]
 layout_mode = 1
