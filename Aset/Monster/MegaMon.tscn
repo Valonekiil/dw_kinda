@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccsfsi41h3vrp"]
+
+[ext_resource type="Script" uid="uid://d3xqc132tinok" path="res://Script/Resource/Monster_Component.gd" id="1_8iyt7"]
+[ext_resource type="Script" uid="uid://vv4lkey51k1i" path="res://Script/Resource/stats_comp.gd" id="2_b3glw"]
+
+[node name="MonsterController" type="Node2D"]
+script = ExtResource("1_8iyt7")
+health = 50
+
+[node name="Stats_Component" type="Node" parent="."]
+script = ExtResource("2_b3glw")
+health = 100
+mana = 50
+power = 20
+guard = 10
+arcane = 20
+insight = 30
+speed = 20
+charm = 10
+fire = 20
+water = 5
+earth = 5
+nature = 5
+wind = 5
+lightning = 20
+ice = 5
+metal = 5
+light = 30
+dark = 5
+chaos = 5
+mystical = 5

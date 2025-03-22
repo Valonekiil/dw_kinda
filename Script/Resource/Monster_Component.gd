@@ -20,7 +20,8 @@ signal defense_completed(defense:int)
 signal turn_ended()
 
 func _ready() -> void:
-	cur_health = health
+	if !cur_health:
+		cur_health = health
 
 
 # Fungsi yang dipanggil ketika giliran monster dimulai

@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://cnvn51jo7wfof"]
+[gd_scene load_steps=14 format=3 uid="uid://cnvn51jo7wfof"]
 
 [ext_resource type="Script" uid="uid://bq17c8ugrwj7b" path="res://Aset/Demo/demo_battle.gd" id="1_imgyo"]
 [ext_resource type="Script" uid="uid://bd363gh1yjeq3" path="res://Script/turn_manager.gd" id="2_pjjjq"]
 [ext_resource type="Script" uid="uid://dnwwlsjbshdhx" path="res://Script/Resource/Enemy_Component.gd" id="3_pjjjq"]
 [ext_resource type="PackedScene" uid="uid://c3a7awere5nne" path="res://Aset/Monster/monster_controller.tscn" id="3_qa1iq"]
 [ext_resource type="Script" uid="uid://cdirmgsncpy3m" path="res://UI/Confirmation/conf_pop_manager.gd" id="5_81wey"]
+[ext_resource type="Script" uid="uid://bsf54ydfj5bv3" path="res://Script/Resource/element_manager.gd" id="6_1bymy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qa1iq"]
 
@@ -44,6 +45,9 @@ script = ExtResource("1_imgyo")
 script = ExtResource("3_pjjjq")
 
 [node name="ui" type="CanvasLayer" parent="."]
+
+[node name="Element_Manager" type="Node" parent="ui"]
+script = ExtResource("6_1bymy")
 
 [node name="Turn_Manager" type="Control" parent="ui" node_paths=PackedStringArray("monster_1", "monster_2", "conf")]
 layout_mode = 3
@@ -203,6 +207,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 10.0
+offset_right = -22.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
