@@ -1,0 +1,25 @@
+extends Object
+
+enum MonsterType {
+	ECHO,
+	MYTHLING,
+	MYTHICAL,
+	MAJESTIC,
+	MYTHOS,
+	DEITY
+}
+
+enum Element {
+	FIRE,
+	WATER,
+	EARTH,
+	NATURE,
+	WIND,
+	LIGHTNING,
+	ICE,
+	METAL,
+	LIGHT,
+	DARK,
+	CHAOS,
+	MYSTICAL
+}

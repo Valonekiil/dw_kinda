@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="Stats_Source" load_steps=2 format=3 uid="uid://d3q1s43wpv2pp"]
+
+[ext_resource type="Script" uid="uid://5r0pevixah6w" path="res://Script/Resource/stats_source.gd" id="1_pxxof"]
+
+[resource]
+script = ExtResource("1_pxxof")
+lvl = 1
+digimon_type = 0
+primary_element = 11
+secondary_element = 0
+cur_exp = 2
+max_exp = 20
+health = 20
+cur_hp = 20
+mana = 30
+cur_mana = 10
+power = 10
+guard = 8
+arcane = 5
+insight = 3
+speed = 10
+charm = 5
+fire = 7
+water = 7
+earth = 7
+nature = 7
+wind = 7
+lightning = 7
+ice = 1
+metal = 1
+light = 5
+dark = 15
+chaos = 1
+mystical = 20
+metadata/_custom_type_script = "uid://5r0pevixah6w"

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bq17c8ugrwj7b" path="res://Aset/Demo/demo_battle.gd" id="1_imgyo"]
 [ext_resource type="Script" uid="uid://bd363gh1yjeq3" path="res://Script/turn_manager.gd" id="2_pjjjq"]
-[ext_resource type="Script" uid="uid://dnwwlsjbshdhx" path="res://Script/Resource/Enemy_Component.gd" id="3_pjjjq"]
+[ext_resource type="Script" uid="uid://dnwwlsjbshdhx" path="res://Script/Component/Enemy_Component.gd" id="3_pjjjq"]
 [ext_resource type="PackedScene" uid="uid://c3a7awere5nne" path="res://Aset/Monster/monster_controller.tscn" id="3_qa1iq"]
 [ext_resource type="Script" uid="uid://cdirmgsncpy3m" path="res://UI/Confirmation/conf_pop_manager.gd" id="5_81wey"]
-[ext_resource type="Script" uid="uid://bsf54ydfj5bv3" path="res://Script/Resource/element_manager.gd" id="6_1bymy"]
+[ext_resource type="Script" uid="uid://bsf54ydfj5bv3" path="res://Script/element_manager.gd" id="6_1bymy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qa1iq"]
 
