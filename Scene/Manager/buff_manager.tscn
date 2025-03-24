@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dahgir20u75tf"]
+
+[ext_resource type="Script" uid="uid://edc842s1jb2u" path="res://Script/buff_manager.gd" id="1_01jim"]
+
+[node name="Buff_Manager" type="Node"]
+script = ExtResource("1_01jim")

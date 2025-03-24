@@ -23,3 +23,8 @@ enum Element {
 	CHAOS,
 	MYSTICAL
 }
+
+enum SkillType {
+	OFFENSIVE,  
+	DEFENSIVE
+}

@@ -6,6 +6,10 @@ class_name Monster_Data
 #@export var skills: Skill_Component
 #@export var atk_modifiers: Atk_Modifier_Component
 @export var texture: Texture2D
-@export var basic_attack: Animation
-@export var special_attack: Animation
+@export var A_idle: Animation
+@export var A_basic_attack: Animation
+@export var A_special_attack: Animation
 @export var take_damage:Animation
+@export var B_idle: Animation
+@export var B_basic_attack: Animation
+@export var B_special_attack: Animation

@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="Buff_Data" load_steps=3 format=3 uid="uid://fi70aedy2s7r"]
+
+[ext_resource type="Script" uid="uid://rfkiexucyp03" path="res://Script/Resource/buff_data.gd" id="1_g0lmn"]
+[ext_resource type="Texture2D" uid="uid://devhghkb8dp0s" path="res://icon.svg" id="2_edh6h"]
+
+[resource]
+script = ExtResource("1_g0lmn")
+buff_name = "Haunted"
+texture = ExtResource("2_edh6h")
+duration = -2
+is_debuff = true
+stun = true
+heal = 0
+damage = 20
+stats_manipulation = false
+power_changed = 0
+defense_changed = -20
+arcane_changed = 0
+insight_changed = 0
+speed_changed = 0
+element_manipulation = false
+element_changed = {
+0: 0,
+1: 0,
+2: 0,
+3: 0,
+4: 0,
+5: 0,
+6: 0,
+7: 0,
+8: 0,
+9: 0,
+10: 0,
+11: 0
+}
+metadata/_custom_type_script = "uid://rfkiexucyp03"

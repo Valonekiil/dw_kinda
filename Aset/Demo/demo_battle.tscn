@@ -62,14 +62,8 @@ monster_2 = NodePath("Pekamon")
 conf = NodePath("../Conf_Manager")
 
 [node name="Agumon" parent="ui/Turn_Manager" instance=ExtResource("3_qa1iq")]
-health = 100
-attack_power = 10
-defense = 5
 
 [node name="Pekamon" parent="ui/Turn_Manager" instance=ExtResource("3_qa1iq")]
-health = 100
-attack_power = 12
-defense = 8
 AI = true
 
 [node name="P1_Con" type="VBoxContainer" parent="ui/Turn_Manager"]

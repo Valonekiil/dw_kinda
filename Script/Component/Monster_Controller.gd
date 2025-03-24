@@ -1,6 +1,7 @@
 extends Node2D
 class_name Monster_Controller
 
+@export var monster:Monster_Data
 @export var stats_comp: Stats_Component
 var stats:Stats_Source
 var fullstats:Stats_Source

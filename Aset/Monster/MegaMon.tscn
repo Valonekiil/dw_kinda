@@ -1,18 +1,17 @@
 [gd_scene load_steps=8 format=3 uid="uid://ccsfsi41h3vrp"]
 
 [ext_resource type="Script" uid="uid://d3xqc132tinok" path="res://Script/Component/Monster_Controller.gd" id="1_8iyt7"]
-[ext_resource type="Script" uid="uid://vv4lkey51k1i" path="res://Script/Component/Stats_Component.gd" id="2_b3glw"]
+[ext_resource type="PackedScene" uid="uid://bpihaajtvnytv" path="res://Scene/Component/stats_component.tscn" id="2_gb186"]
 [ext_resource type="Script" uid="uid://bvdx6yky0wi7g" path="res://Script/Component/Skill_Component.gd" id="3_dxmf8"]
 [ext_resource type="Script" uid="uid://co2bxpjgjpbqq" path="res://Script/Component/Atk_Modifier_Component.gd" id="4_gb186"]
 [ext_resource type="Script" uid="uid://hp2dbl3tqylo" path="res://Script/evolution_manager.gd" id="4_kvj7c"]
-[ext_resource type="Script" uid="uid://edc842s1jb2u" path="res://Script/buff_manager.gd" id="5_6xstu"]
+[ext_resource type="PackedScene" uid="uid://dahgir20u75tf" path="res://Scene/Manager/buff_manager.tscn" id="5_gb186"]
 [ext_resource type="Script" uid="uid://d1nuuixrocimi" path="res://Script/Component/Evo1_Component.gd" id="7_gb186"]
 
 [node name="Megamon" type="Node2D"]
 script = ExtResource("1_8iyt7")
 
-[node name="Stats_Component" type="Node" parent="."]
-script = ExtResource("2_b3glw")
+[node name="Stats_Component" parent="." instance=ExtResource("2_gb186")]
 
 [node name="Skill_Component" type="Node" parent="."]
 script = ExtResource("3_dxmf8")
@@ -20,8 +19,7 @@ script = ExtResource("3_dxmf8")
 [node name="Atk_Modifier_Component" type="Node" parent="."]
 script = ExtResource("4_gb186")
 
-[node name="Buff_Manager" type="Node" parent="."]
-script = ExtResource("5_6xstu")
+[node name="Buff_Manager" parent="." instance=ExtResource("5_gb186")]
 
 [node name="Evolution_Manager" type="Node" parent="."]
 script = ExtResource("4_kvj7c")

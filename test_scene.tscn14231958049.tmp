@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://dj3qtsqguco1p"]
+
+[ext_resource type="Script" uid="uid://c1rl3rwfvhqm5" path="res://test_scene.gd" id="1_sasra"]
+[ext_resource type="Texture2D" uid="uid://devhghkb8dp0s" path="res://icon.svg" id="1_uhqqe"]
+[ext_resource type="PackedScene" uid="uid://dahgir20u75tf" path="res://Scene/Manager/buff_manager.tscn" id="2_coq8p"]
+
+[node name="Test_Scene" type="Node"]
+script = ExtResource("1_sasra")
+
+[node name="Buff_Manager" parent="." node_paths=PackedStringArray("buff_container") instance=ExtResource("2_coq8p")]
+buff_container = NodePath("../Control/ui/con")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ui" type="CanvasLayer" parent="Control"]
+
+[node name="con" type="HBoxContainer" parent="Control/ui"]
+offset_left = 171.0
+offset_top = 58.0
+offset_right = 715.0
+offset_bottom = 186.0
+theme_override_constants/separation = 20
+
+[node name="buff" type="TextureRect" parent="Control/ui/con"]
+layout_mode = 2
+texture = ExtResource("1_uhqqe")
+
+[node name="Label" type="Label" parent="Control/ui/con/buff"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -23.0
+offset_right = 6.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "2"
+
+[node name="buff2" type="TextureRect" parent="Control/ui/con"]
+layout_mode = 2
+texture = ExtResource("1_uhqqe")
+
+[node name="Label" type="Label" parent="Control/ui/con/buff2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -23.0
+offset_right = 6.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "2"
