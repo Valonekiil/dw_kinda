@@ -1,0 +1,297 @@
+[gd_scene load_steps=16 format=3 uid="uid://c6j256fdxi0a0"]
+
+[ext_resource type="Script" uid="uid://byu3hisft2xk0" path="res://Script/battle_scene.gd" id="1_3q3gc"]
+[ext_resource type="Resource" uid="uid://dlskke73togbf" path="res://Aset/Monster/Stats/Vegamon(test2).tres" id="2_a3fgx"]
+[ext_resource type="Script" uid="uid://bd363gh1yjeq3" path="res://Script/turn_manager.gd" id="2_uk2p2"]
+[ext_resource type="PackedScene" uid="uid://c3a7awere5nne" path="res://Aset/Monster/monster_controller.tscn" id="3_a3fgx"]
+[ext_resource type="Script" uid="uid://bsf54ydfj5bv3" path="res://Script/element_manager.gd" id="5_u6krl"]
+[ext_resource type="Script" uid="uid://cdirmgsncpy3m" path="res://UI/Confirmation/conf_pop_manager.gd" id="6_d1nv8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uk2p2"]
+radius = 250.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a3fgx"]
+size = Vector2(300, 300)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qa1iq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_81wey"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1bymy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vtb4a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ou1og"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wgp6a"]
+
+[sub_resource type="Theme" id="Theme_akgwt"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0.823529, 0.823529, 0.823529, 1)
+Button/colors/font_hover_color = Color(0.823212, 0.823212, 0.823212, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/font_sizes/font_size = 16
+Button/styles/disabled = SubResource("StyleBoxEmpty_qa1iq")
+Button/styles/focus = SubResource("StyleBoxEmpty_81wey")
+Button/styles/hover = SubResource("StyleBoxEmpty_1bymy")
+Button/styles/hover_pressed = SubResource("StyleBoxEmpty_vtb4a")
+Button/styles/normal = SubResource("StyleBoxEmpty_ou1og")
+Button/styles/pressed = SubResource("StyleBoxEmpty_wgp6a")
+
+[node name="Battle_scene" type="Control" node_paths=PackedStringArray("anim_player", "anim_enemy")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3q3gc")
+Player_Curent = ExtResource("2_a3fgx")
+Enemy_Curent = ExtResource("2_a3fgx")
+Player_Monster1 = ExtResource("2_a3fgx")
+Enemy_Monster1 = ExtResource("2_a3fgx")
+anim_player = NodePath("Turn_Manager/Player/AnimationPlayer")
+anim_enemy = NodePath("Turn_Manager/Enemy/AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Turn_Manager/ui")
+
+[node name="Turn_Manager" type="Control" parent="." node_paths=PackedStringArray("monster_1", "monster_2")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_uk2p2")
+monster_1 = NodePath("Player")
+monster_2 = NodePath("Enemy")
+
+[node name="Player" parent="Turn_Manager" node_paths=PackedStringArray("sprite", "Anim") instance=ExtResource("3_a3fgx")]
+sprite = NodePath("Sprite2D")
+Anim = NodePath("AnimationPlayer")
+
+[node name="Sprite2D" type="Sprite2D" parent="Turn_Manager/Player"]
+
+[node name="Damage" type="Area2D" parent="Turn_Manager/Player/Sprite2D"]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Turn_Manager/Player/Sprite2D/Damage"]
+shape = SubResource("CircleShape2D_uk2p2")
+
+[node name="Hurt" type="Area2D" parent="Turn_Manager/Player/Sprite2D"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Turn_Manager/Player/Sprite2D/Hurt"]
+shape = SubResource("RectangleShape2D_a3fgx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Turn_Manager/Player"]
+
+[node name="Enemy" parent="Turn_Manager" node_paths=PackedStringArray("sprite", "Anim") instance=ExtResource("3_a3fgx")]
+sprite = NodePath("Sprite2D")
+Anim = NodePath("AnimationPlayer")
+AI = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Turn_Manager/Enemy"]
+
+[node name="Damage" type="Area2D" parent="Turn_Manager/Enemy/Sprite2D"]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Turn_Manager/Enemy/Sprite2D/Damage"]
+shape = SubResource("CircleShape2D_uk2p2")
+
+[node name="Hurt" type="Area2D" parent="Turn_Manager/Enemy/Sprite2D"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Turn_Manager/Enemy/Sprite2D/Hurt"]
+shape = SubResource("RectangleShape2D_a3fgx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Turn_Manager/Enemy"]
+
+[node name="Element_Manager" type="Node" parent="Turn_Manager"]
+script = ExtResource("5_u6krl")
+
+[node name="ui" type="CanvasLayer" parent="Turn_Manager"]
+
+[node name="Conf_Manager" type="Control" parent="Turn_Manager/ui"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -372.0
+offset_top = 125.5
+offset_right = 372.0
+offset_bottom = 288.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_d1nv8")
+
+[node name="Confirmation_Box" type="Panel" parent="Turn_Manager/ui/Conf_Manager"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -372.0
+offset_top = -81.5
+offset_right = 372.0
+offset_bottom = 81.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Turn_Manager/ui/Conf_Manager"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 10.0
+offset_right = -22.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[b]Lorem ipsum dolor sit amet[/b] wkaodoakdaojdwoiajwdmaskdakwjdoajksdjajdkajksdjoaakwod
+akwdoadoakwodaosdokawodkaksdoawkdoaowdaokwkdoadokawdkoakdokawdokaowdkodw awkdokaodkaodwodkadawkawokdoakdokawkdaokdoawkdaowkdkoaowkdko"
+
+[node name="Close_Btn" type="Button" parent="Turn_Manager/ui/Conf_Manager"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -30.0
+offset_right = -4.0
+offset_bottom = -2.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = SubResource("Theme_akgwt")
+text = "skip"
+
+[node name="P1_Con" type="VBoxContainer" parent="Turn_Manager/ui"]
+offset_right = 450.0
+offset_bottom = 54.0
+
+[node name="Name" type="Label" parent="Turn_Manager/ui/P1_Con"]
+layout_mode = 2
+text = "GAMONMON"
+
+[node name="hp" type="ProgressBar" parent="Turn_Manager/ui/P1_Con"]
+custom_minimum_size = Vector2(450, 27)
+layout_mode = 2
+size_flags_vertical = 3
+show_percentage = false
+
+[node name="c" type="MarginContainer" parent="Turn_Manager/ui/P1_Con/hp"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 27.0
+
+[node name="txt" type="Label" parent="Turn_Manager/ui/P1_Con/hp/c"]
+layout_mode = 2
+text = "1231"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Turn_Manager/ui/P1_Con"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TextureRect" type="TextureRect" parent="Turn_Manager/ui/P1_Con/HBoxContainer"]
+layout_mode = 2
+
+[node name="P2_Con" type="VBoxContainer" parent="Turn_Manager/ui"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -450.0
+offset_bottom = 54.0
+grow_horizontal = 0
+
+[node name="Name" type="Label" parent="Turn_Manager/ui/P2_Con"]
+layout_mode = 2
+text = "GAMONMON"
+horizontal_alignment = 2
+
+[node name="hp" type="ProgressBar" parent="Turn_Manager/ui/P2_Con"]
+custom_minimum_size = Vector2(450, 27)
+layout_mode = 2
+size_flags_vertical = 3
+fill_mode = 1
+show_percentage = false
+
+[node name="c" type="MarginContainer" parent="Turn_Manager/ui/P2_Con/hp"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -13.5
+offset_bottom = 13.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="txt" type="Label" parent="Turn_Manager/ui/P2_Con/hp/c"]
+layout_mode = 2
+text = "1231"
+
+[node name="Cur_Turn" type="Label" parent="Turn_Manager/ui"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 22.0
+offset_right = 20.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "1213"
+horizontal_alignment = 1
+
+[node name="Btn_Attack" type="Button" parent="Turn_Manager/ui"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 75.0
+offset_top = -248.0
+offset_right = 150.0
+offset_bottom = -208.0
+grow_vertical = 0
+text = "Attack"
+
+[node name="Btn_Defense" type="Button" parent="Turn_Manager/ui"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 75.0
+offset_top = -198.0
+offset_right = 150.0
+offset_bottom = -158.0
+grow_vertical = 0
+text = "Defense"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 527.0
+offset_top = 116.0
+offset_right = 621.0
+offset_bottom = 147.0
+text = "SAVE ANIM"
+
+[connection signal="pressed" from="Turn_Manager/ui/Conf_Manager/Close_Btn" to="Turn_Manager/ui/Conf_Manager" method="_on_close_btn_pressed"]
+[connection signal="pressed" from="Turn_Manager/ui/Btn_Attack" to="Turn_Manager" method="_on_btn_attack_pressed"]
+[connection signal="pressed" from="Turn_Manager/ui/Btn_Defense" to="Turn_Manager" method="_on_btn_defense_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

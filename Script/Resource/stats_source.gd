@@ -2,7 +2,7 @@ extends Resource
 class_name Stats_Source
 
 @export var lvl: int
-@export var digimon_type: Enums.MonsterType
+@export var monster_type: Enums.MonsterType
 @export var primary_element: Enums.Element
 @export var secondary_element: Enums.Element
 @export var cur_exp: int

@@ -1,4 +1,3 @@
-@tool
 extends Resource
 class_name Buff_Data
 
@@ -9,13 +8,13 @@ class_name Buff_Data
 @export var stun: bool
 @export var heal: int
 @export var damage: int
-var stats_manipulation: bool 
+@export var stats_manipulation: bool 
 @export var power_changed: int
 @export var defense_changed: int 
 @export var arcane_changed: int
 @export var insight_changed: int
 @export var speed_changed: int 
-var element_manipulation: bool
+@export var element_manipulation: bool
 
 @export var element_changed: Dictionary = {
 	Enums.Element.FIRE: 0,
@@ -31,6 +30,7 @@ var element_manipulation: bool
 	Enums.Element.CHAOS: 0,
 	Enums.Element.MYSTICAL: 0
 }
+
 
 # Fungsi untuk mengupdate variabel manipulation
 func update_manipulation():

@@ -4,15 +4,16 @@ class_name Monster_Controller
 @export var monster:Monster_Data
 @export var stats_comp: Stats_Component
 var stats:Stats_Source
-var fullstats:Stats_Source
-@export var skills: Skill_Component
+var basestats:Stats_Source
+@export var skill_comp: Skill_Component
 @export var atk_modifiers: Atk_Modifier_Component
 @export var buff_manager: Buff_Manager
 @export var evolution_manager: Evolution_Manager
-var cur_health:int
 @export var AI_Advanced:Enemy_Comp
-@export var texture:Sprite2D
+@export var sprite:Sprite2D
 @export var Anim:AnimationPlayer
+@export var attack_hitbox: Area2D
+@export var hurtbox: Area2D
 var hp_bar:ProgressBar
 var hp_txt:Label
 @export var AI:bool
@@ -23,16 +24,74 @@ signal attack_completed(damage: int)
 signal defense_completed(defense:int)
 signal turn_ended()
 
-func _ready() -> void:
-	if !fullstats && evolution_manager.is_evolved:
+#func _ready():
+	#hurtbox.area_entered.connect(_on_hurtbox_hit)
+	#attack_hitbox.collision_mask = 0b0010  # Mask: Layer 2 (hurtboxes)
+	#hurtbox.collision_layer = 0b0010       # Layer: 2 (hurtbox)
+
+func init():
+	if !stats_comp:
+		var scom = Stats_Component.new()
+		add_child(scom) 
+		stats_comp = scom
+		stats_comp.stats_source = monster.stats_comp
+	if !evolution_manager:
+		var em = Evolution_Manager.new()
+		add_child(em)
+		evolution_manager = em
+		#Memasukan evolusi_monster_data
+	if !buff_manager:
+		var v = Buff_Manager.new()
+		add_child(v)
+		buff_manager = v
+	if !skill_comp:
+		var v = Skill_Component.new()
+		add_child(v)
+		skill_comp = v
+		#memasukan skill
+	#Anim.add_animation_library("basic_attack", monster.A_basic_attack)
+	sprite.texture = monster.texture
+	#stats_comp.stats_source = monster.stats_comp
+	if !basestats && evolution_manager.is_evolved:
+		"stats evolusi"
 		#fullstats = evolution_manager.evolution_1.
 		pass
 	elif !stats && stats_comp:
+		print("stats defualt")
 		stats = stats_comp.stats_source
-	
+		
+	print("Monster inited")
+
+func apply_animation(is_enemy:bool):
+	var lib: AnimationLibrary
+	if Anim.has_animation_library(""): 
+		lib = Anim.get_animation_library("")
+	else:
+		lib = AnimationLibrary.new()
+		Anim.add_animation_library("", lib)
+	if is_enemy:
+		lib.add_animation("take_damage", monster.take_damage)
+		lib.add_animation("basic_attack", monster.B_basic_attack)
+		lib.add_animation("special_attack", monster.B_special_attack)
+		lib.add_animation("idle", monster.B_idle)
+		print("enemy anime")
+	else:
+		lib.add_animation("take_damage", monster.take_damage)
+		lib.add_animation("basic_attack", monster.A_basic_attack)
+		lib.add_animation("special_attack", monster.A_special_attack)
+		lib.add_animation("idle", monster.A_idle)
+		print("player anim")
+
+
+func delete_animtation():
+	Anim.remove_animation("take_damage")
+	Anim.remove_animation("basic_attack")
+	Anim.remove_animation("special_attack")
+	Anim.remove_animation("idle")
 
 # Fungsi yang dipanggil ketika giliran monster dimulai
 func start_action():
+	Anim.play("idle")
 	print(name + " mulai giliran!")
 	action_point += 2
 	if buff_manager.active_buffs:
@@ -44,7 +103,7 @@ func start_action():
 		pass
 
 func perform_action():
-	if cur_health > stats.health/2:
+	if stats.cur_hp > stats.health/2:
 		if action_point > 1:
 			perform_attack()
 		else :
@@ -58,6 +117,7 @@ func perform_attack():
 		#print(name + " menyerang dengan kekuatan " + str(attack_power) + "!")
 		# Kirim signal attack_completed dengan damage yang diberikan
 		emit_signal("attack_completed", stats.power)
+		anim_state(1)
 	else :
 		print("Aksi gagal karena action point kurang")
 
@@ -76,20 +136,17 @@ func take_damage(damage: int):
 		if damage <= 0:
 			print(name + " berhasil memblok serangan dengan sempurna!")
 			return
-	cur_health -= damage
+	stats.cur_hp -= damage
 	if is_defense:
-		print(name + " hanya menerima " + str(damage) + " damage!  Health tersisa: " + str(cur_health))
+		#print(name + " hanya menerima " + str(damage) + " damage!  Health tersisa: " + str(cur_health))
 		is_defense = false
-	else:
-		print(name + " menerima  " + str(damage) + " damage! Health tersisa: " + str(cur_health))
-	if cur_health <= 0:
+	
+	if stats.cur_hp <= 0:
 		die()
 
 func use_skill(skill_name: String):
-	if skills:
-		skills.use_skill(skill_name)  # Gunakan skill dari Skill_Component
-	else:
-		print("Skill_Component tidak ditemukan!")
+	skill_comp.use_skill(skill_name)  # Gunakan skill dari Skill_Component
+	
 
 func evolve(evolution: Monster_Controller):
 	if evolution_manager:
@@ -100,8 +157,8 @@ func evolve(evolution: Monster_Controller):
 
 func update_hp(bar:ProgressBar, txt:Label):
 	bar.max_value = stats.health
-	bar.value = cur_health
-	txt.text = str(cur_health)
+	bar.value = stats.cur_hp
+	txt.text = str(stats.cur_hp)
 
 # Fungsi untuk menangani kematian monster
 func die():
@@ -112,3 +169,22 @@ func die():
 func end_turn():
 	print(name + " mengakhiri giliran!")
 	emit_signal("turn_ended")
+
+func anim_state(v:int):
+	match v:
+		1:
+			Anim.play("basic_attack")
+			await Anim.animation_finished
+			Anim.play("idle")
+		2:
+			Anim.play("special_attack")
+			await Anim.animation_finished
+			Anim.play("idle")
+		3:
+			Anim.play("take_damage")
+		_:
+			Anim.play("idle")
+
+func target_take_damage():
+	var v = self.get_parent()
+	v.target_take_damage()

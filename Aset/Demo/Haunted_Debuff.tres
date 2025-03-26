@@ -1,18 +1,18 @@
-[gd_resource type="Resource" script_class="Buff_Data" load_steps=3 format=3 uid="uid://fi70aedy2s7r"]
+[gd_resource type="Resource" script_class="Buff_Data" load_steps=3 format=3 uid="uid://dkck2fqov5my5"]
 
 [ext_resource type="Script" uid="uid://rfkiexucyp03" path="res://Script/Resource/buff_data.gd" id="1_g0lmn"]
-[ext_resource type="Texture2D" uid="uid://devhghkb8dp0s" path="res://icon.svg" id="2_edh6h"]
+[ext_resource type="Texture2D" uid="uid://djo7ayu3ua72i" path="res://buff.jpg" id="2_g0lmn"]
 
 [resource]
 script = ExtResource("1_g0lmn")
 buff_name = "Haunted"
-texture = ExtResource("2_edh6h")
-duration = -2
+texture = ExtResource("2_g0lmn")
+duration = 3
 is_debuff = true
 stun = true
 heal = 0
 damage = 20
-stats_manipulation = false
+stats_manipulation = true
 power_changed = 0
 defense_changed = -20
 arcane_changed = 0

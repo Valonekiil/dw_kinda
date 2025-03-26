@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://bpihaajtvnytv" path="res://Scene/Component/stats_component.tscn" id="2_gb186"]
 [ext_resource type="Script" uid="uid://bvdx6yky0wi7g" path="res://Script/Component/Skill_Component.gd" id="3_dxmf8"]
 [ext_resource type="Script" uid="uid://co2bxpjgjpbqq" path="res://Script/Component/Atk_Modifier_Component.gd" id="4_gb186"]
-[ext_resource type="Script" uid="uid://hp2dbl3tqylo" path="res://Script/evolution_manager.gd" id="4_kvj7c"]
 [ext_resource type="PackedScene" uid="uid://dahgir20u75tf" path="res://Scene/Manager/buff_manager.tscn" id="5_gb186"]
+[ext_resource type="PackedScene" uid="uid://cquw6qe3g06g1" path="res://Scene/Manager/evolution_manager.tscn" id="7_6xstu"]
 [ext_resource type="Script" uid="uid://d1nuuixrocimi" path="res://Script/Component/Evo1_Component.gd" id="7_gb186"]
 
 [node name="Megamon" type="Node2D"]
@@ -21,8 +21,7 @@ script = ExtResource("4_gb186")
 
 [node name="Buff_Manager" parent="." instance=ExtResource("5_gb186")]
 
-[node name="Evolution_Manager" type="Node" parent="."]
-script = ExtResource("4_kvj7c")
-
-[node name="Mexmon" type="Node2D" parent="Evolution_Manager"]
+[node name="Mexmon" type="Node2D" parent="."]
 script = ExtResource("7_gb186")
+
+[node name="Evolution_Manager" parent="." instance=ExtResource("7_6xstu")]

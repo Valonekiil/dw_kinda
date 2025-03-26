@@ -5,13 +5,13 @@
 [resource]
 script = ExtResource("1_0202i")
 lvl = 2
-digimon_type = 2
+monster_type = 0
 primary_element = 10
 secondary_element = 0
 cur_exp = 10
 max_exp = 20
-health = 30
-cur_hp = 15
+health = 50
+cur_hp = 40
 mana = 30
 cur_mana = 20
 power = 18

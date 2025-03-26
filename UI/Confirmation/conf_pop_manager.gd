@@ -19,7 +19,7 @@ func Animate_Conf():
 	context.visible_ratio = 0
 	tween = create_tween()
 	tween.connect("finished", self.on_tween_finished)
-	tween.tween_property(context, "visible_ratio", 1, 2).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(context, "visible_ratio", 1, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
 	tween.play()
 
 func on_tween_finished():

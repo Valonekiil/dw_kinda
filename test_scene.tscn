@@ -1,22 +1,75 @@
-[gd_scene load_steps=8 format=3 uid="uid://dj3qtsqguco1p"]
+[gd_scene load_steps=17 format=3 uid="uid://dj3qtsqguco1p"]
 
 [ext_resource type="Script" uid="uid://c1rl3rwfvhqm5" path="res://test_scene.gd" id="1_sasra"]
-[ext_resource type="Texture2D" uid="uid://devhghkb8dp0s" path="res://icon.svg" id="1_uhqqe"]
 [ext_resource type="PackedScene" uid="uid://c3a7awere5nne" path="res://Aset/Monster/monster_controller.tscn" id="2_2nij2"]
 [ext_resource type="PackedScene" uid="uid://dahgir20u75tf" path="res://Scene/Manager/buff_manager.tscn" id="2_coq8p"]
+[ext_resource type="Resource" uid="uid://dkck2fqov5my5" path="res://Aset/Demo/Haunted_Debuff.tres" id="2_vr1i5"]
 [ext_resource type="PackedScene" uid="uid://bpihaajtvnytv" path="res://Scene/Component/stats_component.tscn" id="3_7cbxl"]
-[ext_resource type="Resource" uid="uid://om4h78lkx3j0" path="res://Aset/Demo/Vegamon(test2).tres" id="3_8pr8v"]
+[ext_resource type="Resource" uid="uid://dlskke73togbf" path="res://Aset/Monster/Stats/Vegamon(test2).tres" id="3_8pr8v"]
+[ext_resource type="Resource" uid="uid://h6ly0kdsdhe6" path="res://Aset/Demo/Valor_Buff.tres" id="3_rpuu0"]
 [ext_resource type="Resource" uid="uid://cfpsjhucokbl1" path="res://Aset/Demo/test_2mon.tres" id="4_7cbxl"]
+[ext_resource type="Script" uid="uid://rfkiexucyp03" path="res://Script/Resource/buff_data.gd" id="4_oo8pe"]
+[ext_resource type="PackedScene" uid="uid://cquw6qe3g06g1" path="res://Scene/Manager/evolution_manager.tscn" id="7_rpuu0"]
+[ext_resource type="Texture2D" uid="uid://djo7ayu3ua72i" path="res://buff.jpg" id="10_oo8pe"]
+[ext_resource type="Script" uid="uid://eegk40ffwnhi" path="res://Script/Resource/monster_data.gd" id="12_oo8pe"]
+
+[sub_resource type="Resource" id="Resource_4gito"]
+script = ExtResource("4_oo8pe")
+buff_name = "entah"
+duration = 0
+is_debuff = false
+stun = false
+heal = 0
+damage = 0
+stats_manipulation = false
+power_changed = 0
+defense_changed = -4
+arcane_changed = 0
+insight_changed = 0
+speed_changed = 0
+element_manipulation = false
+element_changed = {
+0: 0,
+1: -5,
+2: 7,
+3: 0,
+4: 0,
+5: 0,
+6: 5,
+7: 0,
+8: 0,
+9: 0,
+10: 0,
+11: 0
+}
+metadata/_custom_type_script = "uid://rfkiexucyp03"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4gito"]
+radius = 74.0068
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oo8pe"]
+size = Vector2(140, 129)
+
+[sub_resource type="Resource" id="Resource_fbuy2"]
+script = ExtResource("12_oo8pe")
+name = ""
+metadata/_custom_type_script = "uid://eegk40ffwnhi"
 
 [node name="Test_Scene" type="Node"]
 script = ExtResource("1_sasra")
+buff_1 = ExtResource("2_vr1i5")
+buff_2 = ExtResource("3_rpuu0")
+buff_3 = SubResource("Resource_4gito")
 
-[node name="Entah_Mon" parent="." node_paths=PackedStringArray("buff_manager") instance=ExtResource("2_2nij2")]
-monster = ExtResource("3_8pr8v")
+[node name="Entah_Mon" parent="." node_paths=PackedStringArray("stats_comp", "buff_manager", "evolution_manager") instance=ExtResource("2_2nij2")]
+stats_comp = NodePath("../Stats_Component")
 buff_manager = NodePath("../Buff_Manager")
+evolution_manager = NodePath("../Evolution_Manager")
 
 [node name="Sprite2D" type="Sprite2D" parent="Entah_Mon"]
-position = Vector2(496, 368)
+position = Vector2(461, 378)
+
+[node name="Evolution_Manager" parent="." instance=ExtResource("7_rpuu0")]
 
 [node name="Stats_Component" parent="." instance=ExtResource("3_7cbxl")]
 stats_source = ExtResource("4_7cbxl")
@@ -39,41 +92,81 @@ grow_vertical = 2
 offset_left = 568.0
 offset_top = 34.0
 offset_right = 1112.0
-offset_bottom = 162.0
+offset_bottom = 34.0
 theme_override_constants/separation = 20
 
-[node name="buff" type="TextureRect" parent="Control/ui/con"]
+[node name="TextureRect" type="TextureRect" parent="Control/ui/con"]
 layout_mode = 2
-texture = ExtResource("1_uhqqe")
+texture = ExtResource("10_oo8pe")
 
-[node name="Label" type="Label" parent="Control/ui/con/buff"]
+[node name="Label" type="Label" parent="Control/ui/con/TextureRect"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -6.0
-offset_top = -23.0
-offset_right = 6.0
+offset_left = -3.0
+offset_right = 3.0
+offset_bottom = 14.0
 grow_horizontal = 2
-grow_vertical = 0
-text = "2"
+theme_override_font_sizes/font_size = 10
+text = "5"
+horizontal_alignment = 1
 
-[node name="buff2" type="TextureRect" parent="Control/ui/con"]
-layout_mode = 2
-texture = ExtResource("1_uhqqe")
+[node name="pokemon1" parent="." node_paths=PackedStringArray("sprite", "Anim", "attack_hitbox", "hurtbox") instance=ExtResource("2_2nij2")]
+monster = ExtResource("3_8pr8v")
+sprite = NodePath("Sprite2D")
+Anim = NodePath("AnimationPlayer")
+attack_hitbox = NodePath("Sprite2D/Damage")
+hurtbox = NodePath("Sprite2D/Hurt")
 
-[node name="Label" type="Label" parent="Control/ui/con/buff2"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -6.0
-offset_top = -23.0
-offset_right = 6.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "2"
+[node name="Sprite2D" type="Sprite2D" parent="pokemon1"]
+
+[node name="Damage" type="Area2D" parent="pokemon1/Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pokemon1/Sprite2D/Damage"]
+shape = SubResource("CircleShape2D_4gito")
+
+[node name="Hurt" type="Area2D" parent="pokemon1/Sprite2D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pokemon1/Sprite2D/Hurt"]
+shape = SubResource("RectangleShape2D_oo8pe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="pokemon1"]
+root_node = NodePath("../Sprite2D")
+
+[node name="pokemon2" parent="." node_paths=PackedStringArray("sprite", "Anim", "attack_hitbox", "hurtbox") instance=ExtResource("2_2nij2")]
+visible = false
+monster = SubResource("Resource_fbuy2")
+sprite = NodePath("Sprite2D")
+Anim = NodePath("AnimationPlayer")
+attack_hitbox = NodePath("Sprite2D/Damage")
+hurtbox = NodePath("Sprite2D/Hurt")
+
+[node name="Sprite2D" type="Sprite2D" parent="pokemon2"]
+
+[node name="Damage" type="Area2D" parent="pokemon2/Sprite2D"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pokemon2/Sprite2D/Damage"]
+shape = SubResource("CircleShape2D_4gito")
+
+[node name="Hurt" type="Area2D" parent="pokemon2/Sprite2D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pokemon2/Sprite2D/Hurt"]
+shape = SubResource("RectangleShape2D_oo8pe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="pokemon2"]
+root_node = NodePath("../Sprite2D")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 117.0
+offset_top = 70.0
+offset_right = 225.0
+offset_bottom = 101.0
+text = "TEST ATTACK"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

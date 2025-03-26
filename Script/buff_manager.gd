@@ -100,16 +100,24 @@ func create_buff_ui(buff: Buff_Data):
 		texture_rect.texture = buff.texture
 		texture_rect.name = buff.buff_name
 		texture_rect.stretch_mode = TextureRect.STRETCH_SCALE  # Scaling bisa diubah
-		texture_rect.custom_minimum_size = Vector2(64, 64)  # Ukuran minimal
-
+		texture_rect.custom_minimum_size = Vector2(32, 32)  # Ukuran minimal
+		if buff.is_debuff:
+			texture_rect.self_modulate = Color(250/255.0, 0, 0)
+		else :
+			texture_rect.self_modulate = Color(0, 250/255.0, 0)
 		var label = Label.new()
+		texture_rect.add_child(label)
 		label.name = "Duration"
 		label.text = str(buff.duration)
-		label.vertical_alignment =VERTICAL_ALIGNMENT_BOTTOM
+		label.label_settings = LabelSettings.new()
+		label.label_settings.font_size = 10
 		label.horizontal_alignment= HORIZONTAL_ALIGNMENT_CENTER
-		label.modulate = Color(1, 1, 1, 1)  # Warna teks putih
+		label.anchor_left = 0.4    # Tengah secara horizontal
+		label.anchor_right = 0.4   # Tengah secara horizontal
+		label.anchor_top = 0.0     # Atas
+		label.anchor_bottom = 0.0  # Atas
 
-		texture_rect.add_child(label)
+		
 		buff_container.add_child(texture_rect)
 
 # Fungsi untuk menghapus UI buff/debuff

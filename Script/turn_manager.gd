@@ -1,28 +1,29 @@
 extends Control
 class_name Turn_Manager
 
-# Ekspor variabel untuk menyimpan referensi ke monster-monster
 @export var monster_1: Monster_Controller
 @export var monster_2: Monster_Controller
-@onready var name_1 =$P1_Con/Name
-@onready var hp_bar_1 = $P1_Con/hp
-@onready var hp1 = $P1_Con/hp/c/txt
-@onready var name_2 = $P2_Con/Name
-@onready var hp_bar_2 = $P2_Con/hp
-@onready var hp2 = $P2_Con/hp/c/txt
-@onready var atk_btn = $Btn_Attack
-@onready var def_btn = $Btn_Defense
-@export var conf:Conf_Manager 
+@onready var name_1 =$ui/P1_Con/Name
+@onready var hp_bar_1 = $ui/P1_Con/hp
+@onready var hp1 = $ui/P1_Con/hp/c/txt
+@onready var name_2 = $ui/P2_Con/Name
+@onready var hp_bar_2 = $ui/P2_Con/hp
+@onready var hp2 = $ui/P2_Con/hp/c/txt
+@onready var atk_btn = $ui/Btn_Attack
+@onready var def_btn = $ui/Btn_Defense
+@onready var conf:Conf_Manager = $ui/Conf_Manager
 # Variabel untuk melacak giliran saat ini
 var Turn: int = 0
 var current_turn: Monster_Controller
+var current_target:Monster_Controller
 var current_act: int = 1
 var temp_def:bool
-# Fungsi yang dipanggil ketika node siap
-func _ready():
-	var v = get_parent()
-	print(v)
-	# Hubungkan signal dari setiap monster
+
+func init():
+	monster_1.init()
+	monster_2.init()
+	monster_1.apply_animation(false)
+	monster_2.apply_animation(true)
 	monster_1.attack_completed.connect(_on_attack_completed.bind(monster_2))
 	monster_1.defense_completed.connect(_on_defense_completed)
 	monster_1.hp_bar = hp_bar_1
@@ -39,8 +40,10 @@ func _ready():
 	monster_1.update_hp(hp_bar_1,hp1)
 	monster_2.update_hp(hp_bar_2,hp2)
 	start_turn()
-	name_1.text = monster_1.name
-	name_2.text = monster_2.name
+	
+	name_1.text = monster_1.monster.name
+	name_2.text = monster_2.monster.name
+	print("Turn inited")
 
 # Fungsi untuk memulai giliran
 func start_turn():
@@ -49,17 +52,16 @@ func start_turn():
 	print("turn start")
 	if Turn % 2 == 0:
 		current_turn = monster_1
-		print("turn monster 1")
+		current_target = monster_2
 	else:
 		current_turn = monster_2
+		current_target = monster_1
 		print("turn monster 2")
 	# Mulai aksi monster
 	Turn += 1
-	$Cur_Turn.text = str(Turn)
+	$ui/Cur_Turn.text = str(Turn)
 	conf.Monster_Turn(current_turn)
-	print("start")
-	await conf.btn.pressed
-	print("done")
+	current_target.anim_state(0)
 	current_turn.start_action()
 
 
@@ -73,11 +75,14 @@ func _on_attack_completed(damage: int, target: Monster_Controller):
 		temp_def = true
 	target.take_damage(damage)
 	if temp_def:
-		conf.Monster_Defensed_Damage(target,damage-target.defense)
+		conf.Monster_Defensed_Damage(target,damage-target.stats.guard)
 	else:
 		conf.Monster_Take_Damage(target,damage)
-	await conf.btn.pressed
 	target.update_hp(target.hp_bar,target.hp_txt)
+	await conf.btn.pressed
+	if target:
+		if target.stats.cur_hp > 0:
+			target.anim_state(0)
 	current_turn.action_point -= 1
 	if current_turn.action_point == 0:
 		current_turn.end_turn()
@@ -102,6 +107,9 @@ func _on_defense_completed(defense:int):
 func _on_turn_ended():
 	current_act = 1
 	start_turn()
+
+func target_take_damage():
+	current_target.anim_state(3)
 
 func _on_btn_attack_pressed() -> void:
 	if current_turn == monster_1:

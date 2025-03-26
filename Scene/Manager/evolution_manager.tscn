@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cquw6qe3g06g1"]
+
+[ext_resource type="Script" uid="uid://hp2dbl3tqylo" path="res://Script/evolution_manager.gd" id="1_rgj2k"]
+
+[node name="Evolution_Manager" type="Node"]
+script = ExtResource("1_rgj2k")

@@ -7,10 +7,6 @@
 [ext_resource type="Script" uid="uid://cdirmgsncpy3m" path="res://UI/Confirmation/conf_pop_manager.gd" id="5_81wey"]
 [ext_resource type="Script" uid="uid://bsf54ydfj5bv3" path="res://Script/element_manager.gd" id="6_1bymy"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qa1iq"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_81wey"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1bymy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vtb4a"]
@@ -19,18 +15,22 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wgp6a"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8vk3o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ocub"]
+
 [sub_resource type="Theme" id="Theme_8vk3o"]
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_focus_color = Color(0.823529, 0.823529, 0.823529, 1)
 Button/colors/font_hover_color = Color(0.823212, 0.823212, 0.823212, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/font_sizes/font_size = 16
-Button/styles/disabled = SubResource("StyleBoxEmpty_qa1iq")
-Button/styles/focus = SubResource("StyleBoxEmpty_81wey")
-Button/styles/hover = SubResource("StyleBoxEmpty_1bymy")
-Button/styles/hover_pressed = SubResource("StyleBoxEmpty_vtb4a")
-Button/styles/normal = SubResource("StyleBoxEmpty_ou1og")
-Button/styles/pressed = SubResource("StyleBoxEmpty_wgp6a")
+Button/styles/disabled = SubResource("StyleBoxEmpty_1bymy")
+Button/styles/focus = SubResource("StyleBoxEmpty_vtb4a")
+Button/styles/hover = SubResource("StyleBoxEmpty_ou1og")
+Button/styles/hover_pressed = SubResource("StyleBoxEmpty_wgp6a")
+Button/styles/normal = SubResource("StyleBoxEmpty_8vk3o")
+Button/styles/pressed = SubResource("StyleBoxEmpty_6ocub")
 
 [node name="Demo_Battle" type="Control"]
 layout_mode = 3
@@ -41,6 +41,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_imgyo")
 
+[node name="Agumon" parent="." instance=ExtResource("3_qa1iq")]
+
+[node name="Pekamon" parent="." instance=ExtResource("3_qa1iq")]
+AI = true
+
 [node name="Enemy_Component" type="Node2D" parent="."]
 script = ExtResource("3_pjjjq")
 
@@ -49,7 +54,7 @@ script = ExtResource("3_pjjjq")
 [node name="Element_Manager" type="Node" parent="ui"]
 script = ExtResource("6_1bymy")
 
-[node name="Turn_Manager" type="Control" parent="ui" node_paths=PackedStringArray("monster_1", "monster_2", "conf")]
+[node name="Turn_Manager" type="Control" parent="ui" node_paths=PackedStringArray("monster_1", "monster_2")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,14 +62,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_pjjjq")
-monster_1 = NodePath("Agumon")
-monster_2 = NodePath("Pekamon")
-conf = NodePath("../Conf_Manager")
-
-[node name="Agumon" parent="ui/Turn_Manager" instance=ExtResource("3_qa1iq")]
-
-[node name="Pekamon" parent="ui/Turn_Manager" instance=ExtResource("3_qa1iq")]
-AI = true
+monster_1 = NodePath("../../Agumon")
+monster_2 = NodePath("../../Pekamon")
 
 [node name="P1_Con" type="VBoxContainer" parent="ui/Turn_Manager"]
 layout_mode = 0

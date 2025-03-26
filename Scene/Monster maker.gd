@@ -3,6 +3,7 @@ extends Node
 @export var Monster:Monster_Data
 @onready var sprite = $Sprite2D
 @onready var Anim = $AnimationPlayer
+@onready var t = $Sprite2D2
 
 func _ready() -> void:
 	Monster.texture = sprite.texture
@@ -13,8 +14,25 @@ func _ready() -> void:
 	Monster.B_basic_attack =Anim.get_animation("B_basic_attack")
 	Monster.B_special_attack = Anim.get_animation("B_special_attack")
 	Monster.B_idle =Anim.get_animation("B_idle")
-	ResourceSaver.save(Monster, "res://Aset/Demo/Vegamon(test2).tres")
-
+	ResourceSaver.save(Monster)
+	$Button.grab_focus()
 
 func _on_button_pressed() -> void:
-	pass
+	Anim.play("new_animation")
+
+
+func _on_hurt_area_entered(area: Area2D):
+	print("Area entered:", area.name)
+	$Label.visible = true
+
+
+func _on_hurt1_area_entered(_area: Area2D) -> void:
+	$Label.visible = false
+	print("gagal")
+
+
+func _on_hurt_area_exited(area: Area2D) -> void:
+	$Label.visible = true
+
+func test():
+	$Label.visible = true
