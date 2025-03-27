@@ -20,8 +20,11 @@ var hp_txt:Label
 var action_point:int 
 var is_defense:bool
 # Signal untuk mengirim damage dan mengakhiri giliran
-signal attack_completed(damage: int)
+signal attack_completed(damage: int, buff:Variant)
 signal defense_completed(defense:int)
+signal buff_added(buff:Buff_Data)
+signal buff_done_add()
+signal done_buff()
 signal turn_ended()
 
 #func _ready():
@@ -30,6 +33,11 @@ signal turn_ended()
 	#hurtbox.collision_layer = 0b0010       # Layer: 2 (hurtbox)
 
 func init():
+	if !atk_modifiers && monster.atk_modifiers:
+		var am = Atk_Modifier_Component.new()
+		add_child(am)
+		atk_modifiers = am
+		atk_modifiers.modifiers = monster.atk_modifiers
 	if !stats_comp:
 		var scom = Stats_Component.new()
 		add_child(scom) 
@@ -82,7 +90,6 @@ func apply_animation(is_enemy:bool):
 		lib.add_animation("idle", monster.A_idle)
 		print("player anim")
 
-
 func delete_animtation():
 	Anim.remove_animation("take_damage")
 	Anim.remove_animation("basic_attack")
@@ -95,7 +102,7 @@ func start_action():
 	print(name + " mulai giliran!")
 	action_point += 2
 	if buff_manager.active_buffs:
-		#buff_manager.apply_buff_effects(self)
+		buff_manager.apply_buff_effects(self)
 		await buff_manager.done_apply
 	if AI:
 		perform_action()
@@ -111,12 +118,17 @@ func perform_action():
 	else:
 		perform_attack()
 
-# Fungsi untuk melakukan serangan
 func perform_attack():
 	if action_point > 0:
-		#print(name + " menyerang dengan kekuatan " + str(attack_power) + "!")
-		# Kirim signal attack_completed dengan damage yang diberikan
-		emit_signal("attack_completed", stats.power)
+		if atk_modifiers:
+			var has_buff = atk_modifiers.apply_modifier()  # Coba aktifkan buff
+			if has_buff:
+				emit_signal("attack_completed", stats.power, atk_modifiers.active_buffs)
+			else :
+				emit_signal("attack_completed", stats.power, null)
+		else:
+			print("attack polos")
+			emit_signal("attack_completed", stats.power, null)
 		anim_state(1)
 	else :
 		print("Aksi gagal karena action point kurang")
@@ -158,7 +170,10 @@ func evolve(evolution: Monster_Controller):
 func update_hp(bar:ProgressBar, txt:Label):
 	bar.max_value = stats.health
 	bar.value = stats.cur_hp
-	txt.text = str(stats.cur_hp)
+	if stats.cur_hp <= 0:
+		txt.text = " "
+	else:
+		txt.text = str(stats.cur_hp)
 
 # Fungsi untuk menangani kematian monster
 func die():
@@ -184,6 +199,13 @@ func anim_state(v:int):
 			Anim.play("take_damage")
 		_:
 			Anim.play("idle")
+
+func apply_array_buff(buff:Array[Buff_Data]):
+	for v in buff:
+		buff_manager.add_buff(v)
+		emit_signal("buff_added", v)
+		await buff_done_add
+	emit_signal("done_buff")
 
 func target_take_damage():
 	var v = self.get_parent()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dj3qtsqguco1p"]
+[gd_scene load_steps=18 format=3 uid="uid://dj3qtsqguco1p"]
 
 [ext_resource type="Script" uid="uid://c1rl3rwfvhqm5" path="res://test_scene.gd" id="1_sasra"]
 [ext_resource type="PackedScene" uid="uid://c3a7awere5nne" path="res://Aset/Monster/monster_controller.tscn" id="2_2nij2"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://rfkiexucyp03" path="res://Script/Resource/buff_data.gd" id="4_oo8pe"]
 [ext_resource type="PackedScene" uid="uid://cquw6qe3g06g1" path="res://Scene/Manager/evolution_manager.tscn" id="7_rpuu0"]
 [ext_resource type="Texture2D" uid="uid://djo7ayu3ua72i" path="res://buff.jpg" id="10_oo8pe"]
+[ext_resource type="Script" uid="uid://dudih2q1tstbb" path="res://Script/Resource/atk_mod_data.gd" id="12_4gito"]
 [ext_resource type="Script" uid="uid://eegk40ffwnhi" path="res://Script/Resource/monster_data.gd" id="12_oo8pe"]
 
 [sub_resource type="Resource" id="Resource_4gito"]
@@ -53,6 +54,7 @@ size = Vector2(140, 129)
 [sub_resource type="Resource" id="Resource_fbuy2"]
 script = ExtResource("12_oo8pe")
 name = ""
+atk_modifiers = Array[ExtResource("12_4gito")]([])
 metadata/_custom_type_script = "uid://eegk40ffwnhi"
 
 [node name="Test_Scene" type="Node"]

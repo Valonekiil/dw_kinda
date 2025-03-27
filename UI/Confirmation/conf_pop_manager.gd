@@ -27,19 +27,25 @@ func on_tween_finished():
 	btn.grab_focus()
 
 func Monster_Turn(cur: Monster_Controller):
-	context.text = "Giliran [b]"+cur.name+"[/b] melakukan aksi"
+	context.text = "Giliran [b]"+cur.monster.name+"[/b] melakukan aksi"
 	Animate_Conf()
 func Monster_Attack(cur:Monster_Controller):
-	context.text = "[b]"+cur.name+"[/b] melakukan serangan"
+	context.text = "[b]"+cur.monster.name+"[/b] melakukan serangan"
 	Animate_Conf()
 func Monster_Defense(cur:Monster_Controller):
-	context.text = "[b]"+cur.name+"[/b] sedang bertahan"
+	context.text = "[b]"+cur.monster.name+"[/b] sedang bertahan"
 	Animate_Conf()
 func Monster_Take_Damage(cur:Monster_Controller, count:int):
-	context.text = "[b]"+cur.name+"[/b] menerima telak serangan sebesar " +str(count) 
+	context.text = "[b]"+cur.monster.name+"[/b] menerima telak serangan sebesar " +str(count) 
 	Animate_Conf()
 func Monster_Defensed_Damage(cur:Monster_Controller, count:int):
-	context.text = "[b]"+cur.name+"[/b] berhasil melakukan defense dan hanya menerima " +str(count) + " damage"
+	context.text = "[b]"+cur.monster.name+"[/b] berhasil melakukan defense dan hanya menerima " +str(count) + " damage"
+	Animate_Conf()
+func Monster_Buffed(buff:Buff_Data,cur:Monster_Controller):
+	if buff.is_debuff:
+		context.text = "[b]"+cur.monster.name+"[/b] menerima debuff "+ buff.buff_name
+	else :
+		context.text = "[b]"+cur.monster.name+"[/b] menerima buff "+ buff.buff_name
 	Animate_Conf()
 func _on_close_btn_pressed() -> void:
 	box.visible = false

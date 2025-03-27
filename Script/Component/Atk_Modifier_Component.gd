@@ -1,11 +1,14 @@
 extends Node
 class_name Atk_Modifier_Component
 
-@export var modifiers: Array[String] = ["Poison", "Stun", "Burn"]
+@export var modifiers: Array[Atk_Modifer]
+var active_buffs: Array[Buff_Data] = []
 
-# Fungsi untuk menerapkan modifier
-func apply_modifier(modifier_name: String):
-	if modifier_name in modifiers:
-		print("Menerapkan modifier: " + modifier_name)
-	else:
-		print("Modifier tidak ditemukan")
+func apply_modifier() -> bool:
+	active_buffs.clear()
+	var success = false
+	for modifier in modifiers:
+		if randf() * 100 < modifier.chance:
+			active_buffs.append(modifier.Debuff)
+			success = true
+	return success

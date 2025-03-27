@@ -6,9 +6,11 @@ class_name Turn_Manager
 @onready var name_1 =$ui/P1_Con/Name
 @onready var hp_bar_1 = $ui/P1_Con/hp
 @onready var hp1 = $ui/P1_Con/hp/c/txt
+@onready var buff_con1 = $ui/P1_Con/buff
 @onready var name_2 = $ui/P2_Con/Name
 @onready var hp_bar_2 = $ui/P2_Con/hp
 @onready var hp2 = $ui/P2_Con/hp/c/txt
+@onready var buff_con2 = $ui/P2_Con/buff
 @onready var atk_btn = $ui/Btn_Attack
 @onready var def_btn = $ui/Btn_Defense
 @onready var conf:Conf_Manager = $ui/Conf_Manager
@@ -22,6 +24,8 @@ var temp_def:bool
 func init():
 	monster_1.init()
 	monster_2.init()
+	monster_1.buff_manager.buff_container = buff_con1
+	monster_2.buff_manager.buff_container = buff_con2
 	monster_1.apply_animation(false)
 	monster_2.apply_animation(true)
 	monster_1.attack_completed.connect(_on_attack_completed.bind(monster_2))
@@ -29,6 +33,7 @@ func init():
 	monster_1.hp_bar = hp_bar_1
 	monster_1.hp_txt = hp1
 	monster_1.turn_ended.connect(_on_turn_ended)
+	monster_1.buff_added.connect(confirm_buff.bind(monster_1))
 	#atk_btn.pressed.connect(monster_1.perform_attack())
 	#def_btn.pressed.connect(monster_1.perform_defense())
 	monster_2.attack_completed.connect(_on_attack_completed.bind(monster_1))
@@ -36,6 +41,7 @@ func init():
 	monster_2.hp_bar = hp_bar_2
 	monster_2.hp_txt = hp2
 	monster_2.turn_ended.connect(_on_turn_ended)
+	monster_2.buff_added.connect(confirm_buff.bind(monster_2))
 	# Memulai giliran pertama
 	monster_1.update_hp(hp_bar_1,hp1)
 	monster_2.update_hp(hp_bar_2,hp2)
@@ -66,9 +72,7 @@ func start_turn():
 
 
 # Fungsi untuk menangani signal attack_completed
-func _on_attack_completed(damage: int, target: Monster_Controller):
-	#print("dalam aksi ke " + str(current_act) + " " + current_turn.name + " melakukan serangan")
-	#print(current_turn.name + "berhasil melakukan serangan ke " + target.name)
+func _on_attack_completed(damage: int, buff: Variant, target: Monster_Controller):
 	conf.Monster_Attack(current_turn)
 	await conf.btn.pressed
 	if target.is_defense:
@@ -76,6 +80,7 @@ func _on_attack_completed(damage: int, target: Monster_Controller):
 	target.take_damage(damage)
 	if temp_def:
 		conf.Monster_Defensed_Damage(target,damage-target.stats.guard)
+		temp_def = false
 	else:
 		conf.Monster_Take_Damage(target,damage)
 	target.update_hp(target.hp_bar,target.hp_txt)
@@ -83,6 +88,9 @@ func _on_attack_completed(damage: int, target: Monster_Controller):
 	if target:
 		if target.stats.cur_hp > 0:
 			target.anim_state(0)
+	if buff is Array[Buff_Data] && target:
+		target.apply_array_buff(buff)
+		await target.done_buff
 	current_turn.action_point -= 1
 	if current_turn.action_point == 0:
 		current_turn.end_turn()
@@ -107,6 +115,11 @@ func _on_defense_completed(defense:int):
 func _on_turn_ended():
 	current_act = 1
 	start_turn()
+
+func confirm_buff(buff:Buff_Data, mon:Monster_Controller):
+	conf.Monster_Buffed(buff, mon)
+	await conf.btn.pressed
+	mon.emit_signal("buff_done_add")
 
 func target_take_damage():
 	current_target.anim_state(3)
