@@ -1,9 +1,18 @@
 extends Node
 class_name Buff_Manager
 
-@export var stats: Stats_Component  # Komponen statistik yang akan dipengaruhi buff/debuff
+var stats: Stats_Source  # Komponen statistik yang akan dipengaruhi buff/debuff
 var active_buffs: Array[Buff_Data] = []  # Daftar buff/debuff aktif
 @export var buff_container: HBoxContainer  # Node untuk menampung TextureRect buff/debuff
+var  conf:Conf_Manager
+
+signal buff_activated(buff:Buff_Data)
+signal done_active
+
+func init(con:HBoxContainer,conf_man:Conf_Manager,stats_sc:Stats_Source):
+	buff_container = con
+	conf = conf_man
+	stats = stats_sc
 
 
 # Fungsi untuk menambahkan buff/debuff
@@ -23,25 +32,32 @@ func remove_buff(buff: Buff_Data):
 
 # Fungsi untuk mengaplikasikan buff/debuff
 func apply_individual_effect(monster: Monster_Controller, buff: Buff_Data):
-	stats.power += buff.power_changed
-	stats.defense += buff.defense_changed
-	stats.speed += buff.speed_changed
-	
-	for element in buff.element_changed:
-		apply_element_resistance(element, buff.element_changed[element])
+	if buff.stats_manipulation:
+		print("stats check")
+		stats.power += buff.power_changed
+		stats.guard += buff.defense_changed
+		stats.arcane += buff.arcane_changed
+		stats.insight += buff.insight_changed
+		stats.speed += buff.speed_changed
+	if buff.element_manipulation:
+		print("element check")
+		for element in buff.element_changed:
+			apply_element_resistance(element, buff.element_changed[element])
 
 # Fungsi untuk mengembalikan efek buff/debuff
 func revert_buff(buff: Buff_Data):
 	if buff:
-		# Kembalikan peningkatan/penurunan statistik dasar
-		stats.power -= buff.power_changed
-		stats.defense -= buff.defense_changed
-		stats.speed -= buff.speed_changed
+		if buff.stats_manipulation:
+			stats.power -= buff.power_changed
+			stats.guard -= buff.defense_changed
+			stats.arcane -= buff.arcane_changed
+			stats.insight -= buff.insight_changed
+			stats.speed -= buff.speed_changed
 
-		# Kembalikan peningkatan/penurunan resistensi elemen
-		for element in buff.element_changed:
-			var amount = buff.element_changed[element]
-			apply_element_resistance(element, -amount)  # Balikkan efeknya
+		if buff.element_manipulation:
+			for element in buff.element_changed:
+				var amount = buff.element_changed[element]
+				apply_element_resistance(element, -amount)  # Balikkan efeknya
 
 		print("Buff/debuff dikembalikan: ", buff.buff_name)
 
@@ -79,11 +95,11 @@ func apply_buff_effects(monster: Monster_Controller):
 	var buffs_to_remove = []
 	
 	for buff in active_buffs:
+		print("buff_activated:" + buff.buff_name)
 		apply_individual_effect(monster, buff)
-		
-		emit_signal("buff_applied", buff)
-		await self.conf_buff_closed 
-		
+		emit_signal("buff_activated", buff)
+		await conf.btn.pressed
+		print("buff effect conf closed")
 		buff.duration -= 1
 		if buff.duration <= 0:
 			buffs_to_remove.append(buff)
@@ -91,7 +107,7 @@ func apply_buff_effects(monster: Monster_Controller):
 	for buff in buffs_to_remove:
 		remove_buff(buff)
 	
-	emit_signal("done_apply")
+	emit_signal("done_active")
 
 # Fungsi untuk membuat UI buff/debuff
 func create_buff_ui(buff: Buff_Data):

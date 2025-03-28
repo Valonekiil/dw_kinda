@@ -24,9 +24,11 @@ var temp_def:bool
 func init():
 	monster_1.init()
 	monster_2.init()
-	monster_1.buff_manager.buff_container = buff_con1
-	monster_2.buff_manager.buff_container = buff_con2
-	monster_1.apply_animation(false)
+	monster_1.buff_manager.init(buff_con1,conf,monster_1.stats)
+	monster_1.buff_manager.buff_activated.connect(conf.Buff_Activated)
+	monster_2.buff_manager.init(buff_con2,conf,monster_2.stats)
+	monster_2.buff_manager.buff_activated.connect(conf.Buff_Activated)
+	monster_1.apply_animation(false) #karena_bukan_enemy
 	monster_2.apply_animation(true)
 	monster_1.attack_completed.connect(_on_attack_completed.bind(monster_2))
 	monster_1.defense_completed.connect(_on_defense_completed)
@@ -77,6 +79,7 @@ func _on_attack_completed(damage: int, buff: Variant, target: Monster_Controller
 	await conf.btn.pressed
 	if target.is_defense:
 		temp_def = true
+	print("target take damage")
 	target.take_damage(damage)
 	if temp_def:
 		conf.Monster_Defensed_Damage(target,damage-target.stats.guard)

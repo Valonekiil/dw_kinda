@@ -15,7 +15,6 @@ class_name Buff_Data
 @export var insight_changed: int
 @export var speed_changed: int 
 @export var element_manipulation: bool
-
 @export var element_changed: Dictionary = {
 	Enums.Element.FIRE: 0,
 	Enums.Element.WATER: 0,

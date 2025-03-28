@@ -76,9 +76,7 @@ position = Vector2(461, 378)
 [node name="Stats_Component" parent="." instance=ExtResource("3_7cbxl")]
 stats_source = ExtResource("4_7cbxl")
 
-[node name="Buff_Manager" parent="." node_paths=PackedStringArray("stats", "buff_container") instance=ExtResource("2_coq8p")]
-stats = NodePath("../Stats_Component")
-buff_container = NodePath("../Control/ui/con")
+[node name="Buff_Manager" parent="." instance=ExtResource("2_coq8p")]
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -171,4 +169,43 @@ offset_right = 225.0
 offset_bottom = 101.0
 text = "TEST ATTACK"
 
+[node name="btn1" type="Button" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 90.0
+grow_vertical = 0
+text = "Many  text"
+
+[node name="btn2" type="Button" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -78.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "New text"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -139.0
+offset_top = -74.0
+offset_right = 139.0
+offset_bottom = 74.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "test"
+horizontal_alignment = 1
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="btn1" to="." method="_on_btn_1_pressed"]
+[connection signal="pressed" from="btn2" to="." method="_on_btn_2_pressed"]

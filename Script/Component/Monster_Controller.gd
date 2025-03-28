@@ -102,8 +102,9 @@ func start_action():
 	print(name + " mulai giliran!")
 	action_point += 2
 	if buff_manager.active_buffs:
+		print("cek_buff")
 		buff_manager.apply_buff_effects(self)
-		await buff_manager.done_apply
+		await buff_manager.done_active
 	if AI:
 		perform_action()
 	else:
@@ -123,8 +124,10 @@ func perform_attack():
 		if atk_modifiers:
 			var has_buff = atk_modifiers.apply_modifier()  # Coba aktifkan buff
 			if has_buff:
+				print("attack buff")
 				emit_signal("attack_completed", stats.power, atk_modifiers.active_buffs)
 			else :
+				print("attack nt")
 				emit_signal("attack_completed", stats.power, null)
 		else:
 			print("attack polos")

@@ -34,3 +34,13 @@ func check_buff(v:Buff_Data):
 
 func _on_button_pressed() -> void:
 	pass # Replace with function body.
+
+
+func _on_btn_2_pressed() -> void:
+	$RichTextLabel.text = "test ini text baru"
+
+func _on_btn_1_pressed() -> void:
+	$RichTextLabel.text = "[center]text pertama[/center]\n"
+	$RichTextLabel.append_text("[right]text di append 1[/right]\n")
+	$RichTextLabel.append_text("text di append 2\n")
+	$RichTextLabel.append_text("text di append 3\n")

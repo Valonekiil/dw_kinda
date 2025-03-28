@@ -162,6 +162,7 @@ grow_vertical = 2
 bbcode_enabled = true
 text = "[b]Lorem ipsum dolor sit amet[/b] wkaodoakdaojdwoiajwdmaskdakwjdoajksdjajdkajksdjoaakwod
 akwdoadoakwodaosdokawodkaksdoawkdoaowdaokwkdoadokawdkoakdokawdokaowdkodw awkdokaodkaodwodkadawkawokdoakdokawkdaokdoawkdaowkdkoaowkdko"
+horizontal_alignment = 1
 
 [node name="Close_Btn" type="Button" parent="Turn_Manager/ui/Conf_Manager"]
 layout_mode = 1
@@ -178,6 +179,9 @@ grow_horizontal = 0
 grow_vertical = 0
 theme = SubResource("Theme_akgwt")
 text = "skip"
+
+[node name="Timer" type="Timer" parent="Turn_Manager/ui/Conf_Manager"]
+one_shot = true
 
 [node name="P1_Con" type="VBoxContainer" parent="Turn_Manager/ui"]
 offset_left = 30.0
@@ -299,6 +303,7 @@ offset_bottom = 147.0
 text = "SAVE ANIM"
 
 [connection signal="pressed" from="Turn_Manager/ui/Conf_Manager/Close_Btn" to="Turn_Manager/ui/Conf_Manager" method="_on_close_btn_pressed"]
+[connection signal="timeout" from="Turn_Manager/ui/Conf_Manager/Timer" to="Turn_Manager/ui/Conf_Manager" method="_on_timer_timeout"]
 [connection signal="pressed" from="Turn_Manager/ui/Btn_Attack" to="Turn_Manager" method="_on_btn_attack_pressed"]
 [connection signal="pressed" from="Turn_Manager/ui/Btn_Defense" to="Turn_Manager" method="_on_btn_defense_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
