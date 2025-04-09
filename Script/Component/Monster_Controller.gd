@@ -19,6 +19,8 @@ var hp_txt:Label
 @export var AI:bool
 var action_point:int 
 var is_defense:bool
+var bar:ProgressBar
+var txt:Label
 # Signal untuk mengirim damage dan mengakhiri giliran
 signal attack_completed(damage: int, buff:Variant)
 signal defense_completed(defense:int)
@@ -32,7 +34,9 @@ signal turn_ended()
 	#attack_hitbox.collision_mask = 0b0010  # Mask: Layer 2 (hurtboxes)
 	#hurtbox.collision_layer = 0b0010       # Layer: 2 (hurtbox)
 
-func init():
+func init(hp_bar:ProgressBar, hp_num:Label):
+	bar = hp_bar
+	txt = hp_num
 	if !atk_modifiers && monster.atk_modifiers:
 		var am = Atk_Modifier_Component.new()
 		add_child(am)
@@ -105,7 +109,12 @@ func start_action():
 		print("cek_buff")
 		buff_manager.apply_buff_effects(self)
 		await buff_manager.done_active
-	if AI:
+		if stats.cur_hp <=0:
+			die()
+			return
+		if action_point <= 0:
+			end_turn()
+	elif AI && action_point > 0:
 		perform_action()
 	else:
 		pass
@@ -170,7 +179,7 @@ func evolve(evolution: Monster_Controller):
 	else:
 		print("Evolution_Manager tidak ditemukan!")
 
-func update_hp(bar:ProgressBar, txt:Label):
+func update_hp():
 	bar.max_value = stats.health
 	bar.value = stats.cur_hp
 	if stats.cur_hp <= 0:

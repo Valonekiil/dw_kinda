@@ -22,8 +22,8 @@ var current_act: int = 1
 var temp_def:bool
 
 func init():
-	monster_1.init()
-	monster_2.init()
+	monster_1.init(hp_bar_1,hp1)
+	monster_2.init(hp_bar_2,hp2)
 	monster_1.buff_manager.init(buff_con1,conf,monster_1.stats)
 	monster_1.buff_manager.buff_activated.connect(conf.Buff_Activated)
 	monster_2.buff_manager.init(buff_con2,conf,monster_2.stats)
@@ -45,8 +45,8 @@ func init():
 	monster_2.turn_ended.connect(_on_turn_ended)
 	monster_2.buff_added.connect(confirm_buff.bind(monster_2))
 	# Memulai giliran pertama
-	monster_1.update_hp(hp_bar_1,hp1)
-	monster_2.update_hp(hp_bar_2,hp2)
+	monster_1.update_hp()
+	monster_2.update_hp()
 	start_turn()
 	
 	name_1.text = monster_1.monster.name
@@ -55,7 +55,7 @@ func init():
 
 # Fungsi untuk memulai giliran
 func start_turn():
-	await get_tree().process_frame
+	
 	# Tentukan siapa yang mendapat giliran berdasarkan nilai Turn
 	print("turn start")
 	if Turn % 2 == 0:
@@ -70,6 +70,8 @@ func start_turn():
 	$ui/Cur_Turn.text = str(Turn)
 	conf.Monster_Turn(current_turn)
 	current_target.anim_state(0)
+	current_turn.anim_state(0)
+	await conf.btn.pressed
 	current_turn.start_action()
 
 
@@ -86,7 +88,7 @@ func _on_attack_completed(damage: int, buff: Variant, target: Monster_Controller
 		temp_def = false
 	else:
 		conf.Monster_Take_Damage(target,damage)
-	target.update_hp(target.hp_bar,target.hp_txt)
+	target.update_hp()
 	await conf.btn.pressed
 	if target:
 		if target.stats.cur_hp > 0:
@@ -116,6 +118,8 @@ func _on_defense_completed(defense:int):
 
 # Fungsi untuk menangani signal turn_ended
 func _on_turn_ended():
+	conf.Monster_Turn_End(current_turn)
+	await conf.btn.pressed
 	current_act = 1
 	start_turn()
 
@@ -130,6 +134,7 @@ func target_take_damage():
 func _on_btn_attack_pressed() -> void:
 	if current_turn == monster_1:
 		monster_1.perform_attack()
+		atk_btn.disabled = true
 	else:
 		print("ini bukan giliranmu")
 

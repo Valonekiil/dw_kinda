@@ -31,6 +31,9 @@ func on_tween_finished():
 func Monster_Turn(cur: Monster_Controller):
 	context.text = "Giliran [b]"+cur.monster.name+"[/b] melakukan aksi"
 	Animate_Conf()
+func Monster_Turn_End(cur: Monster_Controller):
+	context.text = "Giliran [b]"+cur.monster.name+"[/b] telah berakhir"
+	Animate_Conf()
 func Monster_Attack(cur:Monster_Controller):
 	context.text = "[b]"+cur.monster.name+"[/b] melakukan serangan"
 	Animate_Conf()

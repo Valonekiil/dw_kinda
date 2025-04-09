@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dj3qtsqguco1p"]
+[gd_scene load_steps=20 format=3 uid="uid://dj3qtsqguco1p"]
 
 [ext_resource type="Script" uid="uid://c1rl3rwfvhqm5" path="res://test_scene.gd" id="1_sasra"]
 [ext_resource type="PackedScene" uid="uid://c3a7awere5nne" path="res://Aset/Monster/monster_controller.tscn" id="2_2nij2"]
@@ -11,8 +11,10 @@
 [ext_resource type="Script" uid="uid://rfkiexucyp03" path="res://Script/Resource/buff_data.gd" id="4_oo8pe"]
 [ext_resource type="PackedScene" uid="uid://cquw6qe3g06g1" path="res://Scene/Manager/evolution_manager.tscn" id="7_rpuu0"]
 [ext_resource type="Texture2D" uid="uid://djo7ayu3ua72i" path="res://buff.jpg" id="10_oo8pe"]
+[ext_resource type="Script" uid="uid://bm03vp6hmy1cj" path="res://skill_slot_1.gd" id="11_fbuy2"]
 [ext_resource type="Script" uid="uid://dudih2q1tstbb" path="res://Script/Resource/atk_mod_data.gd" id="12_4gito"]
 [ext_resource type="Script" uid="uid://eegk40ffwnhi" path="res://Script/Resource/monster_data.gd" id="12_oo8pe"]
+[ext_resource type="Script" uid="uid://bsf54ydfj5bv3" path="res://Script/element_manager.gd" id="15_0k8yu"]
 
 [sub_resource type="Resource" id="Resource_4gito"]
 script = ExtResource("4_oo8pe")
@@ -88,11 +90,237 @@ grow_vertical = 2
 
 [node name="ui" type="CanvasLayer" parent="Control"]
 
+[node name="VScrollBar" type="VScrollBar" parent="Control/ui"]
+clip_contents = true
+offset_left = 11.0
+offset_top = 188.0
+offset_right = 337.0
+offset_bottom = 318.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ui/VScrollBar"]
+clip_children = 1
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 4.0
+offset_right = -36.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Skill_Slot1" type="PanelContainer" parent="Control/ui/VScrollBar/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+script = ExtResource("11_fbuy2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot1"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="image" type="ColorRect" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot1/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.917647, 0.247059, 0.152941, 1)
+
+[node name="name" type="Label" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot1/HBoxContainer"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "Fireball of the migadgwada"
+clip_text = true
+
+[node name="ColorRect" type="ColorRect" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot1/HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+color = Color(0.272655, 0.272655, 0.272655, 1)
+
+[node name="mana" type="Label" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot1/HBoxContainer"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+text = "2000"
+clip_text = true
+
+[node name="Skill_Slot2" type="PanelContainer" parent="Control/ui/VScrollBar/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+script = ExtResource("11_fbuy2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot2"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="image" type="ColorRect" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot2/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.917647, 0.247059, 0.152941, 1)
+
+[node name="name" type="Label" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot2/HBoxContainer"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "Fireball of the migadgwada"
+clip_text = true
+
+[node name="ColorRect" type="ColorRect" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot2/HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+color = Color(0.272655, 0.272655, 0.272655, 1)
+
+[node name="mana" type="Label" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot2/HBoxContainer"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+text = "2000"
+clip_text = true
+
+[node name="Skill_Slot3" type="PanelContainer" parent="Control/ui/VScrollBar/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+script = ExtResource("11_fbuy2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot3"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="image" type="ColorRect" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot3/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.917647, 0.247059, 0.152941, 1)
+
+[node name="name" type="Label" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot3/HBoxContainer"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "Fireball of the migadgwada"
+clip_text = true
+
+[node name="ColorRect" type="ColorRect" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot3/HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+color = Color(0.272655, 0.272655, 0.272655, 1)
+
+[node name="mana" type="Label" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot3/HBoxContainer"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+text = "2000"
+clip_text = true
+
+[node name="Skill_Slot4" type="PanelContainer" parent="Control/ui/VScrollBar/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+script = ExtResource("11_fbuy2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot4"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="image" type="ColorRect" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot4/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.917647, 0.247059, 0.152941, 1)
+
+[node name="name" type="Label" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot4/HBoxContainer"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "Fireball of the migadgwada"
+clip_text = true
+
+[node name="ColorRect" type="ColorRect" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot4/HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+color = Color(0.272655, 0.272655, 0.272655, 1)
+
+[node name="mana" type="Label" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot4/HBoxContainer"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+text = "2000"
+clip_text = true
+
+[node name="Skill_Slot5" type="PanelContainer" parent="Control/ui/VScrollBar/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+script = ExtResource("11_fbuy2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot5"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="image" type="ColorRect" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot5/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.917647, 0.247059, 0.152941, 1)
+
+[node name="name" type="Label" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot5/HBoxContainer"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "Fireball of the migadgwada"
+clip_text = true
+
+[node name="ColorRect" type="ColorRect" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot5/HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+color = Color(0.272655, 0.272655, 0.272655, 1)
+
+[node name="mana" type="Label" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot5/HBoxContainer"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+text = "2000"
+clip_text = true
+
+[node name="Skill_Slot6" type="PanelContainer" parent="Control/ui/VScrollBar/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+script = ExtResource("11_fbuy2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot6"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="image" type="ColorRect" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot6/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.917647, 0.247059, 0.152941, 1)
+
+[node name="name" type="Label" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot6/HBoxContainer"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "Fireball of the migadgwada"
+clip_text = true
+
+[node name="ColorRect" type="ColorRect" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot6/HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+color = Color(0.272655, 0.272655, 0.272655, 1)
+
+[node name="mana" type="Label" parent="Control/ui/VScrollBar/VBoxContainer/Skill_Slot6/HBoxContainer"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+text = "2000"
+clip_text = true
+
 [node name="con" type="HBoxContainer" parent="Control/ui"]
+visible = false
 offset_left = 568.0
 offset_top = 34.0
 offset_right = 1112.0
-offset_bottom = 34.0
+offset_bottom = 66.0
 theme_override_constants/separation = 20
 
 [node name="TextureRect" type="TextureRect" parent="Control/ui/con"]
@@ -111,6 +339,25 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 10
 text = "5"
 horizontal_alignment = 1
+
+[node name="Desc" type="Panel" parent="Control/ui"]
+offset_left = 502.0
+offset_top = 93.0
+offset_right = 725.0
+offset_bottom = 226.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/ui/Desc"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]SkillName[/center]
+Damage: aksmdasd
+asdasdasd
+asfdasdasd"
 
 [node name="pokemon1" parent="." node_paths=PackedStringArray("sprite", "Anim", "attack_hitbox", "hurtbox") instance=ExtResource("2_2nij2")]
 monster = ExtResource("3_8pr8v")
@@ -205,6 +452,9 @@ grow_vertical = 2
 bbcode_enabled = true
 text = "test"
 horizontal_alignment = 1
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("15_0k8yu")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="btn1" to="." method="_on_btn_1_pressed"]

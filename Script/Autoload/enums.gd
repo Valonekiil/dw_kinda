@@ -1,27 +1,27 @@
 extends Node
 
 enum MonsterType {
-	ECHO,
-	MYTHLING,
-	MYTHICAL,
-	MAJESTIC,
-	MYTHOS,
-	DEITY
+	Echo,
+	Mythling,
+	Mythical,
+	Majestic,
+	Mythos,
+	Deity
 }
 
 enum Element {
-	FIRE,
-	WATER,
-	EARTH,
-	NATURE,
-	WIND,
-	LIGHTNING,
-	ICE,
-	METAL,
-	LIGHT,
-	DARK,
-	CHAOS,
-	MYSTICAL
+	Fire,
+	Water,
+	Earth,
+	Nature,
+	Wind,
+	Lighting,
+	Ice,
+	Metal,
+	Light,
+	Dark,
+	Chaos,
+	Mystical
 }
 
 enum SkillType {

@@ -32,6 +32,10 @@ func remove_buff(buff: Buff_Data):
 
 # Fungsi untuk mengaplikasikan buff/debuff
 func apply_individual_effect(monster: Monster_Controller, buff: Buff_Data):
+	if buff.stun:
+		monster.action_point = 0
+	stats.cur_hp -= buff.damage
+	stats.cur_hp += buff.heal
 	if buff.stats_manipulation:
 		print("stats check")
 		stats.power += buff.power_changed
@@ -99,6 +103,7 @@ func apply_buff_effects(monster: Monster_Controller):
 		apply_individual_effect(monster, buff)
 		emit_signal("buff_activated", buff)
 		await conf.btn.pressed
+		monster.update_hp()
 		print("buff effect conf closed")
 		buff.duration -= 1
 		if buff.duration <= 0:

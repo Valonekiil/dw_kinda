@@ -23,5 +23,6 @@ script = ExtResource("4_gb186")
 
 [node name="Mexmon" type="Node2D" parent="."]
 script = ExtResource("7_gb186")
+AI = null
 
 [node name="Evolution_Manager" parent="." instance=ExtResource("7_6xstu")]
