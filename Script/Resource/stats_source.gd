@@ -72,17 +72,17 @@ func apply_add(base: Stats_Source, add: Stats_Source) -> Stats_Source:
 # Fungsi untuk mendapatkan pengurangan berdasarkan tipe Digimon
 func get_reduction_multiplier(digimon_type: Enums.MonsterType) -> float:
 	match digimon_type:
-		Enums.MonsterType.DEITY:
+		Enums.MonsterType.Deity:
 			return 0.5  # Deity: 50%
-		Enums.MonsterType.MYTHOS:
+		Enums.MonsterType.Mythos:
 			return 0.6  # Mythos: 40%
-		Enums.MonsterType.MAJESTIC:
+		Enums.MonsterType.Majestic:
 			return 0.7  # Majestic: 30%
-		Enums.MonsterType.MYTHICAL:
+		Enums.MonsterType.Mythical:
 			return 0.8  # Mythical: 20%
-		Enums.MonsterType.MYTHLING:
+		Enums.MonsterType.Mythling:
 			return 0.9  # Mythling: 10%
-		Enums.MonsterType.ECHO:
+		Enums.MonsterType.Echo:
 			return 1.0  # Echo: 0% (tidak ada pengurangan)
 		_:
 			return 1.0  # Default: tidak ada pengurangan

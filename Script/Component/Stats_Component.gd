@@ -5,12 +5,12 @@ class_name Stats_Component
 
 # Faktor pengali berdasarkan fase evolusi
 var evolution_multipliers = {
-	Enums.MonsterType.ECHO: 1.0,
-	Enums.MonsterType.MYTHLING: 2.0,
-	Enums.MonsterType.MYTHICAL: 5.0,
-	Enums.MonsterType.MAJESTIC: 7.0,
-	Enums.MonsterType.MYTHOS: 8.0,
-	Enums.MonsterType.DEITY: 10.0
+	Enums.MonsterType.Echo: 1.0,
+	Enums.MonsterType.Mythling: 2.0,
+	Enums.MonsterType.Mythical: 5.0,
+	Enums.MonsterType.Majestic: 7.0,
+	Enums.MonsterType.Mythos: 8.0,
+	Enums.MonsterType.Deity: 10.0
 }
 
 # Fungsi untuk menambah EXP
@@ -56,29 +56,29 @@ func increase_stats(multiplier: float):
 
 	# Tingkatkan statistik elemen utama lebih tinggi
 	match stats_source.primary_element:
-		Enums.Element.FIRE:
+		Enums.Element.Fire:
 			stats_source.fire += int(3 * multiplier)
-		Enums.Element.WATER:
+		Enums.Element.Water:
 			stats_source.water += int(3 * multiplier)
-		Enums.Element.EARTH:
+		Enums.Element.Earth:
 			stats_source.earth += int(3 * multiplier)
-		Enums.Element.NATURE:
+		Enums.Element.Nature:
 			stats_source.nature += int(3 * multiplier)
-		Enums.Element.WIND:
+		Enums.Element.Wind:
 			stats_source.wind += int(3 * multiplier)
-		Enums.Element.LIGHTNING:
+		Enums.Element.Lighting:
 			stats_source.lightning += int(3 * multiplier)
-		Enums.Element.ICE:
+		Enums.Element.Ice:
 			stats_source.ice += int(3 * multiplier)
-		Enums.Element.METAL:
+		Enums.Element.Metal:
 			stats_source.metal += int(3 * multiplier)
-		Enums.Element.LIGHT:
+		Enums.Element.Light:
 			stats_source.light += int(3 * multiplier)
-		Enums.Element.DARK:
+		Enums.Element.Dark:
 			stats_source.dark += int(3 * multiplier)
-		Enums.Element.CHAOS:
+		Enums.Element.Chaos:
 			stats_source.chaos += int(3 * multiplier)
-		Enums.Element.MYSTICAL:
+		Enums.Element.Mystical:
 			stats_source.mystical += int(3 * multiplier)
 		_:
 			print("Elemen utama tidak dikenali.")

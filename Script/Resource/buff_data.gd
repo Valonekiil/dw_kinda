@@ -16,18 +16,18 @@ class_name Buff_Data
 @export var speed_changed: int 
 @export var element_manipulation: bool
 @export var element_changed: Dictionary = {
-	Enums.Element.FIRE: 0,
-	Enums.Element.WATER: 0,
-	Enums.Element.EARTH: 0,
-	Enums.Element.NATURE: 0,
-	Enums.Element.WIND: 0,
-	Enums.Element.LIGHTNING: 0,
-	Enums.Element.ICE: 0,
-	Enums.Element.METAL: 0,
-	Enums.Element.LIGHT: 0,
-	Enums.Element.DARK: 0,
-	Enums.Element.CHAOS: 0,
-	Enums.Element.MYSTICAL: 0
+	Enums.Element.Fire: 0,
+	Enums.Element.Water: 0,
+	Enums.Element.Earth: 0,
+	Enums.Element.Nature: 0,
+	Enums.Element.Wind: 0,
+	Enums.Element.Lighting: 0,
+	Enums.Element.Ice: 0,
+	Enums.Element.Metal: 0,
+	Enums.Element.Light: 0,
+	Enums.Element.Dark: 0,
+	Enums.Element.Chaos: 0,
+	Enums.Element.Mystical: 0
 }
 
 

@@ -68,29 +68,29 @@ func revert_buff(buff: Buff_Data):
 # Fungsi untuk mengaplikasikan peningkatan/penurunan resistensi elemen
 func apply_element_resistance(element: Enums.Element, amount: int):
 	match element:
-		Enums.Element.FIRE:
+		Enums.Element.Fire:
 			stats.fire += amount
-		Enums.Element.WATER:
+		Enums.Element.Water:
 			stats.water += amount
-		Enums.Element.EARTH:
+		Enums.Element.Earth:
 			stats.earth += amount
-		Enums.Element.NATURE:
+		Enums.Element.Nature:
 			stats.nature += amount
-		Enums.Element.WIND:
+		Enums.Element.Wind:
 			stats.wind += amount
-		Enums.Element.LIGHTNING:
+		Enums.Element.Lighting:
 			stats.lightning += amount
-		Enums.Element.ICE:
+		Enums.Element.Ice:
 			stats.ice += amount
-		Enums.Element.METAL:
+		Enums.Element.Metal:
 			stats.metal += amount
-		Enums.Element.LIGHT:
+		Enums.Element.Light:
 			stats.light += amount
-		Enums.Element.DARK:
+		Enums.Element.Dark:
 			stats.dark += amount
-		Enums.Element.CHAOS:
+		Enums.Element.Chaos:
 			stats.chaos += amount
-		Enums.Element.MYSTICAL:
+		Enums.Element.Mystical:
 			stats.mystical += amount
 		_:
 			print("Elemen tidak dikenali.")

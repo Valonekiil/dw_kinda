@@ -85,18 +85,18 @@ func Buff_Activated(buff:Buff_Data):
 					context.append_text("[left] %s monster berkurang sebesar %d [/left]" % [stat, abs(value)])
 	if buff.element_manipulation:
 		var element_names = {
-			Enums.Element.FIRE: "Fire",
-			Enums.Element.WATER: "Water",
-			Enums.Element.EARTH: "Earth",
-			Enums.Element.NATURE: "Nature",
-			Enums.Element.WIND: "Wind",
-			Enums.Element.LIGHTNING: "Lightning",
-			Enums.Element.ICE: "Ice",
-			Enums.Element.METAL: "Metal",
-			Enums.Element.LIGHT: "Light",
-			Enums.Element.DARK: "Dark",
-			Enums.Element.CHAOS: "Chaos",
-			Enums.Element.MYSTICAL: "Mystical"
+			Enums.Element.Fire: "Fire",
+			Enums.Element.Water: "Water",
+			Enums.Element.Earth: "Earth",
+			Enums.Element.Nature: "Nature",
+			Enums.Element.Wind: "Wind",
+			Enums.Element.Lighting: "Lightning",
+			Enums.Element.Ice: "Ice",
+			Enums.Element.Metal: "Metal",
+			Enums.Element.Light: "Light",
+			Enums.Element.Dark: "Dark",
+			Enums.Element.Chaos: "Chaos",
+			Enums.Element.Mystical: "Mystical"
 		}
 		print("confirm_element_manipulation")
 		for element in buff.element_changed:
