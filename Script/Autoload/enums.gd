@@ -10,6 +10,7 @@ enum MonsterType {
 }
 
 enum Element {
+	Neutral,
 	Fire,
 	Water,
 	Earth,
@@ -27,4 +28,26 @@ enum Element {
 enum SkillType {
 	OFFENSIVE,  
 	DEFENSIVE
+}
+
+enum Reqtype{
+	lvl,
+	power,
+	guard,
+	arcane,
+	insight,
+	speed,
+	charm,
+	fire,
+	water,
+	earth,
+	nature,
+	wind,
+	lightning,
+	ice,
+	metal,
+	light,
+	dark,
+	chaos,
+	mystical,
 }

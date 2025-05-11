@@ -1,6 +1,6 @@
 extends Resource
 class_name Stats_Source
-
+#lvl, 
 @export var lvl: int
 @export var monster_type: Enums.MonsterType
 @export var primary_element: Enums.Element

@@ -4,6 +4,7 @@ class_name ElementSystem
 
 # Definisi hubungan elemen (strength/weakness)
 var element_relations = {
+	"Neutral":{"strong": ["Mystical"]},
 	"Fire": {"strong": ["Earth", "Ice", "Metal"], "weak": ["Water", "Lightning", "Nature", "Fire"]},
 	"Water": {"strong": ["Fire", "Lightning", "Metal"], "weak": ["Earth", "Wind", "Nature"]},
 	"Earth": {"strong": ["Water", "Lightning", "Nature"], "weak": ["Wind", "Ice", "Metal"]},
@@ -15,7 +16,7 @@ var element_relations = {
 	"Nature": {"strong": ["Fire", "Water", "Earth"], "weak": ["Wind", "Ice", "Lightning"]},
 	"Metal": {"strong": ["Ice", "Lightning", "Earth"], "weak": ["Fire", "Water", "Wind"]},
 	"Chaos": {"strong": ["Mystical", "Light", "Dark"], "weak": ["Chaos"]},
-	"Mystical": {"strong": ["Fire", "Water", "Earth", "Wind", "Lightning", "Ice", "Light", "Dark", "Nature", "Metal"], "weak": ["Chaos"]}
+	"Mystical": {"strong": ["Fire", "Water", "Earth", "Wind", "Lightning", "Ice", "Light", "Dark", "Nature", "Metal"], "weak": ["Chaos", "Neutral"]}
 }
 
 # Fungsi untuk menghitung damage multiplier berdasarkan elemen

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c6j256fdxi0a0"]
+[gd_scene load_steps=17 format=3 uid="uid://c6j256fdxi0a0"]
 
 [ext_resource type="Script" uid="uid://byu3hisft2xk0" path="res://Script/battle_scene.gd" id="1_3q3gc"]
 [ext_resource type="Resource" uid="uid://dlskke73togbf" path="res://Aset/Monster/Stats/Vegamon(test2).tres" id="2_a3fgx"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c3a7awere5nne" path="res://Aset/Monster/monster_controller.tscn" id="3_a3fgx"]
 [ext_resource type="Script" uid="uid://bsf54ydfj5bv3" path="res://Script/element_manager.gd" id="5_u6krl"]
 [ext_resource type="Script" uid="uid://cdirmgsncpy3m" path="res://UI/Confirmation/conf_pop_manager.gd" id="6_d1nv8"]
+[ext_resource type="Script" uid="uid://dmvafhun7udfc" path="res://UI/skill_menu.gd" id="7_a3fgx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uk2p2"]
 radius = 250.0
@@ -273,7 +274,6 @@ text = "1213"
 horizontal_alignment = 1
 
 [node name="Player_Btn" type="VBoxContainer" parent="Turn_Manager/ui"]
-visible = false
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -291,65 +291,426 @@ text = "Attack"
 layout_mode = 2
 text = "Defense"
 
-[node name="Btn" type="Button" parent="Turn_Manager/ui/Player_Btn"]
+[node name="Btn_Skill" type="Button" parent="Turn_Manager/ui/Player_Btn"]
 layout_mode = 2
 text = "Skill"
 
-[node name="Btn2" type="Button" parent="Turn_Manager/ui/Player_Btn"]
+[node name="Btn_Evolve" type="Button" parent="Turn_Manager/ui/Player_Btn"]
 layout_mode = 2
 text = "Evolve"
 
-[node name="Btn3" type="Button" parent="Turn_Manager/ui/Player_Btn"]
+[node name="Btn_Tag" type="Button" parent="Turn_Manager/ui/Player_Btn"]
 layout_mode = 2
-text = "Switch"
+text = "Tag"
 
-[node name="Btn4" type="Button" parent="Turn_Manager/ui/Player_Btn"]
+[node name="Btn_Item" type="Button" parent="Turn_Manager/ui/Player_Btn"]
 layout_mode = 2
 text = "Item"
 
-[node name="Btn5" type="Button" parent="Turn_Manager/ui/Player_Btn"]
+[node name="Btn_Flee" type="Button" parent="Turn_Manager/ui/Player_Btn"]
 layout_mode = 2
 text = "Flee"
 
-[node name="Evolution_Menu" type="Control" parent="Turn_Manager/ui"]
+[node name="Skill_Menu" type="Control" parent="Turn_Manager/ui"]
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
+offset_left = 7.0
+offset_top = -268.0
+offset_right = 203.0
+offset_bottom = -39.0
+grow_vertical = 0
+script = ExtResource("7_a3fgx")
+
+[node name="TC" type="TabContainer" parent="Turn_Manager/ui/Skill_Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+tabs_visible = false
+
+[node name="VBC" type="VBoxContainer" parent="Turn_Manager/ui/Skill_Menu/TC"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Button" type="Button" parent="Turn_Manager/ui/Skill_Menu/TC/VBC"]
+layout_mode = 2
+text = "Skill"
+
+[node name="Control2" type="Control" parent="Turn_Manager/ui"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -268.0
+offset_right = 203.0
+offset_bottom = -39.0
 grow_vertical = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="Turn_Manager/ui/Evolution_Menu"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 9.0
-offset_top = -249.0
-offset_right = 209.0
-offset_bottom = -76.0
-grow_vertical = 2
+[node name="Evolution_Menu" type="Control" parent="Turn_Manager/ui"]
+visible = false
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -268.0
+offset_right = 203.0
+offset_bottom = -27.0
+grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer"]
+[node name="PanelContainer" type="TabContainer" parent="Turn_Manager/ui/Evolution_Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 1
+tabs_visible = false
+
+[node name="Element" type="CenterContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer"]
+visible = false
+custom_minimum_size = Vector2(195, 229)
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Element" type="GridContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element"]
+layout_mode = 2
+theme_override_constants/h_separation = 17
+theme_override_constants/v_separation = 7
+columns = 2
+
+[node name="Fire" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element"]
+layout_mode = 2
+alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Fire"]
+custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 
-[node name="con" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Fire"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot 2" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 2"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 2"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot 3" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 3"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 3"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot 4" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 4"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 4"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot 5" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 5"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 5"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot 6" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 6"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 6"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot 7" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 7"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 7"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot 8" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 8"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 8"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot 9" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 9"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 9"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot 10" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 10"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 10"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot 11" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 11"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 11"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot 12" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 12"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element/Slot 12"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="left" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="right" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Element/Element"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Stats_Basic" type="Control" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer"]
+custom_minimum_size = Vector2(195, 229)
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 48.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 19
+text = "Name"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/VBoxContainer/con"]
-layout_mode = 2
-text = "DUM"
-
-[node name="Label2" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/VBoxContainer/con"]
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Slot2"
+theme_override_font_sizes/font_size = 12
+text = "Phase"
+horizontal_alignment = 2
+
+[node name="VSeparator" type="VSeparator" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(27, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Lvl 1"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/VBoxContainer/con"]
-custom_minimum_size = Vector2(50, 0)
+[node name="VSeparator2" type="VSeparator" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "Type."
+
+[node name="StatsCount" type="VBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -60.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/StatsCount"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/StatsCount/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+text = "10.000/10.000"
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/StatsCount/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label2" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/StatsCount/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+text = "99.999/99.999"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/StatsCount"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "123456789012345678921234"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -125.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="GridContainer" type="GridContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 17
+theme_override_constants/v_separation = 7
+columns = 2
+
+[node name="Slot1" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer/Slot1"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer/Slot1"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot2" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer/Slot2"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer/Slot2"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot3" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer/Slot3"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer/Slot3"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot4" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer/Slot4"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer/Slot4"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot5" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer/Slot5"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer/Slot5"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="Slot6" type="HBoxContainer" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer/Slot6"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer/Slot6"]
+layout_mode = 2
+text = "LABEL"
+
+[node name="left" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="right" type="ColorRect" parent="Turn_Manager/ui/Evolution_Menu/PanelContainer/Stats_Basic/CenterContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Turn_Manager"]
@@ -366,4 +727,9 @@ text = "SAVE ANIM"
 [connection signal="timeout" from="Turn_Manager/ui/Conf_Manager/Timer" to="Turn_Manager/ui/Conf_Manager" method="_on_timer_timeout"]
 [connection signal="pressed" from="Turn_Manager/ui/Player_Btn/Btn_Attack" to="Turn_Manager" method="_on_btn_attack_pressed"]
 [connection signal="pressed" from="Turn_Manager/ui/Player_Btn/Btn_Defense" to="Turn_Manager" method="_on_btn_defense_pressed"]
+[connection signal="pressed" from="Turn_Manager/ui/Player_Btn/Btn_Skill" to="Turn_Manager" method="_on_btn_skill_pressed"]
+[connection signal="pressed" from="Turn_Manager/ui/Player_Btn/Btn_Evolve" to="Turn_Manager" method="_on_btn_evolve_pressed"]
+[connection signal="pressed" from="Turn_Manager/ui/Player_Btn/Btn_Tag" to="Turn_Manager" method="_on_btn_tag_pressed"]
+[connection signal="pressed" from="Turn_Manager/ui/Player_Btn/Btn_Item" to="Turn_Manager" method="_on_btn_item_pressed"]
+[connection signal="pressed" from="Turn_Manager/ui/Player_Btn/Btn_Flee" to="Turn_Manager" method="_on_btn_flee_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

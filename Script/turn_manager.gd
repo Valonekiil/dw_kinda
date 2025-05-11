@@ -11,9 +11,10 @@ class_name Turn_Manager
 @onready var hp_bar_2 = $ui/P2_Con/hp
 @onready var hp2 = $ui/P2_Con/hp/c/txt
 @onready var buff_con2 = $ui/P2_Con/buff
-@onready var atk_btn = $ui/Btn_Attack
-@onready var def_btn = $ui/Btn_Defense
+@onready var atk_btn = $ui/Player_Btn/Btn_Attack
+@onready var def_btn = $ui/Player_Btn/Btn_Defense
 @onready var conf:Conf_Manager = $ui/Conf_Manager
+@onready var Player_Btn = $ui/Player_Btn
 # Variabel untuk melacak giliran saat ini
 var Turn: int = 0
 var current_turn: Monster_Controller
@@ -73,6 +74,8 @@ func start_turn():
 	current_turn.anim_state(0)
 	await conf.btn.pressed
 	current_turn.start_action()
+	if current_turn == monster_1:
+		Player_Btn.get_child(0).grab_focus()
 
 
 # Fungsi untuk menangani signal attack_completed
@@ -131,6 +134,13 @@ func confirm_buff(buff:Buff_Data, mon:Monster_Controller):
 func target_take_damage():
 	current_target.anim_state(3)
 
+@onready var Skill_Menu 
+
+func ui_state(i:int):
+	match i:
+		0:
+			pass
+
 func _on_btn_attack_pressed() -> void:
 	if current_turn == monster_1:
 		monster_1.perform_attack()
@@ -139,6 +149,36 @@ func _on_btn_attack_pressed() -> void:
 		print("ini bukan giliranmu")
 
 func _on_btn_defense_pressed() -> void:
+	if current_turn == monster_1:
+		monster_1.perform_defense()
+	else :
+		print("ini bukan giliranmu")
+
+func _on_btn_skill_pressed() -> void:
+	if current_turn == monster_1:
+		monster_1.perform_defense()
+	else :
+		print("ini bukan giliranmu")
+
+func _on_btn_evolve_pressed() -> void:
+	if current_turn == monster_1:
+		monster_1.perform_defense()
+	else :
+		print("ini bukan giliranmu")
+
+func _on_btn_tag_pressed() -> void:
+	if current_turn == monster_1:
+		monster_1.perform_defense()
+	else :
+		print("ini bukan giliranmu")
+
+func _on_btn_item_pressed() -> void:
+	if current_turn == monster_1:
+		monster_1.perform_defense()
+	else :
+		print("ini bukan giliranmu")
+
+func _on_btn_flee_pressed() -> void:
 	if current_turn == monster_1:
 		monster_1.perform_defense()
 	else :

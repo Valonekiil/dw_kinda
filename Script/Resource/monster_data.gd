@@ -3,7 +3,7 @@ class_name Monster_Data
 
 @export var name: String # Nama monster
 @export var stats_comp: Stats_Source
-#@export var skills: Skill_Component
+@export var skillset:Array[SkillData]
 @export var atk_modifiers: Array[Atk_Modifer]
 @export var texture: Texture2D
 @export var A_idle: Animation
