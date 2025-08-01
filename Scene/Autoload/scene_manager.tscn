@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://bijddq5eshvwc"]
+
+[ext_resource type="Script" uid="uid://bkfe55cxh7ba7" path="res://Aset/Demo/scene_manager.gd" id="1_h0cgm"]
+
+[sub_resource type="Animation" id="Animation_oea2g"]
+resource_name = "Battle_Start"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_x42ke"]
+resource_name = "Enemy_Appear"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.0980392), Color(0, 0, 0, 0), Color(0, 0, 0, 0.294118), Color(0, 0, 0, 0), Color(0, 0, 0, 0.490196), Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hsoey"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_78ppm"]
+_data = {
+&"Battle_Start": SubResource("Animation_oea2g"),
+&"Enemy_Appear": SubResource("Animation_x42ke"),
+&"RESET": SubResource("Animation_hsoey")
+}
+
+[node name="SceneManager" type="CanvasLayer"]
+script = ExtResource("1_h0cgm")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_78ppm")
+}

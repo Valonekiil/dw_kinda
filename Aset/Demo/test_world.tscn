@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://dumnataxr6pp6"]
+
+[ext_resource type="Script" uid="uid://2i6xrdj7dsw" path="res://Aset/Demo/test_world.gd" id="1_iu146"]
+[ext_resource type="Texture2D" uid="uid://bemhv46v5ns45" path="res://Aset/Gambar/slope_exp.png" id="2_2lwkx"]
+[ext_resource type="Texture2D" uid="uid://biphosjrj0hfv" path="res://Aset/Gambar/greenland_iso.png" id="2_vbms3"]
+[ext_resource type="PackedScene" uid="uid://cm4ualrrgetiq" path="res://Scene/player_body.tscn" id="3_4fi5p"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vqcx5"]
+texture = ExtResource("2_2lwkx")
+texture_region_size = Vector2i(31, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15.5114, -9.02542, -14.5733, -9.02542, 1.56893, 15.1071, 1.53658, 16.0128, -1.40719, 16.0128, -15.5114, 9.02542)
+0:0/0/physics_layer_0/polygon_1/points = PackedVector2Array(15.4938, 9.02057, 14.4713, 9.00231, -0.502157, -15.083, -0.520417, -16.0142, 0.429116, -16.0142, 15.4791, 7.08447)
+0:0/0/custom_data_0 = "Greenland"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4fi5p"]
+resource_name = "Greenland_Basic"
+texture = ExtResource("2_vbms3")
+texture_region_size = Vector2i(31, 32)
+0:0/0 = 0
+0:0/0/custom_data_0 = "Greenland"
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-7.4346, -3.90261, 7.56365, -10.9648, 11.5231, -10.9648, 15.502, -8.94013, 15.502, 3.95429, 1.47212, 10.9648, -1.37059, 10.9648, -7.46213, 7.91899)
+1:0/0/custom_data_0 = "Greenland"
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15.502, -8.94013, -1.40406, -16.0464, 1.57598, -15.9891, 9.54187, -12.0348, 9.54187, -11.0605, -7.53607, -2.98004, -7.59338, 7.10626, -9.31263, 6.99164, -15.5593, 4.0689)
+2:0/0/custom_data_0 = "Greenland"
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-11.4904, -10.9459, -7.59338, -10.9459, 7.50777, -3.86721, 7.47876, 8.0805, 1.34675, 10.9459, -1.51868, 10.9459, -15.4446, 3.83967, -15.502, -8.94013)
+0:1/0/custom_data_0 = "Greenland"
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9.48456, -10.774, -9.48456, -11.8629, -1.57598, -15.9891, 1.63329, -15.9891, 15.502, -9.22667, 15.4446, 4.12621, 9.42725, 7.10626, 7.53607, 7.10626, 7.47876, -3.03735)
+1:1/0/custom_data_0 = "Greenland"
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-7.44863, -3.89583, -7.46414, 8.09364, -1.51868, 11.0032, 1.40406, 11.0032, 15.502, 3.95429, 15.5578, -9.17279, 1.46137, -15.9891, -1.6906, -15.9891, -9.59918, -11.8629, -9.48456, -10.9459, -1.36247, -6.84074)
+2:1/0/custom_data_0 = "Greenland"
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1.46137, -16.0464, 1.46137, -16.0464, 9.48456, -11.9202, 9.54187, -10.8886, 1.50434, -6.77209, 9.43191, -2.93617, 9.42725, 7.16356, 1.51868, 10.9459, -1.57598, 10.9459, -15.4446, 4.0689, -15.4446, -8.94013)
+0:2/0/custom_data_0 = "Greenland"
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-11.4331, -11.0032, -7.708, -11.0032, 0, -7.5, 7.53607, -10.8886, 11.433, -10.9459, 15.4446, -9.11205, 15.502, 3.95429, 1.40406, 10.9459, -1.40406, 10.9459, -15.4446, 3.89698, -15.502, -8.88282)
+1:2/0/custom_data_0 = "Greenland"
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(0.0859623, -6.93433, -5.53027, -4.0116, -7.45462, -3.89293, -7.42145, 7.04895, -9.42725, 7.04895, -15.4446, 4.18352, -15.4446, -9.16936, -1.46137, -15.9891, 1.51868, -15.9891, 15.502, -8.94013, 15.4446, 4.12621, 9.36994, 7.04895, 7.36414, 7.22087, 7.33179, -3.95236, 5.53027, -3.95429)
+2:2/0/custom_data_0 = "Greenland"
+
+[sub_resource type="TileSet" id="TileSet_2lwkx"]
+tile_shape = 1
+tile_layout = 5
+tile_offset_axis = 1
+tile_size = Vector2i(31, 15)
+physics_layer_0/collision_layer = 1
+custom_data_layer_0/name = "Area"
+custom_data_layer_0/type = 4
+sources/9 = SubResource("TileSetAtlasSource_4fi5p")
+sources/11 = SubResource("TileSetAtlasSource_vqcx5")
+
+[node name="Test_World" type="Node2D"]
+script = ExtResource("1_iu146")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_2lwkx")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 9, 0, -65536, 9, 0, 1, 9, 0, 2, 9, 1, -65535, 9, 0, -65534, 9, 0, -131072, 65545, 1, -131071, 65545, 1, -131070, 65545, 1, -65533, 9, 0, -65532, 65545, 0, 3, 9, 1, 4, 65545, 2, -131068, 131081, 1, -131069, 65545, 1, -65537, 65545, 1, -65538, 131081, 2, 393207, 9, 0, 393208, 65545, 0, 393206, 131081, 0, 393209, 9, 1, 393210, 65545, 1, 524282, 131081, 1, 524281, 9, 2, 524280, 65545, 2, 524279, 131081, 2, -2, 131081, 0, 65534, 9, 2, 65535, 9, 1, 65536, 9, 0, 131072, 9, 0, 65537, 9, 0, 131073, 9, 0, 196609, 9, 0, 196608, 9, 0, 262144, 9, 0, 262145, 9, 0, 327680, 9, 0, 327681, 9, 0, 393216, 9, 0, 393217, 9, 0, 327682, 9, 0, 393218, 9, 0, 393215, 9, 0, 458751, 9, 0, 524287, 9, 0, 458752, 9, 0, 458753, 9, 0, 458754, 9, 0, 524286, 131081, 0, 458750, 9, 0, 393213, 9, 0, 393214, 9, 0, 458749, 9, 0)
+layer_1/name = "Layer1"
+layer_1/y_sort_enabled = true
+layer_1/tile_data = PackedInt32Array(393213, 11, 0, 393212, 9, 0, 327676, 9, 0, 327677, 65545, 2, 458748, 65545, 2, 458747, 9, 2, 393211, 131081, 0, 327675, 131081, 0, 262139, 131081, 0, 196603, 131081, 0, 262141, 65545, 0, 196605, 65545, 0, 131069, 65545, 0, 65533, 65545, 0, -3, 65545, 0, -65539, 131081, 1, -131076, 9, 0, -131077, 9, 0, -65540, 9, 0, -4, 9, 0, -5, 9, 0, 65532, 9, 0, 131068, 9, 0, 196604, 9, 0, 262140, 9, 0, -65541, 9, 0)
+
+[node name="Player_Body" parent="." instance=ExtResource("3_4fi5p")]
+z_index = 1
+position = Vector2(30, -13)
+SPEED = 40.0

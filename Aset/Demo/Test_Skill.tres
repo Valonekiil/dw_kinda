@@ -40,7 +40,7 @@ metadata/_custom_type_script = "uid://rfkiexucyp03"
 [sub_resource type="Resource" id="Resource_x1k8v"]
 script = ExtResource("1_p18oi")
 stat_name = 0
-comparison = ">"
+comparison = 0
 value = 0
 metadata/_custom_type_script = "uid://dbmexd4rg2r8p"
 

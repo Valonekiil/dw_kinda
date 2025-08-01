@@ -16,8 +16,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-PlayerController="*res://Script/Autoload/Player_Controller.gd"
 Enums="*res://Script/Autoload/enums.gd"
+SceneManager="*res://Scene/Autoload/scene_manager.tscn"
 
 [rendering]
 

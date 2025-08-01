@@ -92,9 +92,9 @@ shape = SubResource("RectangleShape2D_a3fgx")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Turn_Manager/Player"]
 
 [node name="Enemy" parent="Turn_Manager" node_paths=PackedStringArray("sprite", "Anim") instance=ExtResource("3_a3fgx")]
+AI = true
 sprite = NodePath("Sprite2D")
 Anim = NodePath("AnimationPlayer")
-AI = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Turn_Manager/Enemy"]
 

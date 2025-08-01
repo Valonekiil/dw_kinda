@@ -1,4 +1,8 @@
 extends Control
 class_name Skill_Menu
 
-@onready var skill_Con
+var Skill_Comp:Skill_Component
+
+func init(s_com:Skill_Component):
+	Skill_Comp = s_com
+	
