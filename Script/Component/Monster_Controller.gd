@@ -168,7 +168,7 @@ func take_damage(damage: int):
 	if stats.cur_hp <= 0:
 		die()
 
-func use_skill(skill_name: String):
+func use_skill(skill_name: SkillData):
 	skill_comp.use_skill(skill_name)  # Gunakan skill dari Skill_Component
 	
 

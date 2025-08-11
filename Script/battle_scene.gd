@@ -19,18 +19,19 @@ var enemy_current_index: int = 0
 func _ready() -> void:
 	player_monsters = [Player_Monster1, Player_Monster2, Player_Monster3]
 	enemy_monsters = [Enemy_Monster1, Enemy_Monster2, Enemy_Monster3]
-	
+	print(player_current_index ,0 ,enemy_current_index)
 	player_current_index = player_monsters.find(Player_Curent)
 	enemy_current_index = enemy_monsters.find(Enemy_Curent)
-	
+	print(player_current_index ,0 ,enemy_current_index)
 	# Pastikan indeks valid
-	if player_current_index == -1:
+	if player_current_index == -1 || !Player_Curent:
 		player_current_index = 0
 		Player_Curent = player_monsters[0]
-	if enemy_current_index == -1:
+	if enemy_current_index == -1 || !Enemy_Curent:
 		enemy_current_index = 0
 		Enemy_Curent = enemy_monsters[0]
-	
+	print(Player_Curent)
+	print(Enemy_Curent)
 	BM.monster_1.monster = Player_Curent
 	BM.monster_2.monster = Enemy_Curent
 	BM.init()

@@ -1,6 +1,7 @@
 extends Node
 class_name Stats_Component
 
+@export var growth_formula:GrowthFormula
 @export var stats_source: Stats_Source  # Referensi ke Stats_Source
 
 # Faktor pengali berdasarkan fase evolusi
@@ -35,53 +36,62 @@ func level_up():
 	var multiplier = evolution_multipliers.get(stats_source.digimon_type, 1.0)
 
 	# Tingkatkan statistik berdasarkan tipe Digimon dan elemen utama
-	increase_stats(multiplier)
+	increase_stats()
 
 	if stats_source.cur_exp > stats_source.max_exp:
 		check_level_up()
 	else:
 		print("Level up! Sekarang Level " + str(stats_source.lvl))
 
-# Fungsi untuk meningkatkan statistik
-func increase_stats(multiplier: float):
-	# Statistik dasar
-	stats_source.health += int(10 * multiplier)
-	stats_source.mana += int(5 * multiplier)
-	stats_source.power += int(2 * multiplier)
-	stats_source.guard += int(2 * multiplier)
-	stats_source.arcane += int(1 * multiplier)
-	stats_source.insight += int(1 * multiplier)
-	stats_source.speed += int(1 * multiplier)
-	stats_source.charm += int(1 * multiplier)
+# Fungsi pembantu untuk presisi 3 desimal
+func add_with_precision(a: float, b: float) -> float:
+	return snapped(a + b, 0.001)
 
-	# Tingkatkan statistik elemen utama lebih tinggi
-	match stats_source.primary_element:
-		Enums.Element.Fire:
-			stats_source.fire += int(3 * multiplier)
-		Enums.Element.Water:
-			stats_source.water += int(3 * multiplier)
-		Enums.Element.Earth:
-			stats_source.earth += int(3 * multiplier)
-		Enums.Element.Nature:
-			stats_source.nature += int(3 * multiplier)
-		Enums.Element.Wind:
-			stats_source.wind += int(3 * multiplier)
-		Enums.Element.Lighting:
-			stats_source.lightning += int(3 * multiplier)
-		Enums.Element.Ice:
-			stats_source.ice += int(3 * multiplier)
-		Enums.Element.Metal:
-			stats_source.metal += int(3 * multiplier)
-		Enums.Element.Light:
-			stats_source.light += int(3 * multiplier)
-		Enums.Element.Dark:
-			stats_source.dark += int(3 * multiplier)
-		Enums.Element.Chaos:
-			stats_source.chaos += int(3 * multiplier)
-		Enums.Element.Mystical:
-			stats_source.mystical += int(3 * multiplier)
-		_:
-			print("Elemen utama tidak dikenali.")
+# Fungsi untuk meningkatkan statistik
+func increase_stats():
+	# PERTUMBUHAN PERSENTASE (multiplikatif)
+	stats_source.health = add_with_precision(stats_source.health, stats_source.health * growth_formula.health_growth)
+	stats_source.mana = add_with_precision(stats_source.mana, stats_source.mana * growth_formula.mana_growth)
+	stats_source.power = add_with_precision(stats_source.power, stats_source.power * growth_formula.power_growth)
+	stats_source.guard = add_with_precision(stats_source.guard, stats_source.guard * growth_formula.guard_growth)
+	stats_source.arcane = add_with_precision(stats_source.arcane, stats_source.arcane * growth_formula.arcane_growth)
+	stats_source.insight = add_with_precision(stats_source.insight, stats_source.insight * growth_formula.insight_growth)
+	stats_source.speed = add_with_precision(stats_source.speed, stats_source.speed * growth_formula.speed_growth)
+	stats_source.charm = add_with_precision(stats_source.charm, stats_source.charm * growth_formula.charm_growth)
+	
+	# Elemental stat growth (persentase)
+	var elements = [
+		Enums.Element.Fire, Enums.Element.Water, Enums.Element.Earth,
+		Enums.Element.Nature, Enums.Element.Wind, Enums.Element.Lighting,
+		Enums.Element.Ice, Enums.Element.Metal, Enums.Element.Light,
+		Enums.Element.Dark, Enums.Element.Chaos, Enums.Element.Mystical
+	]
+	
+	for element in elements:
+		var growth_rate = growth_formula.other_element_growth
+		if element == stats_source.primary_element:
+			growth_rate = growth_formula.primary_element_growth
+		elif element == stats_source.secondary_element:
+			growth_rate = growth_formula.secondary_element_growth
+		
+		var current_value = get_element_value(element)
+		var increase = current_value * growth_rate
+		set_element_value(element, add_with_precision(current_value, increase))
+
+# Helper untuk mendapatkan nilai elemen
+func get_element_value(element: Enums.Element) -> float:
+	match element:
+		Enums.Element.Fire: return stats_source.fire
+		Enums.Element.Water: return stats_source.water
+		# ... (lengkapi untuk semua elemen) ...
+	return 0.0
+
+# Helper untuk mengatur nilai elemen
+func set_element_value(element: Enums.Element, value: float):
+	match element:
+		Enums.Element.Fire: stats_source.fire = value
+		Enums.Element.Water: stats_source.water = value
+		# ... (lengkapi untuk semua elemen) ...
 
 # Fungsi untuk menghitung EXP maksimum berdasarkan level
 func calculate_max_exp() -> int:

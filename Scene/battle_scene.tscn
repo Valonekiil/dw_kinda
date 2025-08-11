@@ -47,8 +47,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3q3gc")
-Player_Curent = ExtResource("2_a3fgx")
-Enemy_Curent = ExtResource("2_a3fgx")
 Player_Monster1 = ExtResource("2_a3fgx")
 Enemy_Monster1 = ExtResource("2_a3fgx")
 anim_player = NodePath("Turn_Manager/Player/AnimationPlayer")
@@ -92,9 +90,9 @@ shape = SubResource("RectangleShape2D_a3fgx")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Turn_Manager/Player"]
 
 [node name="Enemy" parent="Turn_Manager" node_paths=PackedStringArray("sprite", "Anim") instance=ExtResource("3_a3fgx")]
-AI = true
 sprite = NodePath("Sprite2D")
 Anim = NodePath("AnimationPlayer")
+AI = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Turn_Manager/Enemy"]
 
@@ -312,6 +310,7 @@ layout_mode = 2
 text = "Flee"
 
 [node name="Skill_Menu" type="Control" parent="Turn_Manager/ui"]
+visible = false
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
