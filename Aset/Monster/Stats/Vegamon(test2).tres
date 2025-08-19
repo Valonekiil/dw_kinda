@@ -251,9 +251,9 @@ metadata/_custom_type_script = "uid://dbmexd4rg2r8p"
 script = ExtResource("5_6qy5e")
 skill_name = "Unob"
 requirements = Array[ExtResource("6_h6wm0")]([SubResource("Resource_6p63y")])
-power = 0
 element = 3
 skill_type = 0
+mana_cost = 0
 description = "This skill should be unobtainable"
 metadata/_custom_type_script = "uid://bbcthubijob80"
 
@@ -268,9 +268,9 @@ metadata/_custom_type_script = "uid://dbmexd4rg2r8p"
 script = ExtResource("5_6qy5e")
 skill_name = "Neutral Blast"
 requirements = Array[ExtResource("6_h6wm0")]([SubResource("Resource_h6wm0")])
-power = 15
 element = 0
 skill_type = 0
+mana_cost = 0
 description = "A neutral blast attack"
 metadata/_custom_type_script = "uid://bbcthubijob80"
 

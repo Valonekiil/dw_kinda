@@ -14,6 +14,43 @@ func init(stats: Stats_Source, all_skills: Array[SkillData]):
 	
 	print("Skill yang tersedia:", skillset.map(func(s): return s.skill_name))
 
+func calculate(element: Enums.Element, formula: Skill_Formula, user: Stats_Source) -> int:
+	var total_damage: float = 0.0
+	
+	# Mapping untuk mengonversi enum Element ke nama stat yang sesuai
+	var element_stat_map = {
+		Enums.Element.Neutral: "arcane",
+		Enums.Element.Fire: "fire",
+		Enums.Element.Water: "water",
+		Enums.Element.Earth: "earth",
+		Enums.Element.Nature: "nature",
+		Enums.Element.Wind: "wind",
+		Enums.Element.Lighting: "lightning",
+		Enums.Element.Ice: "ice",
+		Enums.Element.Metal: "metal",
+		Enums.Element.Light: "light",
+		Enums.Element.Dark: "dark",
+		Enums.Element.Chaos: "chaos",
+		Enums.Element.Mystical: "mystical"
+	}
+	
+	# Hitung physical damage jika diperlukan
+	if formula.IsPhysical:
+		total_damage += user.power * formula.ScalingPhysic
+	
+	# Hitung magical damage jika diperlukan
+	if formula.IsMagical:
+		total_damage += user.arcane * formula.ScalingMagic
+	
+	# Hitung elemental damage jika diperlukan
+	if formula.IsElemental:
+		var element_stat: String = element_stat_map[element]
+		var element_value: float = user.get(element_stat)
+		total_damage += element_value * formula.ScalingElement
+	
+	# Bulatkan dan kembalikan sebagai integer
+	return int(round(total_damage))
+
 # Menggunakan skill
 func use_skill(skill: SkillData):
 	if skill in skillset:
@@ -33,7 +70,7 @@ func apply_skill_effect(user: Stats_Source, target: Stats_Source, skill: SkillDa
 			
 			Enums.SkillType.DEFENSIVE:
 				var heal = skill.power + user.arcane
-				user.cur_hp = min(user.cur_hp + heal, user.health)
+				target.cur_hp = min(target.cur_hp + heal, target.health)
 				print("Memulihkan ", heal, " HP")
 		
 		if skill.buff:

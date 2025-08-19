@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuk5su15yqst6"
-path="res://.godot/imported/Icon 1 Horned purp.svg-18d7469a86d9c9c341f22dc015a32299.ctex"
+uid="uid://c7fjxf2uduoeo"
+path="res://.godot/imported/Icon 3 Horned purp.svg-a54d6257059f51e789a0f7943bf3dbe9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aset/Monster/Icon 1 Horned purp.svg"
-dest_files=["res://.godot/imported/Icon 1 Horned purp.svg-18d7469a86d9c9c341f22dc015a32299.ctex"]
+source_file="res://Aset/Gambar/Icon 3 Horned purp.svg"
+dest_files=["res://.godot/imported/Icon 3 Horned purp.svg-a54d6257059f51e789a0f7943bf3dbe9.ctex"]
 
 [params]
 

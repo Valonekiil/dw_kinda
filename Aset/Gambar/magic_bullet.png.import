@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7fjxf2uduoeo"
-path="res://.godot/imported/Icon 3 Horned purp.svg-aa3c69aa17d66cf8b592d75f1adcccbb.ctex"
+uid="uid://cuiy852ocoku7"
+path="res://.godot/imported/magic_bullet.png-57eaf1128371a2b21e94ff9590cdb570.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aset/Monster/Icon 3 Horned purp.svg"
-dest_files=["res://.godot/imported/Icon 3 Horned purp.svg-aa3c69aa17d66cf8b592d75f1adcccbb.ctex"]
+source_file="res://Aset/Gambar/magic_bullet.png"
+dest_files=["res://.godot/imported/magic_bullet.png-57eaf1128371a2b21e94ff9590cdb570.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

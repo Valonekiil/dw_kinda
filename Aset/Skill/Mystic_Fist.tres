@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://de4npmohnkuem"]
+
+[ext_resource type="Script" uid="uid://cbcjfsbimt6lv" path="res://Skill_Damage_Type.gd" id="1_flg4l"]
+[ext_resource type="Script" uid="uid://dbmexd4rg2r8p" path="res://Script/Resource/req.gd" id="2_7x12a"]
+[ext_resource type="Script" uid="uid://bbcthubijob80" path="res://Script/Resource/skill_data.gd" id="3_nsu8d"]
+
+[sub_resource type="Resource" id="Resource_2a2pr"]
+script = ExtResource("1_flg4l")
+IsPhysical = true
+ScalingPhysic = 1.25
+IsMagical = false
+ScalingMagic = 0.0
+IsElemental = true
+ScalingElement = 0.5
+metadata/_custom_type_script = "uid://cbcjfsbimt6lv"
+
+[sub_resource type="Resource" id="Resource_nxcii"]
+script = ExtResource("2_7x12a")
+stat_name = 18
+comparison = 0
+value = 15
+metadata/_custom_type_script = "uid://dbmexd4rg2r8p"
+
+[resource]
+script = ExtResource("3_nsu8d")
+skill_name = "Mystic fist"
+requirements = Array[ExtResource("2_7x12a")]([SubResource("Resource_nxcii")])
+formula = SubResource("Resource_2a2pr")
+element = 0
+skill_type = 0
+mana_cost = 10
+description = ""
+metadata/_custom_type_script = "uid://bbcthubijob80"

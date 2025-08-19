@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://ci70187xgb6ug"]
+
+[ext_resource type="Script" uid="uid://cbcjfsbimt6lv" path="res://Skill_Damage_Type.gd" id="1_us8ia"]
+[ext_resource type="Script" uid="uid://dbmexd4rg2r8p" path="res://Script/Resource/req.gd" id="2_0efim"]
+[ext_resource type="Script" uid="uid://bbcthubijob80" path="res://Script/Resource/skill_data.gd" id="3_otvsp"]
+
+[sub_resource type="Resource" id="Resource_f8jq6"]
+script = ExtResource("1_us8ia")
+IsPhysical = false
+ScalingPhysic = 0.0
+IsMagical = true
+ScalingMagic = 1.5
+IsElemental = false
+ScalingElement = 0.0
+metadata/_custom_type_script = "uid://cbcjfsbimt6lv"
+
+[sub_resource type="Resource" id="Resource_4y4ue"]
+script = ExtResource("2_0efim")
+stat_name = 3
+comparison = 0
+value = 30
+metadata/_custom_type_script = "uid://dbmexd4rg2r8p"
+
+[resource]
+script = ExtResource("3_otvsp")
+skill_name = "Magic Bullet"
+requirements = Array[ExtResource("2_0efim")]([SubResource("Resource_4y4ue")])
+formula = SubResource("Resource_f8jq6")
+element = 0
+skill_type = 0
+mana_cost = 15
+description = ""
+metadata/_custom_type_script = "uid://bbcthubijob80"
