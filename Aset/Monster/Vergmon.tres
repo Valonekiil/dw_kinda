@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="Monster_Data" load_steps=8 format=3 uid="uid://dl26udvwgsjvj"]
+
+[ext_resource type="Script" uid="uid://dudih2q1tstbb" path="res://Script/Resource/atk_mod_data.gd" id="1_kvi7a"]
+[ext_resource type="Script" uid="uid://eegk40ffwnhi" path="res://Script/Resource/monster_data.gd" id="2_j55o4"]
+[ext_resource type="Script" uid="uid://bbcthubijob80" path="res://Script/Resource/skill_data.gd" id="3_qurb0"]
+[ext_resource type="Resource" uid="uid://de4npmohnkuem" path="res://Aset/Skill/Mystic_Fist.tres" id="4_fw668"]
+[ext_resource type="Resource" uid="uid://ci70187xgb6ug" path="res://Aset/Skill/Magic_Bullet.tres" id="5_di6mh"]
+[ext_resource type="Script" uid="uid://5r0pevixah6w" path="res://Script/Resource/stats_source.gd" id="6_d2i8u"]
+
+[sub_resource type="Resource" id="Resource_5i3aj"]
+script = ExtResource("6_d2i8u")
+lvl = 1
+monster_type = 0
+primary_element = 12
+secondary_element = 0
+cur_exp = 0
+max_exp = 10
+health = 80.0
+cur_hp = 50
+mana = 60.0
+cur_mana = 7
+power = 20.0
+guard = 20.0
+arcane = 15.0
+insight = 20.0
+speed = 15.0
+charm = 5.0
+fire = 10.0
+water = 10.0
+earth = 10.0
+nature = 10.0
+wind = 10.0
+lightning = 10.0
+ice = 10.0
+metal = 10.0
+light = 10.0
+dark = 10.0
+chaos = 10.0
+mystical = 20.0
+metadata/_custom_type_script = "uid://5r0pevixah6w"
+
+[resource]
+script = ExtResource("2_j55o4")
+name = "Vergmon"
+stats_comp = SubResource("Resource_5i3aj")
+skillset = Array[ExtResource("3_qurb0")]([ExtResource("4_fw668"), ExtResource("5_di6mh")])
+atk_modifiers = Array[ExtResource("1_kvi7a")]([])
+metadata/_custom_type_script = "uid://eegk40ffwnhi"

@@ -35,6 +35,8 @@ signal turn_ended()
 	#hurtbox.collision_layer = 0b0010       # Layer: 2 (hurtbox)
 
 func init(hp_bar:ProgressBar, hp_num:Label):
+	if attack_hitbox:
+		print("iki onok")
 	bar = hp_bar
 	txt = hp_num
 	if !atk_modifiers && monster.atk_modifiers:
@@ -134,10 +136,10 @@ func perform_attack():
 			var has_buff = atk_modifiers.apply_modifier()  # Coba aktifkan buff
 			if has_buff:
 				print("attack buff")
-				emit_signal("attack_completed", stats.power, atk_modifiers.active_buffs)
+				#emit_signal("attack_completed", stats.power, atk_modifiers.active_buffs)
 			else :
 				print("attack nt")
-				emit_signal("attack_completed", stats.power, null)
+				#emit_signal("attack_completed", stats.power, null)
 		else:
 			print("attack polos")
 			emit_signal("attack_completed", stats.power, null)
@@ -220,5 +222,11 @@ func apply_array_buff(buff:Array[Buff_Data]):
 	emit_signal("done_buff")
 
 func target_take_damage():
-	var v = self.get_parent()
-	v.target_take_damage()
+	var overlapping_bodies = attack_hitbox.get_overlapping_bodies()
+	print("Found ", overlapping_bodies.size(), " overlapping bodies")
+	for target in overlapping_bodies:
+		if target == !self:
+			target.anim_state(3)
+		print(target.name)
+		print("kenek body")
+	print("kenek")

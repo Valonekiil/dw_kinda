@@ -66,9 +66,11 @@ script = ExtResource("2_uk2p2")
 monster_1 = NodePath("Player")
 monster_2 = NodePath("Enemy")
 
-[node name="Player" parent="Turn_Manager" node_paths=PackedStringArray("sprite", "Anim") instance=ExtResource("3_a3fgx")]
+[node name="Player" parent="Turn_Manager" node_paths=PackedStringArray("sprite", "Anim", "attack_hitbox", "hurtbox") instance=ExtResource("3_a3fgx")]
 sprite = NodePath("Sprite2D")
 Anim = NodePath("AnimationPlayer")
+attack_hitbox = NodePath("Sprite2D/Damage")
+hurtbox = NodePath("Sprite2D/Hurt")
 
 [node name="Sprite2D" type="Sprite2D" parent="Turn_Manager/Player"]
 
