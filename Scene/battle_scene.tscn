@@ -76,14 +76,13 @@ hurtbox = NodePath("Sprite2D/Hurt")
 
 [node name="Damage" type="Area2D" parent="Turn_Manager/Player/Sprite2D"]
 collision_layer = 0
-collision_mask = 0
-monitoring = false
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Turn_Manager/Player/Sprite2D/Damage"]
 shape = SubResource("CircleShape2D_uk2p2")
 
 [node name="Hurt" type="Area2D" parent="Turn_Manager/Player/Sprite2D"]
-collision_layer = 0
+collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Turn_Manager/Player/Sprite2D/Hurt"]
@@ -100,14 +99,14 @@ AI = true
 
 [node name="Damage" type="Area2D" parent="Turn_Manager/Enemy/Sprite2D"]
 collision_layer = 0
-collision_mask = 0
+collision_mask = 2
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Turn_Manager/Enemy/Sprite2D/Damage"]
 shape = SubResource("CircleShape2D_uk2p2")
 
 [node name="Hurt" type="Area2D" parent="Turn_Manager/Enemy/Sprite2D"]
-collision_layer = 0
+collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Turn_Manager/Enemy/Sprite2D/Hurt"]

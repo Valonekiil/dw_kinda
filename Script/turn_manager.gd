@@ -23,6 +23,8 @@ var current_act: int = 1
 var temp_def:bool
 
 func init():
+	GlobalSignal.Take_damage.connect(take_animation_damage)
+	GlobalSignal.emit_signal("Take_damage")
 	monster_1.init(hp_bar_1,hp1)
 	monster_2.init(hp_bar_2,hp2)
 	monster_1.buff_manager.init(buff_con1,conf,monster_1.stats)
@@ -53,6 +55,14 @@ func init():
 	name_1.text = monster_1.monster.name
 	name_2.text = monster_2.monster.name
 	print("Turn inited")
+
+func take_animation_damage(me:Monster_Controller):
+	print("ternigger")
+	match me:
+		monster_1:
+			monster_2.anim_state(3)
+		monster_2:
+			monster_1.anim_state(3)
 
 # Fungsi untuk memulai giliran
 func start_turn():

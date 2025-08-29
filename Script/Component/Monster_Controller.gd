@@ -222,11 +222,8 @@ func apply_array_buff(buff:Array[Buff_Data]):
 	emit_signal("done_buff")
 
 func target_take_damage():
-	var overlapping_bodies = attack_hitbox.get_overlapping_bodies()
-	print("Found ", overlapping_bodies.size(), " overlapping bodies")
-	for target in overlapping_bodies:
-		if target == !self:
-			target.anim_state(3)
-		print(target.name)
-		print("kenek body")
-	print("kenek")
+	var bodies = attack_hitbox.get_overlapping_areas()
+	print(bodies.size())
+	for v in bodies:
+		if v != hurtbox:
+			v.get_parent().get_parent().anim_state(3)

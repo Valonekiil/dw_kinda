@@ -1,5 +1,7 @@
 extends Node
 
+
+
 enum MonsterType {
 	Echo,
 	Mythling,
