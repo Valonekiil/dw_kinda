@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://de4npmohnkuem"]
 
-[ext_resource type="Script" uid="uid://cbcjfsbimt6lv" path="res://Skill_Damage_Type.gd" id="1_flg4l"]
+[ext_resource type="Script" uid="uid://cbcjfsbimt6lv" path="res://Script/Resource/Skill_Formula.gd" id="1_flg4l"]
 [ext_resource type="Script" uid="uid://dbmexd4rg2r8p" path="res://Script/Resource/req.gd" id="2_7x12a"]
 [ext_resource type="Script" uid="uid://bbcthubijob80" path="res://Script/Resource/skill_data.gd" id="3_nsu8d"]
 

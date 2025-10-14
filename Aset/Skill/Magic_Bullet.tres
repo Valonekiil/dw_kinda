@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://ci70187xgb6ug"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=7 format=3 uid="uid://ci70187xgb6ug"]
 
-[ext_resource type="Script" uid="uid://cbcjfsbimt6lv" path="res://Skill_Damage_Type.gd" id="1_us8ia"]
+[ext_resource type="Script" uid="uid://cbcjfsbimt6lv" path="res://Script/Resource/Skill_Formula.gd" id="1_us8ia"]
 [ext_resource type="Script" uid="uid://dbmexd4rg2r8p" path="res://Script/Resource/req.gd" id="2_0efim"]
 [ext_resource type="Script" uid="uid://bbcthubijob80" path="res://Script/Resource/skill_data.gd" id="3_otvsp"]
+[ext_resource type="Texture2D" uid="uid://cuiy852ocoku7" path="res://Aset/Gambar/magic_bullet.png" id="4_0efim"]
 
 [sub_resource type="Resource" id="Resource_f8jq6"]
 script = ExtResource("1_us8ia")
@@ -30,4 +31,5 @@ element = 0
 skill_type = 0
 mana_cost = 15
 description = ""
+sprite = ExtResource("4_0efim")
 metadata/_custom_type_script = "uid://bbcthubijob80"
