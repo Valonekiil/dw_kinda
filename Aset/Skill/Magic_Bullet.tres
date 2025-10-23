@@ -1,16 +1,77 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=7 format=3 uid="uid://ci70187xgb6ug"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=9 format=3 uid="uid://c3wnyrkv1klgk"]
 
 [ext_resource type="Script" uid="uid://cbcjfsbimt6lv" path="res://Script/Resource/Skill_Formula.gd" id="1_us8ia"]
 [ext_resource type="Script" uid="uid://dbmexd4rg2r8p" path="res://Script/Resource/req.gd" id="2_0efim"]
 [ext_resource type="Script" uid="uid://bbcthubijob80" path="res://Script/Resource/skill_data.gd" id="3_otvsp"]
 [ext_resource type="Texture2D" uid="uid://cuiy852ocoku7" path="res://Aset/Gambar/magic_bullet.png" id="4_0efim"]
 
+[sub_resource type="Animation" id="Animation_wq32p"]
+resource_name = "Attack_A"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.45),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(152, 428), Vector2(980, 223)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.46),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"target_take_damage"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_gdhcn"]
+resource_name = "Attack_B"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.45),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(980, 223), Vector2(152, 428)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.46),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"target_take_damage"
+}]
+}
+
 [sub_resource type="Resource" id="Resource_f8jq6"]
 script = ExtResource("1_us8ia")
+BaseDamage = 15
 IsPhysical = false
 ScalingPhysic = 0.0
 IsMagical = true
-ScalingMagic = 1.5
+ScalingMagic = 1.0
 IsElemental = false
 ScalingElement = 0.0
 metadata/_custom_type_script = "uid://cbcjfsbimt6lv"
@@ -32,4 +93,6 @@ skill_type = 0
 mana_cost = 15
 description = ""
 sprite = ExtResource("4_0efim")
+anim_A = SubResource("Animation_wq32p")
+anim_B = SubResource("Animation_gdhcn")
 metadata/_custom_type_script = "uid://bbcthubijob80"

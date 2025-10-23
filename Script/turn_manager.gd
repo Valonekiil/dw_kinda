@@ -15,6 +15,7 @@ class_name Turn_Manager
 @onready var def_btn = $ui/Player_Btn/Btn_Defense
 @onready var conf:Conf_Manager = $ui/Conf_Manager
 @onready var Player_Btn = $ui/Player_Btn
+@onready var Skill_UI:Skill_Menu = $ui/Skill_Menu
 # Variabel untuk melacak giliran saat ini
 var Turn: int = 0
 var current_turn: Monster_Controller
@@ -39,6 +40,7 @@ func init():
 	monster_1.hp_txt = hp1
 	monster_1.turn_ended.connect(_on_turn_ended)
 	monster_1.buff_added.connect(confirm_buff.bind(monster_1))
+	Skill_UI.
 	#atk_btn.pressed.connect(monster_1.perform_attack())
 	#def_btn.pressed.connect(monster_1.perform_defense())
 	monster_2.attack_completed.connect(_on_attack_completed.bind(monster_1))
@@ -143,8 +145,6 @@ func confirm_buff(buff:Buff_Data, mon:Monster_Controller):
 
 func target_take_damage():
 	current_target.anim_state(3)
-
-@onready var Skill_Menu 
 
 func ui_state(i:int):
 	match i:

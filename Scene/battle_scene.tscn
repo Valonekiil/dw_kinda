@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://c6j256fdxi0a0"]
+[gd_scene load_steps=18 format=3 uid="uid://c6j256fdxi0a0"]
 
 [ext_resource type="Script" uid="uid://byu3hisft2xk0" path="res://Script/battle_scene.gd" id="1_3q3gc"]
+[ext_resource type="Resource" uid="uid://ddde88qhg8fe3" path="res://Aset/Monster/Vergmon.tres" id="2_3kdla"]
 [ext_resource type="Resource" uid="uid://dlskke73togbf" path="res://Aset/Monster/Stats/Vegamon(test2).tres" id="2_a3fgx"]
 [ext_resource type="Script" uid="uid://bd363gh1yjeq3" path="res://Script/turn_manager.gd" id="2_uk2p2"]
 [ext_resource type="PackedScene" uid="uid://c3a7awere5nne" path="res://Aset/Monster/monster_controller.tscn" id="3_a3fgx"]
@@ -47,7 +48,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3q3gc")
-Player_Monster1 = ExtResource("2_a3fgx")
+Player_Monster1 = ExtResource("2_3kdla")
 Enemy_Monster1 = ExtResource("2_a3fgx")
 anim_player = NodePath("Turn_Manager/Player/AnimationPlayer")
 anim_enemy = NodePath("Turn_Manager/Enemy/AnimationPlayer")
@@ -311,7 +312,6 @@ layout_mode = 2
 text = "Flee"
 
 [node name="Skill_Menu" type="Control" parent="Turn_Manager/ui"]
-visible = false
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0

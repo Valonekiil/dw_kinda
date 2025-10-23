@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://devhghkb8dp0s" path="res://icon.svg" id="2_psfkn"]
 [ext_resource type="Resource" uid="uid://dl26udvwgsjvj" path="res://Aset/Monster/Vergmon.tres" id="2_q7ko1"]
 [ext_resource type="PackedScene" uid="uid://c3a7awere5nne" path="res://Aset/Monster/monster_controller.tscn" id="3_kn617"]
-[ext_resource type="Resource" uid="uid://de4npmohnkuem" path="res://Aset/Skill/Mystic_Fist.tres" id="5_5i3aj"]
+[ext_resource type="Resource" uid="uid://ci70187xgb6ug" path="res://Aset/Skill/Magic_Bullet.tres" id="3_q7ko1"]
 [ext_resource type="AnimationLibrary" uid="uid://blbvju8x71rk7" path="res://Aset/Demo/anim_demo.tres" id="5_r4sdn"]
 [ext_resource type="Texture2D" uid="uid://c7vrkmg2yv6i6" path="res://Aset/Gambar/Icon 0 Horned purp.svg" id="10_4ivis"]
 [ext_resource type="Texture2D" uid="uid://cuiy852ocoku7" path="res://Aset/Gambar/magic_bullet.png" id="12_5i3aj"]
@@ -18,7 +18,7 @@ size = Vector2(300, 300)
 [node name="Monster_maker" type="Node"]
 script = ExtResource("1_o28sc")
 Monster = ExtResource("2_q7ko1")
-SKill = ExtResource("5_5i3aj")
+SKill = ExtResource("3_q7ko1")
 
 [node name="Label" type="Label" parent="."]
 visible = false
