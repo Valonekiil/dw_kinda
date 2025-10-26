@@ -11,6 +11,7 @@ var basestats:Stats_Source
 @export var evolution_manager: Evolution_Manager
 @export var AI_Advanced:Enemy_Comp
 @export var sprite:Sprite2D
+@export var sprite_skill:Sprite2D
 @export var Anim:AnimationPlayer
 @export var attack_hitbox: Area2D
 @export var hurtbox: Area2D
@@ -23,8 +24,10 @@ var bar:ProgressBar
 var txt:Label
 # Signal untuk mengirim damage dan mengakhiri giliran
 signal attack_completed(damage: int, buff:Variant)
+signal skill_completed(skill:SkillData, buff:Variant)
 signal defense_completed(defense:int)
 signal buff_added(buff:Buff_Data)
+signal done_init()
 signal buff_done_add()
 signal done_buff()
 signal turn_ended()
@@ -60,7 +63,9 @@ func init(hp_bar:ProgressBar, hp_num:Label):
 		buff_manager = v
 	if !skill_comp:
 		var v = Skill_Component.new()
+		#stats: Stats_Source, all_skills: Array[SkillData]
 		add_child(v)
+		v.init(stats_comp.stats_source, monster.skillset) 
 		skill_comp = v
 		#memasukan skill
 	#Anim.add_animation_library("basic_attack", monster.A_basic_attack)
@@ -75,6 +80,7 @@ func init(hp_bar:ProgressBar, hp_num:Label):
 		stats = stats_comp.stats_source
 		
 	print("Monster inited")
+	emit_signal("done_init")
 
 func apply_animation(is_enemy:bool):
 	var lib: AnimationLibrary
@@ -155,7 +161,11 @@ func perform_defense():
 	else :
 		print("Aksi gagal karena action point kurang")
 
-# Fungsi untuk menerima damage
+func take_skill(damage: int):
+	stats.cur_hp -= damage
+	if stats.cur_hp <= 0:
+		die()
+
 func take_damage(damage: int):
 	if is_defense:
 		damage -= stats.guard
@@ -225,5 +235,10 @@ func target_take_damage():
 	var bodies = attack_hitbox.get_overlapping_areas()
 	print(bodies.size())
 	for v in bodies:
+		
 		if v != hurtbox:
-			v.get_parent().get_parent().anim_state(3)
+			var x:Monster_Controller = v.get_parent().get_parent()
+			x.anim_state(3)
+			print(x.monster.name + " terkena colision")
+		else:
+			print(v.name +" nt "+v.get_parent().get_parent().name )

@@ -1,5 +1,4 @@
 extends Node
-
 class_name ElementSystem
 
 # Definisi hubungan elemen (strength/weakness)
@@ -50,3 +49,46 @@ func calculate_damage_multiplier(attacker_element: String, defender_element: Str
 			return 0.5  
 		else:
 			return 1.0  
+
+func calculate_damage_simple(user:Stats_Source, skill:SkillData) -> float:
+	var damage:float = skill.formula.BaseDamage
+	if skill.formula.IsPhysical:
+		damage += user.power * skill.formula.ScalingPhysic
+	if skill.formula.IsMagical:
+		damage += user.arcane * skill.formula.ScalingMagic
+	return damage
+
+func calculate_damage_total(user:Stats_Source, target:Stats_Source, formula:Skill_Formula):
+	var total:float
+	if formula.IsPhysical:
+		var power = float(user.power)
+		var guard = float(target.guard)
+		var ratio = guard / power  # Rasio guard terhadap power
+		
+		if ratio >= 2.0:
+			total += 0.0
+		elif ratio >= 1.5:
+			total += 0.5
+		elif ratio <= 0.75:
+			total += 1.5
+		elif ratio <= 0.5:
+			total += 2.0
+		else:
+			total += 1.0
+	if formula.IsMagical:
+		var power = float(user.arcane)
+		var guard = float(target.insight)
+		var ratio = guard / power  # Rasio guard terhadap power
+		
+		if ratio >= 2.0:
+			total += 0.0
+		elif ratio >= 1.5:
+			total += 0.5
+		elif ratio <= 0.75:
+			total += 1.5
+		elif ratio <= 0.5:
+			total += 2.0
+		else:
+			total += 1.0
+	if formula.IsElemental:
+		pass

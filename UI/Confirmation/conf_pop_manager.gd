@@ -37,6 +37,9 @@ func Monster_Turn_End(cur: Monster_Controller):
 func Monster_Attack(cur:Monster_Controller):
 	context.text = "[b]"+cur.monster.name+"[/b] melakukan serangan"
 	Animate_Conf()
+func Monster_Skill(cur:Monster_Controller, Skill:SkillData):
+	context.text = "[b]"+cur.monster.name+"[/b] menggunakan "+str(Skill.skill_name)
+	Animate_Conf()
 func Monster_Defense(cur:Monster_Controller):
 	context.text = "[b]"+cur.monster.name+"[/b] sedang bertahan"
 	Animate_Conf()

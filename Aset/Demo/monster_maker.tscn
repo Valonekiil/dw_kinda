@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c801g6u0wkw6r" path="res://Scene/Monster maker.gd" id="1_o28sc"]
 [ext_resource type="Texture2D" uid="uid://devhghkb8dp0s" path="res://icon.svg" id="2_psfkn"]
-[ext_resource type="Resource" uid="uid://dl26udvwgsjvj" path="res://Aset/Monster/Vergmon.tres" id="2_q7ko1"]
+[ext_resource type="Resource" uid="uid://ddde88qhg8fe3" path="res://Aset/Monster/Vergmon.tres" id="2_q7ko1"]
 [ext_resource type="PackedScene" uid="uid://c3a7awere5nne" path="res://Aset/Monster/monster_controller.tscn" id="3_kn617"]
-[ext_resource type="Resource" uid="uid://ci70187xgb6ug" path="res://Aset/Skill/Magic_Bullet.tres" id="3_q7ko1"]
+[ext_resource type="Resource" uid="uid://c3wnyrkv1klgk" path="res://Aset/Skill/Magic_Bullet.tres" id="3_q7ko1"]
 [ext_resource type="AnimationLibrary" uid="uid://blbvju8x71rk7" path="res://Aset/Demo/anim_demo.tres" id="5_r4sdn"]
 [ext_resource type="Texture2D" uid="uid://c7vrkmg2yv6i6" path="res://Aset/Gambar/Icon 0 Horned purp.svg" id="10_4ivis"]
 [ext_resource type="Texture2D" uid="uid://cuiy852ocoku7" path="res://Aset/Gambar/magic_bullet.png" id="12_5i3aj"]
@@ -135,6 +135,10 @@ text = "Save Skill"
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 position = Vector2(152, 428)
 texture = ExtResource("12_5i3aj")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
 
 [connection signal="area_entered" from="Sprite2D4/Hurt" to="." method="_on_hurt_area_entered"]
 [connection signal="area_exited" from="Sprite2D4/Hurt" to="." method="_on_hurt_area_exited"]

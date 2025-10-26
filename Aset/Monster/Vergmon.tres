@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Monster_Data" load_steps=16 format=3 uid="uid://ddde88qhg8fe3"]
+[gd_resource type="Resource" script_class="Monster_Data" load_steps=27 format=3 uid="uid://ddde88qhg8fe3"]
 
 [ext_resource type="Script" uid="uid://dudih2q1tstbb" path="res://Script/Resource/atk_mod_data.gd" id="1_kvi7a"]
 [ext_resource type="Script" uid="uid://eegk40ffwnhi" path="res://Script/Resource/monster_data.gd" id="2_j55o4"]
@@ -6,7 +6,10 @@
 [ext_resource type="Resource" uid="uid://de4npmohnkuem" path="res://Aset/Skill/Mystic_Fist.tres" id="4_fw668"]
 [ext_resource type="Resource" uid="uid://c3wnyrkv1klgk" path="res://Aset/Skill/Magic_Bullet.tres" id="5_di6mh"]
 [ext_resource type="Script" uid="uid://5r0pevixah6w" path="res://Script/Resource/stats_source.gd" id="6_d2i8u"]
+[ext_resource type="Script" uid="uid://cbcjfsbimt6lv" path="res://Script/Resource/Skill_Formula.gd" id="6_di6mh"]
+[ext_resource type="Script" uid="uid://dbmexd4rg2r8p" path="res://Script/Resource/req.gd" id="7_d2i8u"]
 [ext_resource type="Texture2D" uid="uid://c7vrkmg2yv6i6" path="res://Aset/Gambar/Icon 0 Horned purp.svg" id="7_j55o4"]
+[ext_resource type="Texture2D" uid="uid://cuiy852ocoku7" path="res://Aset/Gambar/magic_bullet.png" id="8_ode57"]
 
 [sub_resource type="Animation" id="Animation_q7ko1"]
 resource_name = "basic_attack"
@@ -226,6 +229,130 @@ tracks/2/keys = {
 "values": [Vector2(975, 184), Vector2(488, 172), Vector2(570, 414), Vector2(141, -104), Vector2(141, -104), Vector2(141, 360), Vector2(141, 360), Vector2(975, 184)]
 }
 
+[sub_resource type="Animation" id="Animation_wq32p"]
+resource_name = "Attack_A"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.45),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(152, 428), Vector2(980, 223)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.46),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"target_take_damage"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_gdhcn"]
+resource_name = "Attack_B"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.45),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(980, 223), Vector2(152, 428)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.46),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"target_take_damage"
+}]
+}
+
+[sub_resource type="Resource" id="Resource_v3hgd"]
+script = ExtResource("6_di6mh")
+BaseDamage = 15
+IsPhysical = false
+ScalingPhysic = 0.0
+IsMagical = false
+ScalingMagic = 0.0
+IsElemental = false
+ScalingElement = 0.0
+metadata/_custom_type_script = "uid://cbcjfsbimt6lv"
+
+[sub_resource type="Resource" id="Resource_a1kv8"]
+script = ExtResource("7_d2i8u")
+stat_name = 3
+comparison = 2
+value = 1
+metadata/_custom_type_script = "uid://dbmexd4rg2r8p"
+
+[sub_resource type="Resource" id="Resource_58rew"]
+script = ExtResource("3_qurb0")
+skill_name = "Bullet_Base"
+requirements = Array[ExtResource("7_d2i8u")]([SubResource("Resource_a1kv8")])
+formula = SubResource("Resource_v3hgd")
+element = 0
+skill_type = 0
+mana_cost = 5
+description = ""
+sprite = ExtResource("8_ode57")
+anim_A = SubResource("Animation_wq32p")
+anim_B = SubResource("Animation_gdhcn")
+metadata/_custom_type_script = "uid://bbcthubijob80"
+
+[sub_resource type="Resource" id="Resource_j7wfq"]
+script = ExtResource("6_di6mh")
+BaseDamage = 15
+IsPhysical = true
+ScalingPhysic = 1.0
+IsMagical = false
+ScalingMagic = 1.0
+IsElemental = false
+ScalingElement = 0.0
+metadata/_custom_type_script = "uid://cbcjfsbimt6lv"
+
+[sub_resource type="Resource" id="Resource_vaaym"]
+script = ExtResource("7_d2i8u")
+stat_name = 4
+comparison = 0
+value = 1
+metadata/_custom_type_script = "uid://dbmexd4rg2r8p"
+
+[sub_resource type="Resource" id="Resource_tkphw"]
+script = ExtResource("3_qurb0")
+skill_name = "Myst drag"
+requirements = Array[ExtResource("7_d2i8u")]([SubResource("Resource_vaaym")])
+formula = SubResource("Resource_j7wfq")
+element = 0
+skill_type = 0
+mana_cost = 5
+description = ""
+sprite = ExtResource("8_ode57")
+anim_A = SubResource("Animation_wq32p")
+anim_B = SubResource("Animation_gdhcn")
+metadata/_custom_type_script = "uid://bbcthubijob80"
+
 [sub_resource type="Resource" id="Resource_5i3aj"]
 script = ExtResource("6_d2i8u")
 lvl = 1
@@ -278,7 +405,7 @@ tracks/0/keys = {
 script = ExtResource("2_j55o4")
 name = "Vergmon"
 stats_comp = SubResource("Resource_5i3aj")
-skillset = Array[ExtResource("3_qurb0")]([ExtResource("4_fw668"), ExtResource("5_di6mh")])
+skillset = Array[ExtResource("3_qurb0")]([ExtResource("4_fw668"), ExtResource("5_di6mh"), SubResource("Resource_58rew"), SubResource("Resource_tkphw")])
 atk_modifiers = Array[ExtResource("1_kvi7a")]([])
 texture = ExtResource("7_j55o4")
 A_idle = SubResource("Animation_h1vr0")

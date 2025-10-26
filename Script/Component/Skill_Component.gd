@@ -2,6 +2,9 @@ extends Node
 class_name Skill_Component
 
 @export var skillset: Array[SkillData]
+var Anim:AnimationPlayer
+var sprite_skill:Sprite2D
+var area_attack:Area2D
 
 # Inisialisasi komponen skill
 func init(stats: Stats_Source, all_skills: Array[SkillData]):
@@ -13,8 +16,12 @@ func init(stats: Stats_Source, all_skills: Array[SkillData]):
 			skillset.append(skill)
 	
 	print("Skill yang tersedia:", skillset.map(func(s): return s.skill_name))
+	await get_parent().done_init
+	area_attack = get_parent().attack_hitbox
+	Anim = get_parent().Anim
+	sprite_skill = get_parent().sprite_skill
 
-func calculate(element: Enums.Element, formula: Skill_Formula, user: Stats_Source) -> int:
+func calculate(element: Enums.Element, formula: Skill_Formula, user: Stats_Source,) -> int:
 	var total_damage: float = 0.0
 	
 	# Mapping untuk mengonversi enum Element ke nama stat yang sesuai
@@ -49,17 +56,18 @@ func calculate(element: Enums.Element, formula: Skill_Formula, user: Stats_Sourc
 		total_damage += element_value * formula.ScalingElement
 	
 	# Bulatkan dan kembalikan sebagai integer
-	return int(round(total_damage))
+	return int(round(total_damage)) 
 
 # Menggunakan skill
 func use_skill(skill: SkillData):
 	if skill in skillset:
 		print("Menggunakan skill: ", skill.skill_name)
-		# Implementasi efek skill bisa ditambahkan di sini
+		var tmp = Skill_Player.new()
+		tmp.set_var(Anim,sprite_skill)
+		tmp.play(skill, area_attack, true)
 	else:
 		print("Skill ", skill.skill_name, " tidak tersedia atau tidak memenuhi syarat")
 
-# Contoh implementasi efek skill (opsional)
 func apply_skill_effect(user: Stats_Source, target: Stats_Source, skill: SkillData):
 	if skill in skillset:
 		match skill.skill_type:

@@ -16,7 +16,10 @@ class_name Turn_Manager
 @onready var conf:Conf_Manager = $ui/Conf_Manager
 @onready var Player_Btn = $ui/Player_Btn
 @onready var Skill_UI:Skill_Menu = $ui/Skill_Menu
+@onready var Ui_Anim = $AnimationPlayer
+@onready var Damage_Calculator:ElementSystem = $Element_Manager
 # Variabel untuk melacak giliran saat ini
+var cur_ui_state:int = 0
 var Turn: int = 0
 var current_turn: Monster_Controller
 var current_target:Monster_Controller
@@ -40,7 +43,7 @@ func init():
 	monster_1.hp_txt = hp1
 	monster_1.turn_ended.connect(_on_turn_ended)
 	monster_1.buff_added.connect(confirm_buff.bind(monster_1))
-	Skill_UI.
+	Skill_UI.init(monster_1.skill_comp,monster_1.skill_comp.skillset)
 	#atk_btn.pressed.connect(monster_1.perform_attack())
 	#def_btn.pressed.connect(monster_1.perform_defense())
 	monster_2.attack_completed.connect(_on_attack_completed.bind(monster_1))
@@ -68,7 +71,9 @@ func take_animation_damage(me:Monster_Controller):
 
 # Fungsi untuk memulai giliran
 func start_turn():
-	
+	if cur_ui_state != 0:
+		ui_state(0)
+		await Ui_Anim.animation_finished
 	# Tentukan siapa yang mendapat giliran berdasarkan nilai Turn
 	print("turn start")
 	if Turn % 2 == 0:
@@ -87,10 +92,10 @@ func start_turn():
 	await conf.btn.pressed
 	current_turn.start_action()
 	if current_turn == monster_1:
-		Player_Btn.get_child(0).grab_focus()
+		ui_state(1)
+		await Ui_Anim.animation_finished
+		
 
-
-# Fungsi untuk menangani signal attack_completed
 func _on_attack_completed(damage: int, buff: Variant, target: Monster_Controller):
 	conf.Monster_Attack(current_turn)
 	await conf.btn.pressed
@@ -131,7 +136,28 @@ func _on_defense_completed(defense:int):
 	else:
 		current_turn.perform_action()
 
-# Fungsi untuk menangani signal turn_ended
+func _on_skill_completed(skill:SkillData, buff: Variant, target: Monster_Controller):
+	conf.Monster_Skill(current_turn, skill)
+	var damage = Damage_Calculator.calculate_damage_simple(current_turn.stats, skill)
+	await conf.btn.pressed
+	target.take_skill(int(damage))
+	conf.Monster_Take_Damage(target,damage)
+	target.update_hp()
+	await conf.btn.pressed
+	if target:
+		if target.stats.cur_hp > 0:
+			target.anim_state(0)
+	if buff is Array[Buff_Data] && target:
+		target.apply_array_buff(buff)
+		await target.done_buff
+	current_turn.action_point -= 1
+	if current_turn.action_point == 0:
+		current_turn.end_turn()
+	elif (current_turn == monster_1):
+		pass
+	else:
+		current_turn.perform_action()
+
 func _on_turn_ended():
 	conf.Monster_Turn_End(current_turn)
 	await conf.btn.pressed
@@ -149,7 +175,29 @@ func target_take_damage():
 func ui_state(i:int):
 	match i:
 		0:
-			pass
+			match cur_ui_state:
+				1:
+					Ui_Anim.play("BaseToNothing")
+					
+				2:
+					Ui_Anim.play("SkillToNothing")
+			get_viewport().gui_get_focus_owner().release_focus()
+			cur_ui_state = 0
+		1:
+			match cur_ui_state:
+				0:
+					Ui_Anim.play_backwards("BaseToNothing")
+				2:
+					Ui_Anim.play_backwards("BaseToSkill")
+			Player_Btn.get_child(0).grab_focus()
+			cur_ui_state = 1
+		2:
+			match cur_ui_state:
+				1:
+					Ui_Anim.play("BaseToSkill")
+			if Skill_UI.Con.get_child_count() > 0:
+				Skill_UI.Con.get_child(0).grab_focus()
+			cur_ui_state = 2
 
 func _on_btn_attack_pressed() -> void:
 	if current_turn == monster_1:
@@ -166,7 +214,10 @@ func _on_btn_defense_pressed() -> void:
 
 func _on_btn_skill_pressed() -> void:
 	if current_turn == monster_1:
-		monster_1.perform_defense()
+		print("keteken")
+		ui_state(2)
+		await Ui_Anim.animation_finished
+		print("lah")
 	else :
 		print("ini bukan giliranmu")
 
@@ -193,3 +244,8 @@ func _on_btn_flee_pressed() -> void:
 		monster_1.perform_defense()
 	else :
 		print("ini bukan giliranmu")
+
+func _unhandled_input(event: InputEvent) -> void:
+	if Input.is_key_pressed(KEY_R):
+		ui_state(1)
+		await Ui_Anim.animation_finished
