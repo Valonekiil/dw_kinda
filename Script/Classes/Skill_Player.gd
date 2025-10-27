@@ -12,7 +12,8 @@ func set_var(v:AnimationPlayer,x:Sprite2D):
 func play(skill:SkillData, area:Area2D, is_player: bool):
 	var original_parent = area.get_parent()
 	var remote_transform = RemoteTransform2D.new()
-	
+	var area_position = area.global_position
+	var area_rotation = area.global_rotation
 	# Setup remote transform untuk mengikuti sprite
 	txt.add_child(remote_transform)
 	remote_transform.remote_path = remote_transform.get_path_to(area)
@@ -33,8 +34,14 @@ func play(skill:SkillData, area:Area2D, is_player: bool):
 		lib.add_animation(skill.skill_name, animation_to_play)
 		anim.play(skill.skill_name)
 		await anim.animation_finished
-		original_parent.add_child(area)
+		remote_transform.remote_path = NodePath()
 		remote_transform.queue_free()
+		
+		
+		# Kembalikan area ke parent asli
+		original_parent.add_child(area)
+		area.global_position = area_position
+		area.global_rotation = area_rotation
 		lib.remove_animation(skill.skill_name)
 		anim = null
 		txt.visible = false
