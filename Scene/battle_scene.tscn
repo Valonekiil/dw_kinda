@@ -498,7 +498,7 @@ grow_vertical = 0
 script = ExtResource("7_a3fgx")
 
 [node name="VBC" type="VBoxContainer" parent="Turn_Manager/ui/Skill_Menu"]
-layout_mode = 2
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 

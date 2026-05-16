@@ -292,12 +292,6 @@ tracks/1/keys = {
 [sub_resource type="Resource" id="Resource_v3hgd"]
 script = ExtResource("6_di6mh")
 BaseDamage = 15
-IsPhysical = false
-ScalingPhysic = 0.0
-IsMagical = false
-ScalingMagic = 0.0
-IsElemental = false
-ScalingElement = 0.0
 metadata/_custom_type_script = "uid://cbcjfsbimt6lv"
 
 [sub_resource type="Resource" id="Resource_a1kv8"]
@@ -312,10 +306,7 @@ script = ExtResource("3_qurb0")
 skill_name = "Bullet_Base"
 requirements = Array[ExtResource("7_d2i8u")]([SubResource("Resource_a1kv8")])
 formula = SubResource("Resource_v3hgd")
-element = 0
-skill_type = 0
 mana_cost = 5
-description = ""
 sprite = ExtResource("8_ode57")
 anim_A = SubResource("Animation_wq32p")
 anim_B = SubResource("Animation_gdhcn")
@@ -326,16 +317,12 @@ script = ExtResource("6_di6mh")
 BaseDamage = 15
 IsPhysical = true
 ScalingPhysic = 1.0
-IsMagical = false
 ScalingMagic = 1.0
-IsElemental = false
-ScalingElement = 0.0
 metadata/_custom_type_script = "uid://cbcjfsbimt6lv"
 
 [sub_resource type="Resource" id="Resource_vaaym"]
 script = ExtResource("7_d2i8u")
 stat_name = 4
-comparison = 0
 value = 1
 metadata/_custom_type_script = "uid://dbmexd4rg2r8p"
 
@@ -344,10 +331,7 @@ script = ExtResource("3_qurb0")
 skill_name = "Myst drag"
 requirements = Array[ExtResource("7_d2i8u")]([SubResource("Resource_vaaym")])
 formula = SubResource("Resource_j7wfq")
-element = 0
-skill_type = 0
 mana_cost = 5
-description = ""
 sprite = ExtResource("8_ode57")
 anim_A = SubResource("Animation_wq32p")
 anim_B = SubResource("Animation_gdhcn")
@@ -356,10 +340,7 @@ metadata/_custom_type_script = "uid://bbcthubijob80"
 [sub_resource type="Resource" id="Resource_5i3aj"]
 script = ExtResource("6_d2i8u")
 lvl = 1
-monster_type = 0
 primary_element = 12
-secondary_element = 0
-cur_exp = 0
 max_exp = 10
 health = 80.0
 cur_hp = 50
@@ -406,7 +387,6 @@ script = ExtResource("2_j55o4")
 name = "Vergmon"
 stats_comp = SubResource("Resource_5i3aj")
 skillset = Array[ExtResource("3_qurb0")]([ExtResource("4_fw668"), ExtResource("5_di6mh"), SubResource("Resource_58rew"), SubResource("Resource_tkphw")])
-atk_modifiers = Array[ExtResource("1_kvi7a")]([])
 texture = ExtResource("7_j55o4")
 A_idle = SubResource("Animation_h1vr0")
 A_basic_attack = SubResource("Animation_q7ko1")

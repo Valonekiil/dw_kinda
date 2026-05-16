@@ -26,7 +26,7 @@ func Animate_Conf():
 
 func on_tween_finished():
 	btn.visible = true
-	btn.grab_focus()
+	#btn.grab_focus()
 
 func Monster_Turn(cur: Monster_Controller):
 	context.text = "Giliran [b]"+cur.monster.name+"[/b] melakukan aksi"

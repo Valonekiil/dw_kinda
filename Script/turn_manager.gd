@@ -181,7 +181,7 @@ func ui_state(i:int):
 					
 				2:
 					Ui_Anim.play("SkillToNothing")
-			get_viewport().gui_get_focus_owner().release_focus()
+			#get_viewport().gui_get_focus_owner().release_focus()
 			cur_ui_state = 0
 		1:
 			match cur_ui_state:
@@ -189,14 +189,14 @@ func ui_state(i:int):
 					Ui_Anim.play_backwards("BaseToNothing")
 				2:
 					Ui_Anim.play_backwards("BaseToSkill")
-			Player_Btn.get_child(0).grab_focus()
+			#Player_Btn.get_child(0).grab_focus()
 			cur_ui_state = 1
 		2:
 			match cur_ui_state:
 				1:
 					Ui_Anim.play("BaseToSkill")
-			if Skill_UI.Con.get_child_count() > 0:
-				Skill_UI.Con.get_child(0).grab_focus()
+			#if Skill_UI.Con.get_child_count() > 0:
+				#Skill_UI.Con.get_child(0).grab_focus()
 			cur_ui_state = 2
 
 func _on_btn_attack_pressed() -> void:
