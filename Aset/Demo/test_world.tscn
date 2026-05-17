@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dumnataxr6pp6"]
+[gd_scene load_steps=9 format=3 uid="uid://dumnataxr6pp6"]
 
 [ext_resource type="Script" uid="uid://2i6xrdj7dsw" path="res://Aset/Demo/test_world.gd" id="1_iu146"]
 [ext_resource type="Texture2D" uid="uid://bemhv46v5ns45" path="res://Aset/Gambar/slope_exp.png" id="2_2lwkx"]
 [ext_resource type="Texture2D" uid="uid://biphosjrj0hfv" path="res://Aset/Gambar/greenland_iso.png" id="2_vbms3"]
 [ext_resource type="PackedScene" uid="uid://cm4ualrrgetiq" path="res://Scene/player_body.tscn" id="3_4fi5p"]
+[ext_resource type="Script" uid="uid://d1q88jrnt8lc7" path="res://Script/encounter_manager.gd" id="5_vqcx5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vqcx5"]
 texture = ExtResource("2_2lwkx")
@@ -70,3 +71,6 @@ layer_1/tile_data = PackedInt32Array(393213, 11, 0, 393212, 9, 0, 327676, 9, 0, 
 z_index = 1
 position = Vector2(30, -13)
 SPEED = 40.0
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("5_vqcx5")

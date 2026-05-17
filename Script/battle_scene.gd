@@ -62,7 +62,6 @@ func switch(new: Monster_Data, enem: bool):
 func target_take_damage():
 	BM.current_target.anim_state(3)
 
-
 func _on_button_pressed() -> void:
 	var v = anim_player.get_animation_library("")
 	ResourceSaver.save(v,"player_anim.tres")

@@ -26,7 +26,7 @@ func Animate_Conf():
 
 func on_tween_finished():
 	btn.visible = true
-	#btn.grab_focus()
+	btn.grab_focus()
 
 func Monster_Turn(cur: Monster_Controller):
 	context.text = "Giliran [b]"+cur.monster.name+"[/b] melakukan aksi"
@@ -54,6 +54,10 @@ func Monster_Buffed(buff:Buff_Data,cur:Monster_Controller):
 		context.text = "[b]"+cur.monster.name+"[/b] menerima [color=red]debuff "+ buff.buff_name +"[/color]"
 	else :
 		context.text = "[b]"+cur.monster.name+"[/b] menerima [color=green]buff "+ buff.buff_name +"[/color]"
+	Animate_Conf()
+
+func Monster_Evolution(cur:Monster_Controller):
+	context.text = "[b]"+cur.monster.name+"[/b] sedang berevolusi!"
 	Animate_Conf()
 
 func Buff_Activated(buff:Buff_Data):

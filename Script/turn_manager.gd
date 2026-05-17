@@ -27,39 +27,78 @@ var current_act: int = 1
 var temp_def:bool
 
 func init():
+	 #Fungsi init yang sudah direfaktor
 	GlobalSignal.Take_damage.connect(take_animation_damage)
 	GlobalSignal.emit_signal("Take_damage")
-	monster_1.init(hp_bar_1,hp1)
-	monster_2.init(hp_bar_2,hp2)
-	monster_1.buff_manager.init(buff_con1,conf,monster_1.stats)
-	monster_1.buff_manager.buff_activated.connect(conf.Buff_Activated)
-	monster_2.buff_manager.init(buff_con2,conf,monster_2.stats)
-	monster_2.buff_manager.buff_activated.connect(conf.Buff_Activated)
-	monster_1.apply_animation(false) #karena_bukan_enemy
-	monster_2.apply_animation(true)
-	monster_1.attack_completed.connect(_on_attack_completed.bind(monster_2))
-	monster_1.defense_completed.connect(_on_defense_completed)
-	monster_1.hp_bar = hp_bar_1
-	monster_1.hp_txt = hp1
-	monster_1.turn_ended.connect(_on_turn_ended)
-	monster_1.buff_added.connect(confirm_buff.bind(monster_1))
-	Skill_UI.init(monster_1.skill_comp,monster_1.skill_comp.skillset)
-	#atk_btn.pressed.connect(monster_1.perform_attack())
-	#def_btn.pressed.connect(monster_1.perform_defense())
-	monster_2.attack_completed.connect(_on_attack_completed.bind(monster_1))
-	monster_2.defense_completed.connect(_on_defense_completed)
-	monster_2.hp_bar = hp_bar_2
-	monster_2.hp_txt = hp2
-	monster_2.turn_ended.connect(_on_turn_ended)
-	monster_2.buff_added.connect(confirm_buff.bind(monster_2))
-	# Memulai giliran pertama
-	monster_1.update_hp()
-	monster_2.update_hp()
+
+	connect_monster_to_player(monster_1, monster_2)
+	connect_monster_to_enemy(monster_2, monster_1)
+
 	start_turn()
-	
-	name_1.text = monster_1.monster.name
-	name_2.text = monster_2.monster.name
 	print("Turn inited")
+
+# Fungsi koneksi untuk monster pemain (monster_1)
+func connect_monster_to_player(monster: Monster_Controller, target: Monster_Controller) -> void:
+	monster.init(hp_bar_1, hp1)
+	monster.buff_manager.init(buff_con1, conf, monster.stats)
+	monster.buff_manager.buff_activated.connect(conf.Buff_Activated)
+	monster.apply_animation(false)
+
+	monster.attack_completed.connect(_on_attack_completed.bind(target))
+	monster.defense_completed.connect(_on_defense_completed)
+	monster.turn_ended.connect(_on_turn_ended)
+	monster.buff_added.connect(confirm_buff.bind(monster))
+
+	monster.hp_bar = hp_bar_1
+	monster.hp_txt = hp1
+	name_1.text = monster.monster.name
+	monster.update_hp()
+
+	if monster.skill_comp:
+		Skill_UI.init(monster.skill_comp, monster.skill_comp.skillset)
+
+# Fungsi koneksi untuk monster musuh (monster_2)
+func connect_monster_to_enemy(monster: Monster_Controller, target: Monster_Controller) -> void:
+	monster.init(hp_bar_2, hp2)
+	monster.buff_manager.init(buff_con2, conf, monster.stats)
+	monster.buff_manager.buff_activated.connect(conf.Buff_Activated)
+	monster.apply_animation(true)
+
+	monster.attack_completed.connect(_on_attack_completed.bind(target))
+	monster.defense_completed.connect(_on_defense_completed)
+	monster.turn_ended.connect(_on_turn_ended)
+	monster.buff_added.connect(confirm_buff.bind(monster))
+
+	monster.hp_bar = hp_bar_2
+	monster.hp_txt = hp2
+	name_2.text = monster.monster.name
+	monster.update_hp()
+
+# Fungsi diskoneksi untuk membersihkan sinyal & referensi UI
+func disconnect_monster(monster: Monster_Controller, target: Monster_Controller) -> void:
+	var atk_bound = _on_attack_completed.bind(target)
+	if monster.attack_completed.is_connected(atk_bound):
+		monster.attack_completed.disconnect(atk_bound)
+
+	if monster.defense_completed.is_connected(_on_defense_completed):
+		monster.defense_completed.disconnect(_on_defense_completed)
+
+	if monster.turn_ended.is_connected(_on_turn_ended):
+		monster.turn_ended.disconnect(_on_turn_ended)
+
+	var buff_bound = confirm_buff.bind(monster)
+	if monster.buff_added.is_connected(buff_bound):
+		monster.buff_added.disconnect(buff_bound)
+
+	if monster.buff_manager.buff_activated.is_connected(conf.Buff_Activated):
+		monster.buff_manager.buff_activated.disconnect(conf.Buff_Activated)
+
+	monster.hp_bar = null
+	monster.hp_txt = null
+	if monster == monster_1:
+		name_1.text = ""
+	elif monster == monster_2:
+		name_2.text = ""
 
 func take_animation_damage(me:Monster_Controller):
 	print("ternigger")
@@ -92,6 +131,10 @@ func start_turn():
 	await conf.btn.pressed
 	current_turn.start_action()
 	if current_turn == monster_1:
+		if current_turn.buff_manager.active_buffs:
+			await current_turn.buff_manager.done_active
+		if current_turn.action_point <= 0:
+			return
 		ui_state(1)
 		await Ui_Anim.animation_finished
 		
@@ -202,7 +245,7 @@ func ui_state(i:int):
 func _on_btn_attack_pressed() -> void:
 	if current_turn == monster_1:
 		monster_1.perform_attack()
-		atk_btn.disabled = true
+		#atk_btn.disabled = true
 	else:
 		print("ini bukan giliranmu")
 
@@ -223,8 +266,17 @@ func _on_btn_skill_pressed() -> void:
 
 func _on_btn_evolve_pressed() -> void:
 	if current_turn == monster_1:
-		monster_1.perform_defense()
-	else :
+		if monster_1.evolution_manager.can_evolve():
+			conf.Monster_Evolution(monster_1)
+			await conf.btn.pressed
+			monster_1.evolution_manager.trigger_evolution()
+			name_1.text = monster_1.monster.name
+			# Perbarui skill UI setelah evolusi
+			if monster_1.skill_comp:
+				Skill_UI.init(monster_1.skill_comp, monster_1.skill_comp.skillset)
+		else:
+			print("Tidak bisa berevolusi lagi!")
+	else:
 		print("ini bukan giliranmu")
 
 func _on_btn_tag_pressed() -> void:

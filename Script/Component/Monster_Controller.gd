@@ -20,6 +20,7 @@ var hp_txt:Label
 @export var AI:bool
 var action_point:int 
 var is_defense:bool
+var is_enemy:bool = false  # Flag untuk mengetahui sisi (player/enemy)
 var bar:ProgressBar
 var txt:Label
 # Signal untuk mengirim damage dan mengakhiri giliran
@@ -31,6 +32,7 @@ signal done_init()
 signal buff_done_add()
 signal done_buff()
 signal turn_ended()
+signal evolved(new_name: String)  # Signal saat evolusi terjadi
 
 #func _ready():
 	#hurtbox.area_entered.connect(_on_hurtbox_hit)
@@ -56,6 +58,8 @@ func init(hp_bar:ProgressBar, hp_num:Label):
 		var em = Evolution_Manager.new()
 		add_child(em)
 		evolution_manager = em
+		#Hubungkan controller ke evolution manager
+		evolution_manager.controller = self
 		#Memasukan evolusi_monster_data
 	if !buff_manager:
 		var v = Buff_Manager.new()
@@ -82,7 +86,8 @@ func init(hp_bar:ProgressBar, hp_num:Label):
 	print("Monster inited")
 	emit_signal("done_init")
 
-func apply_animation(is_enemy:bool):
+func apply_animation(is_enemy_flag:bool):
+	is_enemy = is_enemy_flag  # Simpan flag sisi
 	var lib: AnimationLibrary
 	if Anim.has_animation_library(""): 
 		lib = Anim.get_animation_library("")
@@ -107,6 +112,64 @@ func delete_animtation():
 	Anim.remove_animation("basic_attack")
 	Anim.remove_animation("special_attack")
 	Anim.remove_animation("idle")
+
+# ==================== EVOLUSI SYSTEM ====================
+func evolve_to(new_data: Monster_Data, preserve_hp_ratio: bool = true) -> void:
+	if new_data == null or new_data == monster:
+		return
+
+	# 1. Simpan state penting
+	var hp_ratio = float(stats.cur_hp) / max(1.0, stats.health)
+	var current_lvl = stats.lvl
+	var current_exp = stats.cur_exp
+	var current_max_exp = stats.max_exp
+
+	# 2. Tukar referensi data
+	monster = new_data
+
+	# 3. Perbarui Stats (hindari reference sharing dengan duplicate)
+	if stats_comp:
+		stats_comp.stats_source = monster.stats_comp.duplicate()
+		stats = stats_comp.stats_source
+		stats.lvl = current_lvl
+		stats.cur_exp = current_exp
+		stats.max_exp = current_max_exp
+		if preserve_hp_ratio:
+			stats.cur_hp = int(stats.health * hp_ratio)
+			stats.cur_mana = int(stats.mana * hp_ratio)
+
+	# 4. Perbarui Skillset
+	if skill_comp:
+		skill_comp.init(stats, monster.skillset)
+
+	# 5. Perbarui Sprite & Animasi
+	if sprite and monster.texture:
+		sprite.texture = monster.texture
+	_update_animation_library()
+
+	# 6. Reset state temporer (opsional: clear buff saat evolusi)
+	buff_manager.active_buffs.clear()
+	action_point = 0
+	is_defense = false
+
+	# 7. Update UI & Emit sinyal
+	update_hp()
+	emit_signal("evolved", monster.name)
+
+func _update_animation_library() -> void:
+	Anim.remove_animation_library("")
+	var lib = AnimationLibrary.new()
+	if is_enemy:
+		lib.add_animation("idle", monster.B_idle)
+		lib.add_animation("basic_attack", monster.B_basic_attack)
+		lib.add_animation("special_attack", monster.B_special_attack)
+	else:
+		lib.add_animation("idle", monster.A_idle)
+		lib.add_animation("basic_attack", monster.A_basic_attack)
+		lib.add_animation("special_attack", monster.A_special_attack)
+	lib.add_animation("take_damage", monster.take_damage)
+	Anim.add_animation_library("", lib)
+# ========================================================
 
 # Fungsi yang dipanggil ketika giliran monster dimulai
 func start_action():
@@ -142,10 +205,10 @@ func perform_attack():
 			var has_buff = atk_modifiers.apply_modifier()  # Coba aktifkan buff
 			if has_buff:
 				print("attack buff")
-				#emit_signal("attack_completed", stats.power, atk_modifiers.active_buffs)
+				emit_signal("attack_completed", stats.power, atk_modifiers.active_buffs)
 			else :
 				print("attack nt")
-				#emit_signal("attack_completed", stats.power, null)
+				emit_signal("attack_completed", stats.power, null)
 		else:
 			print("attack polos")
 			emit_signal("attack_completed", stats.power, null)
@@ -185,9 +248,9 @@ func use_skill(skill_name: SkillData):
 	
 
 func evolve(evolution: Monster_Controller):
+	# Method lama - diganti dengan evolve_to() berbasis data
 	if evolution_manager:
 		pass
-		#evolution_manager.evolve_to_evolution(evolution)
 	else:
 		print("Evolution_Manager tidak ditemukan!")
 

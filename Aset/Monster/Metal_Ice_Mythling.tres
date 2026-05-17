@@ -1,16 +1,12 @@
-[gd_resource type="Resource" script_class="Monster_Data" load_steps=23 format=3 uid="uid://dlskke73togbf"]
+[gd_resource type="Resource" script_class="Monster_Data" load_steps=13 format=3 uid="uid://1v55u6vgt14g"]
 
 [ext_resource type="Script" uid="uid://eegk40ffwnhi" path="res://Script/Resource/monster_data.gd" id="1_a0qax"]
 [ext_resource type="Script" uid="uid://dudih2q1tstbb" path="res://Script/Resource/atk_mod_data.gd" id="1_e55oi"]
-[ext_resource type="Resource" uid="uid://cfpsjhucokbl1" path="res://Aset/Demo/test_2mon.tres" id="2_e55oi"]
-[ext_resource type="Resource" uid="uid://dkck2fqov5my5" path="res://Aset/Demo/Haunted_Debuff.tres" id="2_r8x85"]
-[ext_resource type="Resource" uid="uid://h6ly0kdsdhe6" path="res://Aset/Demo/Valor_Buff.tres" id="3_jblri"]
-[ext_resource type="Texture2D" uid="uid://devhghkb8dp0s" path="res://icon.svg" id="3_xwa7h"]
+[ext_resource type="Resource" path="res://Aset/Monster/Stats/Metal_Ice_Mythling.tres" id="2_8k7hq"]
 [ext_resource type="Script" uid="uid://bbcthubijob80" path="res://Script/Resource/skill_data.gd" id="5_6qy5e"]
-[ext_resource type="Script" uid="uid://dbmexd4rg2r8p" path="res://Script/Resource/req.gd" id="6_h6wm0"]
-[ext_resource type="Resource" uid="uid://chqlxhem8il72" path="res://Aset/Demo/Test_Skill.tres" id="7_0tbut"]
+[ext_resource type="Texture2D" uid="uid://cuk5su15yqst6" path="res://Aset/Gambar/Icon 1 Horned purp.svg" id="5_sn0rp"]
 
-[sub_resource type="Animation" id="Animation_q7ko1"]
+[sub_resource type="Animation" id="Animation_basic_attack"]
 resource_name = "basic_attack"
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -51,7 +47,7 @@ tracks/2/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_h1vr0"]
+[sub_resource type="Animation" id="Animation_idle"]
 resource_name = "idle"
 loop_mode = 1
 tracks/0/type = "value"
@@ -67,7 +63,7 @@ tracks/0/keys = {
 "values": [Vector2(150, 394), Vector2(140, 394), Vector2(160, 394), Vector2(150, 394)]
 }
 
-[sub_resource type="Animation" id="Animation_pgf8p"]
+[sub_resource type="Animation" id="Animation_special_attack"]
 resource_name = "special_attack"
 length = 1.5
 tracks/0/type = "value"
@@ -107,7 +103,7 @@ tracks/2/keys = {
 "values": [Vector2(150, 394), Vector2(435, 362), Vector2(812, 437), Vector2(658, 115), Vector2(1052, 145), Vector2(1052, 145), Vector2(150, 394)]
 }
 
-[sub_resource type="Animation" id="Animation_nxcii"]
+[sub_resource type="Animation" id="Animation_B_basic_attack"]
 resource_name = "B_basic_attack"
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -160,7 +156,7 @@ tracks/3/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_kn617"]
+[sub_resource type="Animation" id="Animation_B_idle"]
 resource_name = "B_idle"
 loop_mode = 1
 tracks/0/type = "value"
@@ -188,7 +184,7 @@ tracks/1/keys = {
 "values": [Vector2(975, 184), Vector2(965, 184), Vector2(985, 184), Vector2(975, 184)]
 }
 
-[sub_resource type="Animation" id="Animation_nnlkw"]
+[sub_resource type="Animation" id="Animation_B_special_attack"]
 resource_name = "B_special_attack"
 length = 1.5
 tracks/0/type = "value"
@@ -228,43 +224,7 @@ tracks/2/keys = {
 "values": [Vector2(975, 184), Vector2(488, 172), Vector2(570, 414), Vector2(141, -104), Vector2(141, -104), Vector2(141, 360), Vector2(141, 360), Vector2(975, 184)]
 }
 
-[sub_resource type="Resource" id="Resource_6couh"]
-script = ExtResource("1_e55oi")
-Debuff = ExtResource("2_r8x85")
-chance = 100
-metadata/_custom_type_script = "uid://dudih2q1tstbb"
-
-[sub_resource type="Resource" id="Resource_6qy5e"]
-script = ExtResource("1_e55oi")
-Debuff = ExtResource("3_jblri")
-chance = 100
-metadata/_custom_type_script = "uid://dudih2q1tstbb"
-
-[sub_resource type="Resource" id="Resource_6p63y"]
-script = ExtResource("6_h6wm0")
-value = 50
-metadata/_custom_type_script = "uid://dbmexd4rg2r8p"
-
-[sub_resource type="Resource" id="Resource_5mdsl"]
-script = ExtResource("5_6qy5e")
-skill_name = "Unob"
-requirements = Array[ExtResource("6_h6wm0")]([SubResource("Resource_6p63y")])
-element = 3
-description = "This skill should be unobtainable"
-metadata/_custom_type_script = "uid://bbcthubijob80"
-
-[sub_resource type="Resource" id="Resource_h6wm0"]
-script = ExtResource("6_h6wm0")
-metadata/_custom_type_script = "uid://dbmexd4rg2r8p"
-
-[sub_resource type="Resource" id="Resource_0tbut"]
-script = ExtResource("5_6qy5e")
-skill_name = "Neutral Blast"
-requirements = Array[ExtResource("6_h6wm0")]([SubResource("Resource_h6wm0")])
-description = "A neutral blast attack"
-metadata/_custom_type_script = "uid://bbcthubijob80"
-
-[sub_resource type="Animation" id="Animation_r4sdn"]
+[sub_resource type="Animation" id="Animation_take_damage"]
 resource_name = "take_damage"
 length = 0.5
 tracks/0/type = "value"
@@ -282,16 +242,14 @@ tracks/0/keys = {
 
 [resource]
 script = ExtResource("1_a0qax")
-name = "Vegamon"
-stats_comp = ExtResource("2_e55oi")
-skillset = Array[ExtResource("5_6qy5e")]([SubResource("Resource_5mdsl"), ExtResource("7_0tbut"), SubResource("Resource_0tbut")])
-atk_modifiers = Array[ExtResource("1_e55oi")]([SubResource("Resource_6couh"), SubResource("Resource_6qy5e")])
-texture = ExtResource("3_xwa7h")
-A_idle = SubResource("Animation_h1vr0")
-A_basic_attack = SubResource("Animation_q7ko1")
-A_special_attack = SubResource("Animation_pgf8p")
-take_damage = SubResource("Animation_r4sdn")
-B_idle = SubResource("Animation_kn617")
-B_basic_attack = SubResource("Animation_nxcii")
-B_special_attack = SubResource("Animation_nnlkw")
+name = "Meiyling"
+stats_comp = ExtResource("2_8k7hq")
+texture = ExtResource("5_sn0rp")
+A_idle = SubResource("Animation_idle")
+A_basic_attack = SubResource("Animation_basic_attack")
+A_special_attack = SubResource("Animation_special_attack")
+take_damage = SubResource("Animation_take_damage")
+B_idle = SubResource("Animation_B_idle")
+B_basic_attack = SubResource("Animation_B_basic_attack")
+B_special_attack = SubResource("Animation_B_special_attack")
 metadata/_custom_type_script = "uid://eegk40ffwnhi"

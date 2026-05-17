@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://byu3hisft2xk0" path="res://Script/battle_scene.gd" id="1_3q3gc"]
 [ext_resource type="Resource" uid="uid://ddde88qhg8fe3" path="res://Aset/Monster/Vergmon.tres" id="2_3kdla"]
-[ext_resource type="Resource" uid="uid://dlskke73togbf" path="res://Aset/Monster/Stats/Vegamon(test2).tres" id="2_a3fgx"]
+[ext_resource type="Resource" uid="uid://dlskke73togbf" path="res://Aset/Monster/Vegamon.tres" id="2_a3fgx"]
 [ext_resource type="Script" uid="uid://bd363gh1yjeq3" path="res://Script/turn_manager.gd" id="2_uk2p2"]
 [ext_resource type="PackedScene" uid="uid://c3a7awere5nne" path="res://Aset/Monster/monster_controller.tscn" id="3_a3fgx"]
 [ext_resource type="Script" uid="uid://bsf54ydfj5bv3" path="res://Script/element_manager.gd" id="5_u6krl"]
