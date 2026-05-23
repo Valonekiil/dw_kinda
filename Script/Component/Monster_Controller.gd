@@ -32,7 +32,7 @@ signal done_init()
 signal buff_done_add()
 signal done_buff()
 signal turn_ended()
-signal evolved(new_name: String)  # Signal saat evolusi terjadi
+signal evolved(new_form: Monster_Data)  # Signal saat evolusi terjadi (kirim Monster_Data)
 
 #func _ready():
 	#hurtbox.area_entered.connect(_on_hurtbox_hit)
@@ -74,14 +74,15 @@ func init(hp_bar:ProgressBar, hp_num:Label):
 		#memasukan skill
 	#Anim.add_animation_library("basic_attack", monster.A_basic_attack)
 	sprite.texture = monster.texture
-	#stats_comp.stats_source = monster.stats_comp
-	if !basestats && evolution_manager.is_evolved:
-		"stats evolusi"
-		#fullstats = evolution_manager.evolution_1.
-		pass
-	elif !stats && stats_comp:
-		print("stats defualt")
+	
+	# Initialize stats dari monster data
+	if !stats && stats_comp:
+		print("stats default")
 		stats = stats_comp.stats_source
+		
+	# Init evolution_manager entity reference jika belum diset
+	if evolution_manager and evolution_manager.controller != self:
+		evolution_manager.controller = self
 		
 	print("Monster inited")
 	emit_signal("done_init")
@@ -114,6 +115,13 @@ func delete_animtation():
 	Anim.remove_animation("idle")
 
 # ==================== EVOLUSI SYSTEM ====================
+
+# Mendapatkan pure/base stats tanpa buff/modifier untuk validasi unlock
+func get_pure_stats() -> Stats_Source:
+	if monster and monster.stats_comp:
+		return monster.stats_comp.duplicate()
+	return null
+
 func evolve_to(new_data: Monster_Data, preserve_hp_ratio: bool = true) -> void:
 	if new_data == null or new_data == monster:
 		return
@@ -154,7 +162,7 @@ func evolve_to(new_data: Monster_Data, preserve_hp_ratio: bool = true) -> void:
 
 	# 7. Update UI & Emit sinyal
 	update_hp()
-	emit_signal("evolved", monster.name)
+	emit_signal("evolved", monster)
 
 func _update_animation_library() -> void:
 	Anim.remove_animation_library("")

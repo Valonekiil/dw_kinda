@@ -13,3 +13,7 @@ class_name Monster_Data
 @export var B_idle: Animation
 @export var B_basic_attack: Animation
 @export var B_special_attack: Animation
+
+# Evolution System
+@export var evolution_mp_cost: int = 10  # MP yang dibutuhkan untuk evolusi di battle
+@export var evolution_requirements: Array[Requirement]  # Syarat unlock form ini

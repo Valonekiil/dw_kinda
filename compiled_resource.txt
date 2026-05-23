@@ -1,0 +1,358 @@
+# ================================================================================
+# COMBINED RESOURCE FILE - ALL_RESOURCES_COMBINED.gd
+# ================================================================================
+# This file contains all resource class definitions from Script/Resource folder
+# combined into a single file for reference and documentation purposes.
+# ================================================================================
+
+# ================================================================================
+# 1. Skill_Formula.gd
+# ================================================================================
+extends Resource
+class_name Skill_Formula
+
+@export var BaseDamage:int
+@export var IsPhysical:bool
+@export var ScalingPhysic:float
+@export var IsMagical:bool
+@export var ScalingMagic:float
+@export var IsElemental:bool
+@export var ScalingElement:float
+
+
+# ================================================================================
+# 2. atk_mod_data.gd
+# ================================================================================
+extends Resource
+class_name Atk_Modifer
+
+@export var Debuff:Buff_Data
+@export var chance:int
+
+
+# ================================================================================
+# 3. buff_data.gd
+# ================================================================================
+extends Resource
+class_name Buff_Data
+
+@export var buff_name: String 
+@export var texture: Texture2D 
+@export var duration: int
+@export var is_debuff: bool
+@export var stun: bool
+@export var heal: int
+@export var damage: int
+@export var stats_manipulation: bool 
+@export var power_changed: int
+@export var defense_changed: int 
+@export var arcane_changed: int
+@export var insight_changed: int
+@export var speed_changed: int 
+@export var element_manipulation: bool
+@export var element_changed: Dictionary = {
+	Enums.Element.Fire: 0,
+	Enums.Element.Water: 0,
+	Enums.Element.Earth: 0,
+	Enums.Element.Nature: 0,
+	Enums.Element.Wind: 0,
+	Enums.Element.Lighting: 0,
+	Enums.Element.Ice: 0,
+	Enums.Element.Metal: 0,
+	Enums.Element.Light: 0,
+	Enums.Element.Dark: 0,
+	Enums.Element.Chaos: 0,
+	Enums.Element.Mystical: 0
+}
+
+
+# Fungsi untuk mengupdate variabel manipulation
+func update_manipulation():
+	stats_manipulation = (
+		power_changed != 0 or
+		defense_changed != 0 or
+		arcane_changed != 0 or
+		insight_changed != 0 or
+		speed_changed != 0
+	)
+	
+	element_manipulation = false
+	for element in element_changed:
+		if element_changed[element] != 0:
+			element_manipulation = true
+			break
+
+# Fungsi yang dipanggil saat resource diubah di editor
+func _validate_property(property: Dictionary):
+	if property.name in ["stats_manipulation", "element_manipulation"]:
+		property.usage = PROPERTY_USAGE_NO_EDITOR  # Sembunyikan dari Inspector
+
+# Fungsi yang dipanggil saat resource disimpan
+func _post_save():
+	update_manipulation()
+
+
+# ================================================================================
+# 4. debuff_data.gd
+# ================================================================================
+extends Node
+
+
+# ================================================================================
+# 5. growth_data.gd
+# ================================================================================
+extends Resource
+class_name GrowthFormula
+
+@export_range(0.01, 1.0) var health_growth: float     
+@export_range(0.01, 1.0) var mana_growth: float 
+@export_range(0.01, 1.0) var power_growth: float 
+@export_range(0.01, 1.0) var guard_growth: float 
+@export_range(0.01, 1.0) var arcane_growth: float
+@export_range(0.01, 1.0) var insight_growth: float
+@export_range(0.01, 1.0) var speed_growth: float
+@export_range(0.01, 1.0) var charm_growth: float
+@export_range(0.01, 1.0) var primary_element_growth: float 
+@export_range(0.01, 1.0) var secondary_element_growth: float  
+@export_range(0.01, 1.0) var other_element_growth: float 
+
+
+# ================================================================================
+# 6. monster_data.gd
+# ================================================================================
+extends Resource
+class_name Monster_Data
+
+@export var name: String # Nama monster
+@export var stats_comp: Stats_Source
+@export var skillset:Array[SkillData]
+@export var atk_modifiers: Array[Atk_Modifer]
+@export var texture: Texture2D
+@export var A_idle: Animation
+@export var A_basic_attack: Animation
+@export var A_special_attack: Animation
+@export var take_damage:Animation
+@export var B_idle: Animation
+@export var B_basic_attack: Animation
+@export var B_special_attack: Animation
+
+
+# ================================================================================
+# 7. req.gd
+# ================================================================================
+extends Resource
+class_name Requirement
+
+enum ReqType {
+	LVL,
+	POWER,
+	GUARD,
+	ARCANE,
+	INSIGHT,
+	SPEED,
+	CHARM,
+	FIRE,
+	WATER,
+	EARTH,
+	NATURE,
+	WIND,
+	LIGHTNING,
+	ICE,
+	METAL,
+	LIGHT,
+	DARK,
+	CHAOS,
+	MYSTICAL
+}
+
+enum CompareOperator {
+	GREATER_THAN,
+	LESS_THAN,
+	GREATER_EQUAL,
+	LESS_EQUAL,
+	EQUAL
+}
+
+@export var stat_name: ReqType
+@export var comparison: CompareOperator
+@export var value: int
+
+func get_stat_name_string() -> String:
+	match stat_name:
+		ReqType.LVL: return "lvl"
+		ReqType.POWER: return "power"
+		ReqType.GUARD: return "guard"
+		ReqType.ARCANE: return "arcane"
+		ReqType.INSIGHT: return "insight"
+		ReqType.SPEED: return "speed"
+		ReqType.CHARM: return "charm"
+		ReqType.FIRE: return "fire"
+		ReqType.WATER: return "water"
+		ReqType.EARTH: return "earth"
+		ReqType.NATURE: return "nature"
+		ReqType.WIND: return "wind"
+		ReqType.LIGHTNING: return "lightning"
+		ReqType.ICE: return "ice"
+		ReqType.METAL: return "metal"
+		ReqType.LIGHT: return "light"
+		ReqType.DARK: return "dark"
+		ReqType.CHAOS: return "chaos"
+		ReqType.MYSTICAL: return "mystical"
+	return ""
+
+func is_met(stats: Stats_Source) -> bool:
+	var stat_value = stats.get(get_stat_name_string())
+	if stat_value == null:
+		push_error("Stat %s tidak valid" % get_stat_name_string())
+		return false
+	
+	match comparison:
+		CompareOperator.GREATER_THAN: return stat_value > value
+		CompareOperator.LESS_THAN: return stat_value < value
+		CompareOperator.GREATER_EQUAL: return stat_value >= value
+		CompareOperator.LESS_EQUAL: return stat_value <= value
+		CompareOperator.EQUAL: return stat_value == value
+	return false
+
+
+# ================================================================================
+# 8. skill_data.gd
+# ================================================================================
+extends Resource
+class_name SkillData
+
+# Informasi dasar skill
+@export var skill_name: String = ""  # Nama skill
+@export var requirements: Array[Requirement]
+@export var formula: Skill_Formula
+@export var element: Enums.Element  # Elemen skill (opsional)
+@export var skill_type: Enums.SkillType  # Tipe skill (ofensif atau defensif)
+@export var mana_cost: int
+# Efek buff/debuff (opsional)
+@export var buff: Buff_Data  # Resource untuk buff
+
+# Deskripsi skill (opsional)
+@export var description: String = ""
+
+@export var sprite:Texture2D
+@export var anim_A:Animation
+@export var anim_B:Animation
+
+func is_requirements_met(stats: Stats_Source) -> bool:
+	for req in requirements:
+		if not req.is_met(stats):
+			return false
+	return true
+
+
+# ================================================================================
+# 9. stats_source.gd
+# ================================================================================
+extends Resource
+class_name Stats_Source
+#lvl, 
+@export var lvl: int
+@export var monster_type: Enums.MonsterType
+@export var primary_element: Enums.Element
+@export var secondary_element: Enums.Element
+@export var cur_exp: int
+@export var max_exp: int
+@export var health: float
+@export var cur_hp: int
+@export var mana: float
+@export var cur_mana: int
+@export var power: float
+@export var guard: float
+@export var arcane: float
+@export var insight: float
+@export var speed: float
+@export var charm: float
+@export var fire: float
+@export var water: float
+@export var earth: float
+@export var nature: float
+@export var wind: float
+@export var lightning: float
+@export var ice: float
+@export var metal: float
+@export var light: float
+@export var dark: float
+@export var chaos: float
+@export var mystical: float
+
+func add_with_precision(a: float, b: float) -> float:
+	return snapped(a + b, 0.001)
+
+# Fungsi untuk menggabungkan dua Stats_Source
+func apply_add(base: Stats_Source, add: Stats_Source) -> Stats_Source:
+	var new_stat = Stats_Source.new()
+	
+	# Fungsi pembantu untuk penambahan dengan presisi
+	
+	# Salin properti yang tidak diubah
+	new_stat.lvl = base.lvl
+	new_stat.monster_type = base.monster_type
+	new_stat.primary_element = base.primary_element
+	new_stat.secondary_element = base.secondary_element
+	
+	var multiplier = get_reduction_multiplier(add.digimon_type)
+	
+	# Gabungkan statistik dengan presisi 3 desimal
+	new_stat.health = add_with_precision(base.health, add.health * multiplier)
+	new_stat.cur_hp = add_with_precision(base.cur_hp, add.cur_hp * multiplier)
+	new_stat.mana = add_with_precision(base.mana, add.mana * multiplier)
+	new_stat.cur_mana = add_with_precision(base.cur_mana, add.cur_mana * multiplier)
+	new_stat.power = add_with_precision(base.power, add.power * multiplier)
+	new_stat.guard = add_with_precision(base.guard, add.guard * multiplier)
+	new_stat.arcane = add_with_precision(base.arcane, add.arcane * multiplier)
+	new_stat.insight = add_with_precision(base.insight, add.insight * multiplier)
+	new_stat.speed = add_with_precision(base.speed, add.speed * multiplier)
+	new_stat.charm = add_with_precision(base.charm, add.charm * multiplier)
+	new_stat.fire = add_with_precision(base.fire, add.fire * multiplier)
+	new_stat.water = add_with_precision(base.water, add.water * multiplier)
+	new_stat.earth = add_with_precision(base.earth, add.earth * multiplier)
+	new_stat.nature = add_with_precision(base.nature, add.nature * multiplier)
+	new_stat.wind = add_with_precision(base.wind, add.wind * multiplier)
+	new_stat.lightning = add_with_precision(base.lightning, add.lightning * multiplier)
+	new_stat.ice = add_with_precision(base.ice, add.ice * multiplier)
+	new_stat.metal = add_with_precision(base.metal, add.metal * multiplier)
+	new_stat.light = add_with_precision(base.light, add.light * multiplier)
+	new_stat.dark = add_with_precision(base.dark, add.dark * multiplier)
+	new_stat.chaos = add_with_precision(base.chaos, add.chaos * multiplier)
+	new_stat.mystical = add_with_precision(base.mystical, add.mystical * multiplier)
+	
+	return new_stat
+
+# Fungsi untuk mendapatkan pengurangan berdasarkan tipe Digimon
+func get_reduction_multiplier(digimon_type: Enums.MonsterType) -> float:
+	match digimon_type:
+		Enums.MonsterType.Deity:
+			return 0.5  # Deity: 50%
+		Enums.MonsterType.Mythos:
+			return 0.6  # Mythos: 40%
+		Enums.MonsterType.Majestic:
+			return 0.7  # Majestic: 30%
+		Enums.MonsterType.Mythical:
+			return 0.8  # Mythical: 20%
+		Enums.MonsterType.Mythling:
+			return 0.9  # Mythling: 10%
+		Enums.MonsterType.Echo:
+			return 1.0  # Echo: 0% (tidak ada pengurangan)
+		_:
+			return 1.0  # Default: tidak ada pengurangan
+
+
+# ================================================================================
+# END OF FILE
+# ================================================================================
+# Summary:
+# - Skill_Formula: Damage calculation with scaling factors
+# - Atk_Modifer: Attack modifier with debuff application
+# - Buff_Data: Status effect system with stat/element manipulation
+# - Debuff_Data: Placeholder debuff class
+# - GrowthFormula: Level up growth rates for all stats
+# - Monster_Data: Complete monster data definition
+# - Requirement: Unlock condition system for skills/evolution
+# - SkillData: Complete skill definition with requirements
+# - Stats_Source: Character stats container with utility functions
+# ================================================================================

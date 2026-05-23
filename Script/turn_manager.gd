@@ -266,16 +266,34 @@ func _on_btn_skill_pressed() -> void:
 
 func _on_btn_evolve_pressed() -> void:
 	if current_turn == monster_1:
-		if monster_1.evolution_manager.can_evolve():
+		var em = monster_1.evolution_manager
+		if not em:
+			print("Evolution Manager tidak ditemukan!")
+			return
+		
+		# Dapatkan opsi evolusi yang tersedia (form selain current)
+		var options = em.get_active_forms().filter(func(f): return f != monster_1.monster)
+		
+		if options.is_empty():
+			print("Tidak ada wujud evolusi yang tersedia")
+			return
+		
+		# TODO: Ganti dengan UI selector jika ada. Untuk sekarang, pakai form pertama
+		var target = options[0]
+		
+		# Coba evolusi via evolution_manager (cek MP, panggil evolve_to, track form)
+		var success = em.try_evolve_to(target)
+		
+		if success:
 			conf.Monster_Evolution(monster_1)
 			await conf.btn.pressed
-			monster_1.evolution_manager.trigger_evolution()
 			name_1.text = monster_1.monster.name
 			# Perbarui skill UI setelah evolusi
 			if monster_1.skill_comp:
 				Skill_UI.init(monster_1.skill_comp, monster_1.skill_comp.skillset)
+			print("Evolusi berhasil! %s" % monster_1.monster.name)
 		else:
-			print("Tidak bisa berevolusi lagi!")
+			print("Evolusi gagal! Cek MP atau ketersediaan form.")
 	else:
 		print("ini bukan giliranmu")
 
